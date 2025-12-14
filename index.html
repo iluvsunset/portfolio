@@ -1671,10 +1671,10 @@ box-shadow: var(--shadow-md);
 }
 
 /* ============================================
-   CINEMATIC SCENE ANIMATIONS - HOLLYWOOD STYLE
+   COMPLETE SCENE ANIMATIONS - ALL 4 SCENES
    ============================================ */
 
-/* Scene 1: EMAIL MARKETING - Starts at 0s, stays until 5s */
+/* Scene 1: EMAIL MARKETING - 0-5s */
 .trailer-container.playing .scene-1 {
     visibility: visible;
     animation: scene1-explosive-entry 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -1687,29 +1687,29 @@ box-shadow: var(--shadow-md);
         transform: scale(2) rotate(5deg);
         filter: brightness(3) blur(20px);
     }
-    10% {  /* Takes 0.5s to appear */
+    10% {
         opacity: 1;
         filter: brightness(1.5) blur(5px);
     }
-    20% {  /* Settled at 1s */
+    20% {
         transform: scale(1) rotate(0deg);
         filter: brightness(1) blur(0px);
     }
-    90% {  /* Stays visible until 4.5s */
+    90% {
         opacity: 1;
         transform: scale(1);
     }
-    100% {  /* Fades out at 5s */
+    100% {
         opacity: 0;
         transform: scale(0.8) translateY(-50px);
         filter: brightness(0.5);
     }
 }
 
-
+/* Scene 1 Text Animations */
 .trailer-container.playing .scene-1 .trailer-title {
     animation: title-slam 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    opacity: 1; /* Force stay visible */
+    opacity: 1;
 }
 
 @keyframes title-slam {
@@ -1722,7 +1722,7 @@ box-shadow: var(--shadow-md);
         transform: translateY(-10px) scale(1.1);
     }
     100% {
-        opacity: 1; /* Stay at 1 */
+        opacity: 1;
         transform: translateY(0) scale(1);
         filter: blur(0);
     }
@@ -1730,7 +1730,7 @@ box-shadow: var(--shadow-md);
 
 .trailer-container.playing .scene-1 .trailer-tag {
     animation: tag-slide 0.6s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-    opacity: 1; /* Force stay visible */
+    opacity: 1;
 }
 
 @keyframes tag-slide {
@@ -1739,14 +1739,14 @@ box-shadow: var(--shadow-md);
         transform: translateX(-100px) rotate(-10deg);
     }
     100% {
-        opacity: 1; /* Stay at 1 */
+        opacity: 1;
         transform: translateX(0) rotate(0deg);
     }
 }
 
 .trailer-container.playing .scene-1 .trailer-subtitle {
     animation: subtitle-fade 0.8s 0.5s ease-out both;
-    opacity: 1; /* Force stay visible */
+    opacity: 1;
 }
 
 @keyframes subtitle-fade {
@@ -1756,13 +1756,13 @@ box-shadow: var(--shadow-md);
         letter-spacing: 10px;
     }
     100% {
-        opacity: 1; /* Stay at 1 */
+        opacity: 1;
         transform: translateY(0);
         letter-spacing: 5px;
     }
 }
 
-/* Scene 2: VISUAL DESIGN - 3D Rotation + Shatter Effect */
+/* Scene 2: VISUAL DESIGN - 5-12s (7 seconds) */
 .trailer-container.playing .scene-2 {
     visibility: visible;
     animation: scene2-3d-rotate 7s 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -1782,7 +1782,7 @@ box-shadow: var(--shadow-md);
         transform: rotateY(0deg) rotateX(0deg) scale(1.05);
         filter: brightness(1.2) blur(0);
     }
-    85% {
+    92% {
         opacity: 1;
         transform: rotateY(0deg) rotateX(0deg) scale(1);
     }
@@ -1819,7 +1819,7 @@ box-shadow: var(--shadow-md);
         filter: hue-rotate(0deg);
     }
     100% {
-        opacity: 1; /* Stay at 1 */
+        opacity: 1;
         transform: translate(0, 0) skew(0deg);
     }
 }
@@ -1834,7 +1834,6 @@ box-shadow: var(--shadow-md);
     opacity: 1;
 }
 
-
 @keyframes tag-pop {
     0% {
         opacity: 0;
@@ -1844,7 +1843,7 @@ box-shadow: var(--shadow-md);
         transform: scale(1.2) rotate(-10deg);
     }
     100% {
-        opacity: 1; /* Stay at 1 */
+        opacity: 1;
         transform: scale(1) rotate(0deg);
     }
 }
@@ -1861,21 +1860,138 @@ box-shadow: var(--shadow-md);
         letter-spacing: 10px;
     }
     100% {
-        opacity: 1; /* Stay at 1 */
+        opacity: 1;
         transform: translateY(0);
         letter-spacing: 5px;
     }
 }
 
-/* Scene 3: SEO & CONTENT - Matrix Rain Effect */
+/* Scene 3: FINAL REVEAL (Your Face + Stats) - 12-16s */
 .trailer-container.playing .scene-3 {
     visibility: visible;
     animation: scene3-epic-reveal 4s 12s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     background: radial-gradient(circle at center, rgba(255, 184, 77, 0.25), rgba(99, 102, 241, 0.1), transparent);
 }
 
+@keyframes scene3-epic-reveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+        filter: brightness(5) blur(50px);
+    }
+    30% {
+        opacity: 1;
+        transform: scale(1.1);
+        filter: brightness(1.5) blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1) blur(0);
+    }
+}
 
-@keyframes scene3-matrix {
+/* Scene 3 Profile - Dramatic Entry */
+.trailer-container.playing .scene-3 .final-profile {
+    animation: profile-dramatic 2s 12.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes profile-dramatic {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(180deg);
+        filter: brightness(0) blur(30px);
+        box-shadow: 0 0 0 rgba(255, 184, 77, 0);
+    }
+    50% {
+        transform: scale(1.2) rotate(0deg);
+        filter: brightness(1.5) blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1) blur(0);
+        box-shadow: 0 0 100px rgba(255, 184, 77, 0.8);
+    }
+}
+
+/* Scene 3 Name - Letter by Letter */
+.trailer-container.playing .scene-3 .final-name {
+    animation: name-assemble 1.5s 13.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes name-assemble {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.5);
+        filter: blur(20px);
+        letter-spacing: 30px;
+    }
+    60% {
+        transform: translateY(-10px) scale(1.1);
+        letter-spacing: -1px;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+        letter-spacing: -2px;
+    }
+}
+
+/* Scene 3 Tagline - Fade In */
+.trailer-container.playing .scene-3 .final-tagline {
+    animation: tagline-elegant 1.2s 14s ease-out both;
+}
+
+@keyframes tagline-elegant {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+        letter-spacing: 20px;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 6px;
+    }
+}
+
+/* Scene 3 Stats - Counter Effect */
+.trailer-container.playing .scene-3 .trailer-stat-item {
+    animation: stat-count-up 1s 14.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.trailer-container.playing .scene-3 .trailer-stat-item:nth-child(2) {
+    animation-delay: 14.7s;
+}
+
+.trailer-container.playing .scene-3 .trailer-stat-item:nth-child(3) {
+    animation-delay: 14.9s;
+}
+
+@keyframes stat-count-up {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0);
+    }
+    60% {
+        transform: translateY(-10px) scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Scene 4: SEO & CONTENT - Matrix Rain Effect - 16-26s */
+.trailer-container.playing .scene-4 {
+    visibility: visible;
+    animation: scene4-matrix 10s 16s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.15));
+}
+
+@keyframes scene4-matrix {
     0% {
         opacity: 0;
         transform: translateZ(-500px) scale(0.5);
@@ -1898,9 +2014,9 @@ box-shadow: var(--shadow-md);
     }
 }
 
-/* Scene 3 Text - Digital Assemble */
-.trailer-container.playing .scene-3 .trailer-title {
-    animation: title-digital-assemble 1.5s 10.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Scene 4 Text - Digital Assemble */
+.trailer-container.playing .scene-4 .trailer-title {
+    animation: title-digital-assemble 1.5s 16.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes title-digital-assemble {
@@ -1921,8 +2037,8 @@ box-shadow: var(--shadow-md);
     }
 }
 
-.trailer-container.playing .scene-3 .trailer-subtitle {
-    animation: subtitle-scan 2s 11s ease-out both;
+.trailer-container.playing .scene-4 .trailer-subtitle {
+    animation: subtitle-scan 2s 17s ease-out both;
 }
 
 @keyframes subtitle-scan {
@@ -1936,124 +2052,6 @@ box-shadow: var(--shadow-md);
     100% {
         opacity: 1;
         clip-path: inset(0 0 0 0);
-    }
-}
-
-/* Scene 4: FINAL REVEAL - Epic Entrance */
-.trailer-container.playing .scene-4 {
-    visibility: visible;
-    animation: scene4-epic-reveal 4s 20s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    background: radial-gradient(circle at center, rgba(255, 184, 77, 0.25), rgba(99, 102, 241, 0.1), transparent);
-}
-
-@keyframes scene4-epic-reveal {
-    0% {
-        opacity: 0;
-        transform: scale(0.3);
-        filter: brightness(5) blur(50px);
-    }
-    30% {
-        opacity: 1;
-        transform: scale(1.1);
-        filter: brightness(1.5) blur(0);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-        filter: brightness(1) blur(0);
-    }
-}
-
-/* Scene 4 Profile - Dramatic Entry */
-.trailer-container.playing .scene-4 .final-profile {
-    animation: profile-dramatic 2s 20.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes profile-dramatic {
-    0% {
-        opacity: 0;
-        transform: scale(0.3) rotate(180deg);
-        filter: brightness(0) blur(30px);
-        box-shadow: 0 0 0 rgba(255, 184, 77, 0);
-    }
-    50% {
-        transform: scale(1.2) rotate(0deg);
-        filter: brightness(1.5) blur(5px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-        filter: brightness(1) blur(0);
-        box-shadow: 0 0 100px rgba(255, 184, 77, 0.8);
-    }
-}
-
-/* Scene 4 Name - Letter by Letter */
-.trailer-container.playing .scene-4 .final-name {
-    animation: name-assemble 1.5s 21.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes name-assemble {
-    0% {
-        opacity: 0;
-        transform: translateY(50px) scale(0.5);
-        filter: blur(20px);
-        letter-spacing: 30px;
-    }
-    60% {
-        transform: translateY(-10px) scale(1.1);
-        letter-spacing: -1px;
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-        letter-spacing: -2px;
-    }
-}
-
-/* Scene 4 Tagline - Fade In */
-.trailer-container.playing .scene-4 .final-tagline {
-    animation: tagline-elegant 1.2s 22s ease-out both;
-}
-
-@keyframes tagline-elegant {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-        letter-spacing: 20px;
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        letter-spacing: 6px;
-    }
-}
-
-/* Scene 4 Stats - Counter Effect */
-.trailer-container.playing .scene-4 .trailer-stat-item {
-    animation: stat-count-up 1s 22.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.trailer-container.playing .scene-4 .trailer-stat-item:nth-child(2) {
-    animation-delay: 22.7s;
-}
-
-.trailer-container.playing .scene-4 .trailer-stat-item:nth-child(3) {
-    animation-delay: 22.9s;
-}
-
-@keyframes stat-count-up {
-    0% {
-        opacity: 0;
-        transform: translateY(50px) scale(0);
-    }
-    60% {
-        transform: translateY(-10px) scale(1.2);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
     }
 }
 
