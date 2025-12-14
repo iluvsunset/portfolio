@@ -1618,20 +1618,21 @@ box-shadow: var(--shadow-md);
 .cinematic-bars {
     position: absolute;
     width: 100%;
-    height: 60px;
-    background: #000;
+    height: 80px;  /* Made slightly taller */
+    background: linear-gradient(to bottom, #000 0%, #111 100%);  /* Gradient instead of solid */
     z-index: 10;
     transform: translate3d(0, 0, 0);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);  /* Add shadow */
 }
 
 .cinematic-bars.top {
     top: 0;
-    animation: bar-slide-down 0.8s ease-out forwards;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
 }
 
 .cinematic-bars.bottom {
     bottom: 0;
-    animation: bar-slide-up 0.8s ease-out forwards;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.8);
 }
 
 @keyframes bar-slide-down {
@@ -1669,29 +1670,406 @@ box-shadow: var(--shadow-md);
     visibility: hidden !important;
 }
 
-/* When trailer starts, allow animations - MATCHED TO AUDIO */
+/* ============================================
+   CINEMATIC SCENE ANIMATIONS - HOLLYWOOD STYLE
+   ============================================ */
+
+/* Scene 1: EMAIL MARKETING - Explosive Zoom In + Flash */
 .trailer-container.playing .scene-1 {
     visibility: visible;
-    animation: scene-flash 2s ease-in-out forwards;  /* 0-2s: Whoosh plays */
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
+    animation: scene1-explosive-entry 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background: radial-gradient(circle at center, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.1), transparent);
 }
 
+@keyframes scene1-explosive-entry {
+    0% {
+        opacity: 0;
+        transform: scale(2) rotate(5deg);
+        filter: brightness(3) blur(20px);
+    }
+    20% {
+        opacity: 1;
+        filter: brightness(1.5) blur(5px);
+    }
+    50% {
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1) blur(0px);
+    }
+    85% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+        filter: brightness(0.5);
+    }
+}
+
+/* Scene 1 Text Animations */
+.trailer-container.playing .scene-1 .trailer-title {
+    animation: title-slam 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes title-slam {
+    0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.5);
+        filter: blur(10px);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+.trailer-container.playing .scene-1 .trailer-tag {
+    animation: tag-slide 0.6s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes tag-slide {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px) rotate(-10deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0deg);
+    }
+}
+
+.trailer-container.playing .scene-1 .trailer-subtitle {
+    animation: subtitle-fade 0.8s 0.5s ease-out both;
+}
+
+@keyframes subtitle-fade {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+        letter-spacing: 10px;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 5px;
+    }
+}
+
+/* Scene 2: VISUAL DESIGN - 3D Rotation + Shatter Effect */
 .trailer-container.playing .scene-2 {
     visibility: visible;
-    animation: scene-flash 7s 2.5s ease-in-out forwards;  /* 2.5-9.5s: Impact plays (7s) */
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(59, 130, 246, 0.1));
+    animation: scene2-3d-rotate 7s 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(59, 130, 246, 0.15));
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
+@keyframes scene2-3d-rotate {
+    0% {
+        opacity: 0;
+        transform: rotateY(90deg) rotateX(30deg) scale(0.5);
+        filter: brightness(0) blur(30px);
+    }
+    15% {
+        opacity: 1;
+        transform: rotateY(0deg) rotateX(0deg) scale(1.05);
+        filter: brightness(1.2) blur(0);
+    }
+    85% {
+        opacity: 1;
+        transform: rotateY(0deg) rotateX(0deg) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: rotateY(-90deg) rotateX(-30deg) scale(0.5);
+        filter: brightness(0) blur(30px);
+    }
+}
+
+/* Scene 2 Text - Typewriter + Glitch */
+.trailer-container.playing .scene-2 .trailer-title {
+    animation: title-glitch 1.2s 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes title-glitch {
+    0%, 5%, 10%, 15% {
+        opacity: 0;
+        transform: translate(0, 0) skew(0deg);
+    }
+    6%, 11% {
+        opacity: 1;
+        transform: translate(-5px, 2px) skew(-2deg);
+        filter: hue-rotate(90deg);
+    }
+    7%, 12% {
+        transform: translate(5px, -2px) skew(2deg);
+        filter: hue-rotate(-90deg);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(0, 0) skew(0deg);
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) skew(0deg);
+    }
+}
+
+.trailer-container.playing .scene-2 .trailer-tag {
+    animation: tag-pop 0.5s 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+}
+
+.trailer-container.playing .scene-2 .trailer-tag:nth-child(3) {
+    animation-delay: 3.2s;
+}
+
+@keyframes tag-pop {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(180deg);
+    }
+    70% {
+        transform: scale(1.2) rotate(-10deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Scene 3: SEO & CONTENT - Matrix Rain Effect */
 .trailer-container.playing .scene-3 {
     visibility: visible;
-    animation: scene-flash 10s 10s ease-in-out forwards;  /* 10-20s: Reveal plays (10s) */
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(99, 102, 241, 0.1));
+    animation: scene3-matrix 10s 10s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.15));
 }
 
+@keyframes scene3-matrix {
+    0% {
+        opacity: 0;
+        transform: translateZ(-500px) scale(0.5);
+        filter: brightness(0) contrast(0);
+    }
+    10% {
+        opacity: 1;
+        transform: translateZ(0) scale(1);
+        filter: brightness(1.5) contrast(1.2);
+    }
+    15%, 85% {
+        opacity: 1;
+        transform: translateZ(0) scale(1);
+        filter: brightness(1) contrast(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateZ(500px) scale(2);
+        filter: brightness(3) contrast(0);
+    }
+}
+
+/* Scene 3 Text - Digital Assemble */
+.trailer-container.playing .scene-3 .trailer-title {
+    animation: title-digital-assemble 1.5s 10.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes title-digital-assemble {
+    0% {
+        opacity: 0;
+        transform: scaleY(0) translateY(-100px);
+        filter: blur(20px);
+        letter-spacing: 50px;
+    }
+    50% {
+        letter-spacing: 10px;
+    }
+    100% {
+        opacity: 1;
+        transform: scaleY(1) translateY(0);
+        filter: blur(0);
+        letter-spacing: 3px;
+    }
+}
+
+.trailer-container.playing .scene-3 .trailer-subtitle {
+    animation: subtitle-scan 2s 11s ease-out both;
+}
+
+@keyframes subtitle-scan {
+    0% {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+/* Scene 4: FINAL REVEAL - Epic Entrance */
 .trailer-container.playing .scene-4 {
     visibility: visible;
-    animation: scene-final 4s 20s ease-in-out forwards;  /* 20-24s: Final plays (3s) + fade */
-    background: radial-gradient(circle at center, rgba(255, 184, 77, 0.15), transparent);
+    animation: scene4-epic-reveal 4s 20s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background: radial-gradient(circle at center, rgba(255, 184, 77, 0.25), rgba(99, 102, 241, 0.1), transparent);
+}
+
+@keyframes scene4-epic-reveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+        filter: brightness(5) blur(50px);
+    }
+    30% {
+        opacity: 1;
+        transform: scale(1.1);
+        filter: brightness(1.5) blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1) blur(0);
+    }
+}
+
+/* Scene 4 Profile - Dramatic Entry */
+.trailer-container.playing .scene-4 .final-profile {
+    animation: profile-dramatic 2s 20.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes profile-dramatic {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(180deg);
+        filter: brightness(0) blur(30px);
+        box-shadow: 0 0 0 rgba(255, 184, 77, 0);
+    }
+    50% {
+        transform: scale(1.2) rotate(0deg);
+        filter: brightness(1.5) blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1) blur(0);
+        box-shadow: 0 0 100px rgba(255, 184, 77, 0.8);
+    }
+}
+
+/* Scene 4 Name - Letter by Letter */
+.trailer-container.playing .scene-4 .final-name {
+    animation: name-assemble 1.5s 21.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes name-assemble {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.5);
+        filter: blur(20px);
+        letter-spacing: 30px;
+    }
+    60% {
+        transform: translateY(-10px) scale(1.1);
+        letter-spacing: -1px;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+        letter-spacing: -2px;
+    }
+}
+
+/* Scene 4 Tagline - Fade In */
+.trailer-container.playing .scene-4 .final-tagline {
+    animation: tagline-elegant 1.2s 22s ease-out both;
+}
+
+@keyframes tagline-elegant {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+        letter-spacing: 20px;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 6px;
+    }
+}
+
+/* Scene 4 Stats - Counter Effect */
+.trailer-container.playing .scene-4 .trailer-stat-item {
+    animation: stat-count-up 1s 22.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.trailer-container.playing .scene-4 .trailer-stat-item:nth-child(2) {
+    animation-delay: 22.7s;
+}
+
+.trailer-container.playing .scene-4 .trailer-stat-item:nth-child(3) {
+    animation-delay: 22.9s;
+}
+
+@keyframes stat-count-up {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0);
+    }
+    60% {
+        transform: translateY(-10px) scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Add light flares during transitions */
+.trailer-container.playing::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: light-sweep 2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 50;
+}
+
+@keyframes light-sweep {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 200%;
+    }
+}
+
+/* Cinematic Bars Animation */
+.trailer-container.playing .cinematic-bars.top {
+    animation: bar-slide-down 1s ease-out forwards, bar-pulse 2s 1s ease-in-out infinite;
+}
+
+.trailer-container.playing .cinematic-bars.bottom {
+    animation: bar-slide-up 1s ease-out forwards, bar-pulse 2s 1s ease-in-out infinite;
+}
+
+@keyframes bar-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
 }
 
 @keyframes scene-flash {
