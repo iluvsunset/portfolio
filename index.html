@@ -3517,8 +3517,8 @@ window.addEventListener('load', () => {
     // Sound timeline - MATCHED TO YOUR AUDIO LENGTHS
     // Whoosh: 1.5s, Impact: 7s, Reveal: 10s, Final: 3s
     function startSoundTimeline() {
-    soundTimeouts.push(setTimeout(() => playSound(whooshSound), 3000));      // Scene 1: 0.2s - Whoosh (1.5s)
-    soundTimeouts.push(setTimeout(() => playSound(impactSound), 5000));     // Scene 2: 2.5s - Impact (7s)
+    soundTimeouts.push(setTimeout(() => playSound(whooshSound), 200));      // Scene 1: 0.2s - Whoosh (1.5s)
+    soundTimeouts.push(setTimeout(() => playSound(impactSound), 2000));     // Scene 2: 2.5s - Impact (7s)
     soundTimeouts.push(setTimeout(() => playSound(finalSound), 10000));     // Scene 3 (was 4): 10s - Final (3s) - YOUR FACE
     soundTimeouts.push(setTimeout(() => playSound(revealSound), 14000));    // Scene 4 (was 3): 14s - Reveal (10s) - SEO CONTENT
 }
