@@ -1675,6 +1675,7 @@ box-shadow: var(--shadow-md);
    ============================================ */
 
 /* Scene 1: EMAIL MARKETING - Explosive Zoom In + Flash */
+/* Scene 1: EMAIL MARKETING - Explosive Zoom In + Flash (LONGER DISPLAY) */
 .trailer-container.playing .scene-1 {
     visibility: visible;
     animation: scene1-explosive-entry 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -1695,7 +1696,7 @@ box-shadow: var(--shadow-md);
         transform: scale(1) rotate(0deg);
         filter: brightness(1) blur(0px);
     }
-    85% {
+    90% {  /* Changed from 85% to 90% - stays visible longer */
         opacity: 1;
         transform: scale(1);
     }
@@ -1779,7 +1780,7 @@ box-shadow: var(--shadow-md);
         transform: rotateY(0deg) rotateX(0deg) scale(1.05);
         filter: brightness(1.2) blur(0);
     }
-    85% {
+    92% {  /* Changed from 85% to 92% - stays visible much longer */
         opacity: 1;
         transform: rotateY(0deg) rotateX(0deg) scale(1);
     }
@@ -1845,30 +1846,25 @@ box-shadow: var(--shadow-md);
 /* Scene 3: SEO & CONTENT - Matrix Rain Effect */
 .trailer-container.playing .scene-3 {
     visibility: visible;
-    animation: scene3-matrix 10s 10s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.15));
+    animation: scene3-epic-reveal 4s 10s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background: radial-gradient(circle at center, rgba(255, 184, 77, 0.25), rgba(99, 102, 241, 0.1), transparent);
 }
 
-@keyframes scene3-matrix {
+@keyframes scene3-epic-reveal {
     0% {
         opacity: 0;
-        transform: translateZ(-500px) scale(0.5);
-        filter: brightness(0) contrast(0);
+        transform: scale(0.3);
+        filter: brightness(5) blur(50px);
     }
-    10% {
+    30% {
         opacity: 1;
-        transform: translateZ(0) scale(1);
-        filter: brightness(1.5) contrast(1.2);
-    }
-    15%, 85% {
-        opacity: 1;
-        transform: translateZ(0) scale(1);
-        filter: brightness(1) contrast(1);
+        transform: scale(1.1);
+        filter: brightness(1.5) blur(0);
     }
     100% {
-        opacity: 0;
-        transform: translateZ(500px) scale(2);
-        filter: brightness(3) contrast(0);
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1) blur(0);
     }
 }
 
@@ -1913,34 +1909,66 @@ box-shadow: var(--shadow-md);
     }
 }
 
+/* Scene 3 Name - Letter by Letter */
+.trailer-container.playing .scene-3 .final-name {
+    animation: name-assemble 1.5s 11.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scene 3 Tagline - Fade In */
+.trailer-container.playing .scene-3 .final-tagline {
+    animation: tagline-elegant 1.2s 12s ease-out both;
+}
+
+/* Scene 3 Stats - Counter Effect */
+.trailer-container.playing .scene-3 .trailer-stat-item {
+    animation: stat-count-up 1s 12.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.trailer-container.playing .scene-3 .trailer-stat-item:nth-child(2) {
+    animation-delay: 12.7s;
+}
+
+.trailer-container.playing .scene-3 .trailer-stat-item:nth-child(3) {
+    animation-delay: 12.9s;
+}
+
 /* Scene 4: FINAL REVEAL - Epic Entrance */
 .trailer-container.playing .scene-4 {
     visibility: visible;
-    animation: scene4-epic-reveal 4s 20s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    background: radial-gradient(circle at center, rgba(255, 184, 77, 0.25), rgba(99, 102, 241, 0.1), transparent);
+    animation: scene4-matrix 10s 14s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.15));
 }
 
-@keyframes scene4-epic-reveal {
+@keyframes scene4-matrix {
     0% {
         opacity: 0;
-        transform: scale(0.3);
-        filter: brightness(5) blur(50px);
+        transform: translateZ(-500px) scale(0.5);
+        filter: brightness(0) contrast(0);
     }
-    30% {
+    10% {
         opacity: 1;
-        transform: scale(1.1);
-        filter: brightness(1.5) blur(0);
+        transform: translateZ(0) scale(1);
+        filter: brightness(1.5) contrast(1.2);
+    }
+    15%, 85% {
+        opacity: 1;
+        transform: translateZ(0) scale(1);
+        filter: brightness(1) contrast(1);
     }
     100% {
-        opacity: 1;
-        transform: scale(1);
-        filter: brightness(1) blur(0);
+        opacity: 0;
+        transform: translateZ(500px) scale(2);
+        filter: brightness(3) contrast(0);
     }
 }
 
 /* Scene 4 Profile - Dramatic Entry */
 .trailer-container.playing .scene-4 .final-profile {
     animation: profile-dramatic 2s 20.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.trailer-container.playing .scene-4 .trailer-title {
+    animation: title-digital-assemble 1.5s 14.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes profile-dramatic {
@@ -1989,6 +2017,10 @@ box-shadow: var(--shadow-md);
 /* Scene 4 Tagline - Fade In */
 .trailer-container.playing .scene-4 .final-tagline {
     animation: tagline-elegant 1.2s 22s ease-out both;
+}
+
+.trailer-container.playing .scene-4 .trailer-subtitle {
+    animation: subtitle-scan 2s 15s ease-out both;
 }
 
 @keyframes tagline-elegant {
@@ -3487,14 +3519,14 @@ window.addEventListener('load', () => {
         }
     }
     
-    // Sound timeline - MATCHED TO YOUR AUDIO LENGTHS
-    // Whoosh: 1.5s, Impact: 7s, Reveal: 10s, Final: 3s
-    function startSoundTimeline() {
-        soundTimeouts.push(setTimeout(() => playSound(whooshSound), 200));      // Scene 1: 0.2s - Whoosh (1.5s)
-        soundTimeouts.push(setTimeout(() => playSound(impactSound), 2500));     // Scene 2: 2.5s - Impact (7s)
-        soundTimeouts.push(setTimeout(() => playSound(revealSound), 10000));    // Scene 3: 10s - Reveal (10s)
-        soundTimeouts.push(setTimeout(() => playSound(finalSound), 20500));     // Scene 4: 20.5s - Final (3s)
-    }
+    // Sound timeline - SWAPPED SCENE 3 & 4
+// Whoosh: 1.5s, Impact: 7s, Final: 3s, Reveal: 10s
+function startSoundTimeline() {
+    soundTimeouts.push(setTimeout(() => playSound(whooshSound), 200));      // Scene 1: 0.2s - Whoosh (1.5s)
+    soundTimeouts.push(setTimeout(() => playSound(impactSound), 2500));     // Scene 2: 2.5s - Impact (7s)
+    soundTimeouts.push(setTimeout(() => playSound(finalSound), 10000));     // Scene 3 (was 4): 10s - Final (3s) - YOUR FACE
+    soundTimeouts.push(setTimeout(() => playSound(revealSound), 14000));    // Scene 4 (was 3): 14s - Reveal (10s) - SEO CONTENT
+}
     
     // Start trailer
     function startTrailer() {
