@@ -214,7 +214,7 @@
         
         .hero-subtitle {
             font-size: 14px;
-            font-weight: 400;
+            font-weight: 600;
             color: #333;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -222,6 +222,11 @@
             font-family: 'Montserrat', sans-serif;
             position: relative;
             z-index: 3; 
+        text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);  /* Add white shadow for contrast */
+    background: rgba(255, 255, 255, 0.7);  /* Add semi-transparent white background */
+    padding: 10px 20px;  /* Add padding */
+    border-radius: 8px;  /* Round the corners */
+    display: inline-block;  /* Make background fit text */
         }
         
         .hero-title-wrapper {
@@ -231,7 +236,7 @@
         }
         
         .hero-title {
-            font-size: clamp(72px, 12vw, 140px);
+            font-size: clamp(48px, 8vw, 80px); 
             font-weight: 900;
             letter-spacing: -2px;
             margin: 0;
@@ -242,6 +247,7 @@
             z-index: 3;
             line-height: 1.1;
             white-space: nowrap;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);  /* Add shadow for depth */
         }
         
         .hero-profile-wrapper {
