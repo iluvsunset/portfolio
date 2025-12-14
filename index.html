@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyen Tu Anh - Creative Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-bg: #000000;
+            --secondary-bg: #0a0a0a;
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Cursor Effect */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            opacity: 0;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--text-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.05s ease;
+            opacity: 0;
+            mix-blend-mode: difference;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 60px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            padding: 15px 60px;
+            background: rgba(0, 0, 0, 0.95);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 20px 60px;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 113, 227, 0.1), transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        .hero-profile {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 60px rgba(0, 113, 227, 0.5);
+            top: 15%;
+            opacity: 0;
+            animation: fadeInDown 1s ease forwards 0.3s;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            padding: 0 20px;
+            margin-top: 100px;
+        }
+        
+        .hero-subtitle {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.2s;
+        }
+        
+        .hero-title {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.4s;
+            background: linear-gradient(135deg, #fff 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-description {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.6s;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 980px;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.8s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 113, 227, 0.3);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 120px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease 0.2s;
+        }
+        
+        .section-title.visible,
+        .section-subtitle.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 60px;
+        }
+        
+        .about-content {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+        
+        .about-content.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .about-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .about-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .about-image {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .about-image.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .profile-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            margin: 0 auto 30px;
+            display: block;
+            box-shadow: 0 10px 40px rgba(0, 113, 227, 0.3);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 113, 227, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+
+        /* Portfolio Filters */
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0 50px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 12px 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .portfolio-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .portfolio-category {
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            font-size: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-lightbox:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        .lightbox-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .testimonial-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .testimonial-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+        
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #00a8e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 20px;
+        }
+        
+        .author-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .contact-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .contact-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+        
+        .contact-card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .contact-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: var(--secondary-bg);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            nav, section {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .hero-profile {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav, section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 48px;
+            }
+            
+            .hero-description {
+                font-size: 16px;
+            }
+            
+            .hero-profile {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-filters {
+                padding: 0 10px;
+            }
+            
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+            
+            .close-lightbox {
+                top: 20px;
+                right: 20px;
+                font-size: 40px;
+            }
+        }
+        
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #FFD700);
+            z-index: 10000;
+            transition: width 0.1s ease;
+        }
+        
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader-text {
+            font-size: 24px;
+            font-weight: 600;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cursor Effect -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- Scroll Progress -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Loader -->
+    <div class="loader">
+        <div class="loader-text">NGUYỄN TÚ ANH PORTFOLIO</div>
+        
+    </div>
+    
+    <!-- Navigation -->
+    <nav id="nav">
+        <div class="nav-container">
+            <div class="logo">NTA</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <img src="images/profile.jpg" alt="Nguyen Tu Anh" class="hero-profile">
+        <div class="hero-content">
+            <p class="hero-subtitle">Hello, Welcome to the Portfolio of</p>
+            <h1 class="hero-title">NGUYEN TU ANH</h1>
+            <p class="hero-description">
+                Marketing specialist crafting compelling content and data-driven strategies.
+                I believe the best campaign content balances aesthetics with information—it should look good,
+                feel relevant, and deliver the core message in seconds.
+            </p>
+            <a href="#contact" class="cta-button">Get In Touch</a>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">A journey of continuous growth and creative excellence</p>
+        <div class="about-grid">
+            <div class="about-content">
+                <p class="about-text">
+                    <strong>Being creative</strong> is a journey that demands continuous effort and dedication.
+                    Each day is an opportunity to gain knowledge and broaden one's perspective of the world.
+                    To me, the foundation of a creative professional is not merely spontaneous inspiration, 
+                    but rather <strong>a fusion of knowledge and experience</strong>—two elements that bring 
+                    depth and true value to every idea.
+                </p>
+                <p class="about-text">
+                    Whether it's <strong>email marketing, social media content, product photography, or SEO strategy</strong>, 
+                    I focus on clarity, vibrant visuals, and storytelling that resonates. I utilize AI to enhance 
+                    product shots while maintaining 90% real-world detail, and I value rhythm in videos to make 
+                    every frame feel alive and authentic.
+                </p>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">SEO Articles Monthly</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3.7</div>
+                        <div class="stat-label">GPA / 4.0 (Class I)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">90%</div>
+                        <div class="stat-label">Product Detail Quality</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <div class="profile-card">
+                    <img src="images/profile.jpg" alt="Nguyen Tu Anh" class="profile-photo">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <span>tuanhwork1206@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📱</div>
+                            <span>(+84) 938 206 489</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🎓</div>
+                            <span>University of Greater Manchester / Bolton University</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🏆</div>
+                            <span>Class I - Exceptional Quality</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+        <!-- Portfolio Section -->
+<section id="portfolio">
+    <h2 class="section-title">Featured Work</h2>
+    <p class="section-subtitle">A showcase of campaigns, content creation, and strategic marketing</p>
+    
+    <!-- Portfolio Filters -->
+    <div class="portfolio-filters">
+        <button class="filter-btn active" data-filter="all">All Work</button>
+        <button class="filter-btn" data-filter="social">Social Media</button>
+        <button class="filter-btn" data-filter="email">Email Marketing</button>
+        <button class="filter-btn" data-filter="design">Visual Design</button>
+        <button class="filter-btn" data-filter="seo">SEO & Content</button>
+        <button class="filter-btn" data-filter="video">Video Content</button>
+    </div>
+    
+    <div class="portfolio-grid">
+        <!-- Social Media - Nail Studio Campaigns -->
+        <div class="portfolio-item" data-category="social">
+            <img src="images/social-media/nail-1.jpg" alt="Nail Promotion Campaign" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Nail Studio Combo Promotion</h3>
+                <p class="portfolio-category">Social Media • Dria Nail Studio</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="social">
+            <img src="images/social-media/nail-2.jpg" alt="Special Gift Campaign" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Festival Special Gift Campaign</h3>
+                <p class="portfolio-category">Social Media • Dria Nail Studio</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="social">
+            <img src="images/social-media/nail-3.jpg" alt="National Day Campaign" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Vietnamese National Day Promo</h3>
+                <p class="portfolio-category">Social Media • Dria Nail Studio</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="social">
+            <img src="images/social-media/nail-4.jpg" alt="Women's Day Campaign" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Women's Day Special Offer</h3>
+                <p class="portfolio-category">Social Media • Dria Nail Studio</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="social">
+            <img src="images/social-media/navii-promo.jpg" alt="Navii Beauty Promotion" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Navii Special Deal Campaign</h3>
+                <p class="portfolio-category">Social Media • Navii Beauty Room</p>
+            </div>
+        </div>
+        
+        <!-- Email Marketing -->
+        <div class="portfolio-item" data-category="email">
+            <img src="images/email/new-collection.jpg" alt="New Collection Email" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">New Collection Launch</h3>
+                <p class="portfolio-category">Email Marketing • Merci Majolie</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="email">
+            <img src="images/email/back-in-stock.jpg" alt="Back in Stock Email" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Back in Stock Campaign</h3>
+                <p class="portfolio-category">Email Marketing • Merci Majolie</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="email">
+            <img src="images/email/summer-sale.jpg" alt="Summer Sale Email" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Summer Sale Off</h3>
+                <p class="portfolio-category">Email Marketing • Merci Majolie</p>
+            </div>
+        </div>
+        
+        <!-- Visual Design - Nail Art -->
+        <div class="portfolio-item" data-category="design">
+            <img src="images/portfolio/nail-designs-1.jpg" alt="Nail Design Showcase" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Vibrant Nail Art Collection</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="design">
+            <img src="images/portfolio/nail-designs-2.jpg" alt="Seasonal Nail Designs" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Seasonal Nail Trends</h3>
+                <p class="portfolio-category">Visual Design • Content Creation</p>
+            </div>
+        </div>
+        
+        <!-- Visual Design - Jewelry -->
+        <div class="portfolio-item" data-category="design">
+            <img src="images/portfolio/jewelry-1.jpg" alt="Jewelry Photography" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Natural Light Jewelry Photography</h3>
+                <p class="portfolio-category">Visual Design • Merci Majolie</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="design">
+            <img src="images/portfolio/jewelry-2.jpg" alt="Product Styling" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Elegant Product Styling</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="design">
+            <img src="images/portfolio/jewelry-3.jpg" alt="Minimalist Jewelry" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Minimalist Jewelry Collection</h3>
+                <p class="portfolio-category">Visual Design • Merci Majolie</p>
+            </div>
+        </div>
+        
+        <!-- AI Enhanced Products -->
+        <div class="portfolio-item" data-category="design">
+            <img src="images/portfolio/product-ai.jpg" alt="AI Enhanced Products" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">AI-Enhanced Product Shots</h3>
+                <p class="portfolio-category">Visual Design • 90% Real Detail</p>
+            </div>
+        </div>
+        
+        <!-- Video Content -->
+        <div class="portfolio-item" data-category="video">
+            <img src="images/portfolio/video-1.jpg" alt="Beauty Service Videos" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Beauty Service Storytelling</h3>
+                <p class="portfolio-category">Video Content • Navii Beauty</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="video">
+            <img src="images/portfolio/video-2.jpg" alt="Social Media Reels" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Engaging Social Media Reels</h3>
+                <p class="portfolio-category">Video Content • Multiple Clients</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="video">
+            <img src="images/portfolio/video-3.jpg" alt="Product Videos" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Product Showcase Videos</h3>
+                <p class="portfolio-category">Video Content • Rhythm & Storytelling</p>
+            </div>
+        </div>
+        
+        <!-- SEO & Content -->
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/seo/articles-grid.jpg" alt="SEO Articles" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">30+ Monthly SEO Articles</h3>
+                <p class="portfolio-category">SEO & Content • AI-Powered</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/seo/facebook-posts.jpg" alt="Content Strategy" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • USP Focus</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/analytics/metrics.jpg" alt="Analytics Dashboard" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Performance Tracking</h3>
+                <p class="portfolio-category">Analytics • Data-Driven Strategy</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/analytics/keyword-research.jpg" alt="Keyword Research" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Keyword Research & Planning</h3>
+                <p class="portfolio-category">SEO Strategy • Competitor Analysis</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/analytics/seo-rankings.jpg" alt="SEO Rankings" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Top Google Rankings</h3>
+                <p class="portfolio-category">SEO Success • #1 Positions</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/analytics/content-planning.jpg" alt="Content Planning" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Strategic Content Planning</h3>
+                <p class="portfolio-category">Content Strategy • Multi-Platform</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials">
+    <h2 class="section-title">What Leaders Say</h2>
+    <p class="section-subtitle">"How do you think about me?" - I asked my leaders</p>
+    <div class="testimonials-grid">
+        <div class="testimonial-card">
+            <p class="testimonial-text">
+                "She is a reliable employee with a strong ability to consistently create content 
+                and optimize the website. What I like most is how she combines colors in videos 
+                and images. She is always eager to learn new things and strives to bring valuable 
+                suggestions to the business."
+            </p>
+            <div class="testimonial-author">
+                <div class="author-avatar">LH</div>
+                <div class="author-info">
+                    <h4>Mr. Louis Haag</h4>
+                    <p>Founder of Merci Majolie</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <p class="testimonial-text">
+                "She is a proactive person who quickly adapts to new challenges. Her communication 
+                skills, problem-solving mindset, and team spirit made her a reliable support to both 
+                managers and clients. What impressed me most was her mix of creativity and analytical 
+                thinking—she not only produced engaging content but also backed it up with performance 
+                tracking and competitor insights."
+            </p>
+            <div class="testimonial-author">
+                <div class="author-avatar">HN</div>
+                <div class="author-info">
+                    <h4>Mr. Huu Nghia</h4>
+                    <p>CEO of Cross Technology and Communication Agency</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <p class="testimonial-text">
+                "She creates engaging content that captures the beauty of our services. Her posts 
+                always bring in new customers and keep our regulars excited."
+            </p>
+            <div class="testimonial-author">
+                <div class="author-avatar">CN</div>
+                <div class="author-info">
+                    <h4>Ms. Cao Thái Nguyệt Nga</h4>
+                    <p>Founder of Navii Beauty Room</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <p class="testimonial-text">
+                "Her creativity and eye for detail make our nail designs stand out online. 
+                She turns simple ideas into professional campaigns with great results."
+            </p>
+            <div class="testimonial-author">
+                <div class="author-avatar">Q</div>
+                <div class="author-info">
+                    <h4>Ms. Quỳnh</h4>
+                    <p>Founder of Dria. Nail Studio</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+    <h2 class="section-title">Let's Work Together</h2>
+    <div class="contact-container">
+        <p class="hero-description" style="margin-bottom: 60px;">
+            Have a project in mind? Let's create something amazing together.
+        </p>
+        <div class="contact-grid">
+            <a href="mailto:tuanhwork1206@gmail.com" class="contact-card">
+                <div class="contact-card-icon">📧</div>
+                <h3>Email</h3>
+                <p>tuanhwork1206@gmail.com</p>
+            </a>
+            <a href="tel:+84938206489" class="contact-card">
+                <div class="contact-card-icon">📱</div>
+                <h3>Phone</h3>
+                <p>(+84) 938 206 489</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <img class="lightbox-img" id="lightbox-img">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p class="footer-text">© 2024 Nguyen Tu Anh. Crafted with passion and precision.</p>
+        <div class="social-links">
+            <a href="#" class="social-link" title="Twitter">𝕏</a>
+            <a href="#" class="social-link" title="LinkedIn">in</a>
+            <a href="#" class="social-link" title="Facebook">f</a>
+            <a href="#" class="social-link" title="Instagram">ig</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Loader
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.querySelector('.loader').classList.add('hidden');
+        }, 1500);
+    });
+    
+    // Custom Cursor
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        cursor.style.opacity = '1';
+        
+        setTimeout(() => {
+            cursorFollower.style.left = e.clientX + 'px';
+            cursorFollower.style.top = e.clientY + 'px';
+            cursorFollower.style.opacity = '1';
+        }, 100);
+    });
+    
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+        const scrollProgress = document.querySelector('.scroll-progress');
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (window.scrollY / scrollHeight) * 100;
+        scrollProgress.style.width = scrolled + '%';
+    });
+    
+    // Navigation Scroll Effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+    
+    // Intersection Observer for Animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all animated elements
+    document.querySelectorAll('.section-title, .section-subtitle, .about-content, .about-image, .testimonial-card, .portfolio-item').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // Portfolio Filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            btn.classList.add('active');
+            
+            const filter = btn.getAttribute('data-filter');
+            
+            portfolioItems.forEach(item => {
+                if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 10);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+    
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closeLightbox = document.querySelector('.close-lightbox');
+    
+    portfolioItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const img = item.querySelector('.portfolio-image');
+            const title = item.querySelector('.portfolio-title').textContent;
+            const category = item.querySelector('.portfolio-category').textContent;
+            
+            lightboxImg.src = img.src;
+            lightboxCaption.textContent = `${title} - ${category}`;
+            lightbox.classList.add('active');
+        });
+    });
+    
+    closeLightbox.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+    });
+    
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.classList.remove('active');
+        }
+    });
+    
+    // Staggered Animation for Testimonials
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    testimonialCards.forEach((card, index) => {
+        card.style.transitionDelay = `${index * 0.15}s`;
+    });
+    
+    // Staggered Animation for Portfolio
+    portfolioItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.05}s`;
+    });
+    
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Parallax Effect on Hero
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const heroContent = document.querySelector('.hero-content');
+        const heroProfile = document.querySelector('.hero-profile');
+        
+        if (heroContent) {
+            heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+            heroContent.style.opacity = 1 - (scrolled / 600);
+        }
+        
+        if (heroProfile) {
+            heroProfile.style.transform = `translateY(${scrolled * 0.2}px)`;
+        }
+    });
+</script>
+</body>
+</html>
