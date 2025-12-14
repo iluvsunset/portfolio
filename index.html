@@ -1900,22 +1900,21 @@ box-shadow: var(--shadow-md);
     flex-wrap: wrap;
 }
 
-.stat-item {
+.trailer-stat-item {
     text-align: center;
 }
 
-.stat-number {
-    font-size: 42px; /* Reduced from 48px */
+.trailer-stat-number {
+    font-size: clamp(40px, 8vw, 70px);
     font-weight: 900;
-    background: linear-gradient(135deg, var(--accent), #ec4899);
+    background: linear-gradient(135deg, #6366f1, #ec4899);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 8px; /* Reduced from 12px */
     line-height: 1;
 }
 
-.stat-label {
+.trailer-stat-label {
     font-size: clamp(12px, 2vw, 16px);
     color: rgba(255, 255, 255, 0.8);
     text-transform: uppercase;
@@ -2024,7 +2023,7 @@ box-shadow: var(--shadow-md);
 .trailer-text,
 .trailer-image,
 .final-profile,
-.stat-number {
+.trailer-stat-number {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     -webkit-backface-visibility: hidden;
@@ -2782,19 +2781,19 @@ body.loaded::before {
                 <div class="final-name">NGUYỄN TÚ ANH</div>
                 <div class="final-tagline">CREATIVE • STRATEGIC • RESULTS-DRIVEN</div>
                 <div class="trailer-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">SEO Articles</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">3.7</div>
-                        <div class="stat-label">GPA / 4.0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">90%</div>
-                        <div class="stat-label">Quality</div>
-                    </div>
-                </div>
+    <div class="trailer-stat-item">
+        <div class="trailer-stat-number">8</div>
+        <div class="trailer-stat-label">SEO Articles</div>
+    </div>
+    <div class="trailer-stat-item">
+        <div class="trailer-stat-number">3.7</div>
+        <div class="trailer-stat-label">GPA / 4.0</div>
+    </div>
+    <div class="trailer-stat-item">
+        <div class="trailer-stat-number">90%</div>
+        <div class="trailer-stat-label">Quality</div>
+    </div>
+</div>
             </div>
         </div>
     </div>
