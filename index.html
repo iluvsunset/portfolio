@@ -939,24 +939,24 @@
         }
         
         .author-avatar {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
             font-size: 20px;
-            overflow: hidden;
-            border: 4px solid var(--glass-border);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 0 0 8px rgba(255, 255, 255, 0.8);
+            overflow: visible;
+            border: 5px solid var(--glass-border);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2), 0 0 0 12px rgba(255, 255, 255, 0.9);
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             flex-shrink: 0;
             background: linear-gradient(135deg, #e8f4fd 0%, #f3e8ff 100%);
-            padding: 6px;
+            padding: 8px;
             position: absolute;
-            top: -70px;
-            left: 0;
+            top: -80px;
+            left: 20px;
             z-index: 10;
             transform: translateY(0) scale(1) translateZ(0);
             will-change: transform;
@@ -966,34 +966,191 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center center;
             border-radius: 50%;
         }
         
         .testimonial-card {
-            padding-top: 70px;
+            padding-top: 90px;
             position: relative;
+            padding-bottom: 40px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 30px;
+            padding-top: 20px;
         }
         
         .testimonial-card:hover .author-avatar {
-            transform: translateY(-15px) scale(1.15) rotate(5deg) translateZ(20px);
-            box-shadow: 0 20px 60px rgba(0, 113, 227, 0.4), 0 0 0 10px rgba(255, 255, 255, 0.95);
+            transform: translateY(-20px) scale(1.2) rotate(8deg) translateZ(30px);
+            box-shadow: 0 25px 70px rgba(0, 113, 227, 0.5), 0 0 0 15px rgba(255, 255, 255, 0.95);
             border-color: var(--accent);
         }
         
         .author-info {
             margin-left: 0;
-            padding-left: 140px;
+            padding-left: 0;
+            margin-top: 10px;
         }
         
         .author-info h4 {
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 5px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-style: italic;
         }
         
         .author-info p {
             font-size: 14px;
             color: var(--text-secondary);
+        }
+        
+        /* Learning Journey Section */
+        .journey-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .journey-item {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+        }
+        
+        .journey-card {
+            background: var(--glass-bg);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .journey-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent);
+        }
+        
+        .journey-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--text-primary);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+        
+        .journey-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .journey-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .journey-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .journey-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .journey-arrow {
+            font-size: 48px;
+            color: var(--accent);
+            font-weight: 300;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        /* Tools Section */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .tool-item {
+            background: var(--glass-bg);
+            padding: 30px 20px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .tool-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+        
+        .tool-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-light), rgba(147, 51, 234, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+        
+        .tool-item:hover .tool-icon {
+            background: linear-gradient(135deg, var(--accent), #9333ea);
+            color: white;
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .tool-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .tools-description {
+            max-width: 800px;
+            margin: 60px auto 0;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-style: italic;
+            font-family: 'Cormorant Garamond', serif;
         }
 
         /* Contact Section */
@@ -1371,6 +1528,8 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#learning-journey">Learning Journey</a></li>
+                <li><a href="#tools">Tools</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1877,6 +2036,81 @@
             </div>
         </div>
     </div>
+</section>
+
+<!-- Learning Journey Section -->
+<section id="learning-journey">
+    <h2 class="section-title">Learning Journey</h2>
+    <p class="section-subtitle">A path of continuous growth and skill development</p>
+    <div class="journey-container">
+        <div class="journey-item">
+            <div class="journey-card">
+                <h3 class="journey-title">Nguyen Huu Cau High School</h3>
+                <ul class="journey-list">
+                    <li>Managing Facebook and Instagram pages</li>
+                    <li>Scheduled posts and developed content plans based on key content pillars</li>
+                    <li>Tracked and analyzed engagement metrics</li>
+                    <li>Helped organize small-scale school events</li>
+                </ul>
+            </div>
+        </div>
+        <div class="journey-arrow">→</div>
+        <div class="journey-item">
+            <div class="journey-card">
+                <h3 class="journey-title">University of Greater Manchester / Bolton University</h3>
+                <ul class="journey-list">
+                    <li>Organized school-level events and managed project operations</li>
+                    <li>Participated in booth promotion competitions</li>
+                    <li>Developed proposals for new marketing campaigns</li>
+                    <li>GPA: 3.7/4 - Class I (Exceptional Quality)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What I Use to Work Section -->
+<section id="tools">
+    <h2 class="section-title">What I Use to Work?</h2>
+    <p class="section-subtitle">Tools that power my creative and professional growth</p>
+    <div class="tools-grid">
+        <div class="tool-item">
+            <div class="tool-icon">Canva</div>
+            <p class="tool-name">Canva</p>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">WordPress</div>
+            <p class="tool-name">WordPress</p>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">Lr</div>
+            <p class="tool-name">Adobe Lightroom</p>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">AI</div>
+            <p class="tool-name">OpenAI / ChatGPT</p>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">HubSpot</div>
+            <p class="tool-name">HubSpot</p>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">G</div>
+            <p class="tool-name">Google Services</p>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">CapCut</div>
+            <p class="tool-name">CapCut</p>
+        </div>
+        <div class="tool-item">
+            <div class="tool-icon">S</div>
+            <p class="tool-name">Additional Tools</p>
+        </div>
+    </div>
+    <p class="tools-description">
+        These tools have played a key role in my personal and professional growth. 
+        Learning to use and develop them has opened up new horizons and helped me realize my full potential.
+    </p>
 </section>
 
 <!-- Testimonials Section -->
