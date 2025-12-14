@@ -173,7 +173,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             padding: 100px 20px 60px;
         }
         
@@ -200,7 +200,7 @@
             width: 340px;
             height: 340px;
             border-radius: 50%;
-            top: 10%;
+            top: 120px;  /* Fixed position from top */
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, #e8f4fd 0%, #f3e8ff 100%);
@@ -939,8 +939,8 @@
         }
         
         .author-avatar {
-            width: 140px;
-            height: 140px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -948,17 +948,17 @@
             font-weight: 600;
             font-size: 20px;
             overflow: visible;
-            border: 5px solid var(--glass-border);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2), 0 0 0 12px rgba(255, 255, 255, 0.9);
+            border: 4px solid var(--glass-border);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2), 0 0 0 10px rgba(255, 255, 255, 0.9); 
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             flex-shrink: 0;
             background: linear-gradient(135deg, #e8f4fd 0%, #f3e8ff 100%);
-            padding: 8px;
+            padding: 6px;
             position: absolute;
-            top: -80px;
-            left: 20px;
+            top: -60px;
+            left: 50%;
             z-index: 10;
-            transform: translateY(0) scale(1) translateZ(0);
+            transform: translateX(-50%); 
             will-change: transform;
         }
         
@@ -971,16 +971,17 @@
         }
         
         .testimonial-card {
-            padding-top: 90px;
+            padding-top: 100px;
             position: relative;
             padding-bottom: 40px;
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
         }
         
         .testimonial-text {
             margin-bottom: 30px;
             padding-top: 20px;
+            text-align: center; 
         }
         
         .testimonial-card:hover .author-avatar {
@@ -993,6 +994,7 @@
             margin-left: 0;
             padding-left: 0;
             margin-top: 10px;
+            text-align: center; 
         }
         
         .author-info h4 {
@@ -1288,6 +1290,17 @@
                 padding-left: 20px;
                 padding-right: 20px;
             }
+           .hero-profile-wrapper {
+                width: 250px;
+                height: 250px;
+                top: 100px;
+             }     
+
+            .author-avatar {
+                width: 100px;
+                height: 100px;
+                top: -50px;
+            }
             
             .nav-links {
                 display: none;
@@ -1307,7 +1320,7 @@
             }
             
             .hero-content {
-                margin-top: 150px;
+                margin-top: 180px;
             }
             
             .about-stats {
@@ -1333,6 +1346,10 @@
                 font-size: 40px;
                 width: 40px;
                 height: 40px;
+            }
+
+           .testimonial-card {
+                padding-top: 80px;
             }
             
             .testimonials-grid {
