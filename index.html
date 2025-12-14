@@ -2033,6 +2033,19 @@ body.loaded::before {
 
 <!-- CINEMATIC PORTFOLIO TRAILER - OPTIMIZED -->
 <div class="loader">
+  <!-- Audio for Trailer -->
+<audio id="whoosh-sound" preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
+</audio>
+<audio id="impact-sound" preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2287/2287-preview.mp3" type="audio/mpeg">
+</audio>
+<audio id="reveal-sound" preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
+</audio>
+<audio id="final-sound" preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2018/2018-preview.mp3" type="audio/mpeg">
+</audio>
     <!-- Cinematic Bars -->
     <div class="cinematic-bars top"></div>
     <div class="cinematic-bars bottom"></div>
@@ -2897,8 +2910,7 @@ body.loaded::before {
     </div>
 </footer>
 <script>
-    // Create floating particles - REDUCED FOR PERFORMANCE
-// Optimized Particles - Reduced from 50 to 20
+    // Optimized Particles - Reduced from 50 to 20
 const particlesContainer = document.querySelector('.particles');
 for (let i = 0; i < 20; i++) {
     const particle = document.createElement('div');
@@ -2909,12 +2921,75 @@ for (let i = 0; i < 20; i++) {
     particlesContainer.appendChild(particle);
 }
 
-// Cinematic Portfolio Trailer - OPTIMIZED
+// Cinematic Portfolio Trailer - WITH SOUND FX
 window.addEventListener('load', () => {
     const loader = document.querySelector('.loader');
     const skipBtn = document.querySelector('.skip-intro');
     
+    // Sound effects
+    const whooshSound = document.getElementById('whoosh-sound');
+    const impactSound = document.getElementById('impact-sound');
+    const revealSound = document.getElementById('reveal-sound');
+    const finalSound = document.getElementById('final-sound');
+    
+    // Set volumes (0 to 1)
+    if (whooshSound) whooshSound.volume = 0.4;
+    if (impactSound) impactSound.volume = 0.5;
+    if (revealSound) revealSound.volume = 0.3;
+    if (finalSound) finalSound.volume = 0.6;
+    
+    // Play sound helper
+    function playSound(sound) {
+        if (sound) {
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log('Audio play failed:', e));
+        }
+    }
+    
+    // Sound timeline
+    let soundTimeline;
+    function startSoundTimeline() {
+        // Scene 1: Email Marketing - Whoosh (0s)
+        setTimeout(() => playSound(whooshSound), 100);
+        
+        // Scene 2: Visual Design - Impact (1.2s)
+        setTimeout(() => playSound(impactSound), 1200);
+        
+        // Scene 3: SEO & Content - Whoosh (2.4s)
+        setTimeout(() => playSound(whooshSound), 2400);
+        
+        // Scene 4: Final Reveal - Reveal sound (3.6s)
+        setTimeout(() => playSound(revealSound), 3600);
+        
+        // Stats appear - Final impact (4.2s)
+        setTimeout(() => playSound(finalSound), 4200);
+    }
+    
+    // Start sounds after user interaction (browsers require this)
+    let soundsStarted = false;
+    function initSounds() {
+        if (!soundsStarted) {
+            soundsStarted = true;
+            startSoundTimeline();
+        }
+    }
+    
+    // Try to start sounds on load, or wait for interaction
+    setTimeout(initSounds, 100);
+    
+    // Also start on any interaction
+    document.addEventListener('click', initSounds, { once: true });
+    document.addEventListener('keydown', initSounds, { once: true });
+    
     function endTrailer() {
+        // Stop all sounds
+        [whooshSound, impactSound, revealSound, finalSound].forEach(sound => {
+            if (sound) {
+                sound.pause();
+                sound.currentTime = 0;
+            }
+        });
+        
         // Fade out scenes first
         document.querySelectorAll('.trailer-scene').forEach(scene => {
             scene.style.transition = 'opacity 0.5s ease';
