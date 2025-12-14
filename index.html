@@ -502,24 +502,24 @@
         }
         
         .about-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 50px;
-        }
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* Reduced from 30px */
+    margin-top: 50px;
+}
         
         .stat-card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: var(--shadow-sm);
-            position: relative;
-            overflow: hidden;
-        }
+    background: var(--card-bg);
+    padding: 30px 25px; /* Reduced from 40px */
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
         
         .stat-card::before {
             content: '';
@@ -555,11 +555,13 @@
         }
         
         .stat-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    font-size: 13px; /* Reduced from 14px */
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    line-height: 1.4;
+}
         
         .about-image {
             opacity: 0;
@@ -1903,12 +1905,13 @@ box-shadow: var(--shadow-md);
 }
 
 .stat-number {
-    font-size: clamp(40px, 8vw, 70px);
+    font-size: 42px; /* Reduced from 48px */
     font-weight: 900;
-    background: linear-gradient(135deg, #6366f1, #ec4899);
+    background: linear-gradient(135deg, var(--accent), #ec4899);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    margin-bottom: 8px; /* Reduced from 12px */
     line-height: 1;
 }
 
@@ -2875,19 +2878,19 @@ body.loaded::before {
                     every frame feel alive and authentic.
                 </p>
                 <div class="about-stats">
-                    <div class="stat-card">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">SEO Articles</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">3.7</div>
-                        <div class="stat-label">GPA / 4.0 (Class I)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">90%</div>
-                        <div class="stat-label">Product Detail Quality</div>
-                    </div>
-                </div>
+    <div class="stat-card">
+        <div class="stat-number">8</div>
+        <div class="stat-label">SEO Articles</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">3.7</div>
+        <div class="stat-label">GPA / 4.0 (Class I)</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">90%</div>
+        <div class="stat-label">Product Detail Quality</div>
+    </div>
+</div>
             </div>
             <div class="about-image">
                 <div class="profile-card">
