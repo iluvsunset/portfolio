@@ -1732,10 +1732,11 @@ box-shadow: var(--shadow-md);
 }
 
 /* Cinematic Bars (Top & Bottom) */
+/* Cinematic Bars (Top & Bottom) - FIXED HEIGHT */
 .cinematic-bars {
     position: absolute;
     width: 100%;
-    height: 15%;
+    height: 80px; /* Fixed smaller height instead of 15% */
     background: #000;
     z-index: 10;
     transform: translate3d(0, 0, 0);
@@ -1761,7 +1762,15 @@ box-shadow: var(--shadow-md);
     to { transform: translateY(0); }
 }
 
+/* Mobile - Even smaller bars */
+@media (max-height: 700px) {
+    .cinematic-bars {
+        height: 50px;
+    }
+}
+
 /* Trailer Scenes */
+/* Trailer Scenes - ADD PADDING */
 .trailer-scene {
     position: absolute;
     top: 0;
@@ -1771,9 +1780,17 @@ box-shadow: var(--shadow-md);
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 100px 20px; /* Add padding to avoid bars */
     opacity: 0;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
+}
+
+/* Mobile - adjust padding */
+@media (max-height: 700px) {
+    .trailer-scene {
+        padding: 70px 20px;
+    }
 }
 
 /* Scene 1: Email Marketing - 0s to 1.2s */
@@ -1936,9 +1953,10 @@ box-shadow: var(--shadow-md);
 }
 
 /* Skip Button */
+/* Skip Button - ADJUSTED POSITION */
 .skip-intro {
     position: absolute;
-    bottom: 30px;
+    bottom: 100px; /* Moved up from 30px to clear the bottom bar */
     right: 30px;
     padding: 12px 30px;
     background: rgba(255, 255, 255, 0.1);
@@ -1955,6 +1973,12 @@ box-shadow: var(--shadow-md);
     z-index: 20;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
+}
+
+@media (max-height: 700px) {
+    .skip-intro {
+        bottom: 70px; /* Adjust for smaller bars on mobile */
+    }
 }
 
 .skip-intro:hover {
