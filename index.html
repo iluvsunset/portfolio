@@ -1674,13 +1674,12 @@ box-shadow: var(--shadow-md);
    CINEMATIC SCENE ANIMATIONS - HOLLYWOOD STYLE
    ============================================ */
 
-/* Scene 1: EMAIL MARKETING - Explosive Zoom In + Flash */
+/* Scene 1: EMAIL MARKETING - Starts at 0s, stays until 5s */
 .trailer-container.playing .scene-1 {
     visibility: visible;
-    animation: scene1-explosive-entry 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: scene1-explosive-entry 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     background: radial-gradient(circle at center, rgba(99, 102, 241, 0.2), rgba(236, 72, 153, 0.1), transparent);
 }
-
 
 @keyframes scene1-explosive-entry {
     0% {
@@ -1688,19 +1687,19 @@ box-shadow: var(--shadow-md);
         transform: scale(2) rotate(5deg);
         filter: brightness(3) blur(20px);
     }
-    20% {
+    10% {  /* Takes 0.5s to appear */
         opacity: 1;
         filter: brightness(1.5) blur(5px);
     }
-    50% {
+    20% {  /* Settled at 1s */
         transform: scale(1) rotate(0deg);
         filter: brightness(1) blur(0px);
     }
-    85% {
+    90% {  /* Stays visible until 4.5s */
         opacity: 1;
         transform: scale(1);
     }
-    100% {
+    100% {  /* Fades out at 5s */
         opacity: 0;
         transform: scale(0.8) translateY(-50px);
         filter: brightness(0.5);
@@ -1766,7 +1765,7 @@ box-shadow: var(--shadow-md);
 /* Scene 2: VISUAL DESIGN - 3D Rotation + Shatter Effect */
 .trailer-container.playing .scene-2 {
     visibility: visible;
-    animation: scene2-3d-rotate 7s 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: scene2-3d-rotate 7s 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(59, 130, 246, 0.15));
     transform-style: preserve-3d;
     perspective: 1000px;
@@ -1796,8 +1795,8 @@ box-shadow: var(--shadow-md);
 
 /* Scene 2 Text - Typewriter + Glitch */
 .trailer-container.playing .scene-2 .trailer-title {
-    animation: title-glitch 1.2s 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    opacity: 1; /* Force stay visible */
+    animation: title-glitch 1.2s 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 1;
 }
 
 @keyframes title-glitch {
@@ -1826,14 +1825,15 @@ box-shadow: var(--shadow-md);
 }
 
 .trailer-container.playing .scene-2 .trailer-tag {
-    animation: tag-pop 0.5s 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
-    opacity: 1; /* Force stay visible */
+    animation: tag-pop 0.5s 5.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+    opacity: 1;
 }
 
 .trailer-container.playing .scene-2 .trailer-tag:nth-child(3) {
-    animation-delay: 3.2s;
-    opacity: 1; /* Force stay visible */
+    animation-delay: 5.7s;
+    opacity: 1;
 }
+
 
 @keyframes tag-pop {
     0% {
@@ -1850,8 +1850,8 @@ box-shadow: var(--shadow-md);
 }
 
 .trailer-container.playing .scene-2 .trailer-subtitle {
-    animation: subtitle-fade-2 0.8s 3.5s ease-out both;
-    opacity: 1; /* Force stay visible */
+    animation: subtitle-fade-2 0.8s 6s ease-out both;
+    opacity: 1;
 }
 
 @keyframes subtitle-fade-2 {
@@ -1870,9 +1870,10 @@ box-shadow: var(--shadow-md);
 /* Scene 3: SEO & CONTENT - Matrix Rain Effect */
 .trailer-container.playing .scene-3 {
     visibility: visible;
-    animation: scene3-matrix 10s 10s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.15));
+    animation: scene3-epic-reveal 4s 12s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    background: radial-gradient(circle at center, rgba(255, 184, 77, 0.25), rgba(99, 102, 241, 0.1), transparent);
 }
+
 
 @keyframes scene3-matrix {
     0% {
@@ -3538,7 +3539,7 @@ window.addEventListener('load', () => {
         
         // Start sounds and auto-end after 24 seconds (let all sounds finish)
         startSoundTimeline();
-        trailerTimeout = setTimeout(endTrailer, 24000);
+        trailerTimeout = setTimeout(endTrailer, 26000);
     }
     
     // End trailer
