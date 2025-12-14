@@ -169,16 +169,16 @@
         
         /* Hero Section */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: visible;
-            padding: 80px 60px 120px;
-            background: #fafafa;
-        }
+        min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: visible;
+    padding: 80px 60px 120px;
+    background: #fafafa;
+}
         
         .hero-bg {
             display: none;
@@ -213,26 +213,27 @@
         }
         
         .hero-subtitle {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-            font-family: 'Montserrat', sans-serif;
-            position: relative;
-            z-index: 3; 
-        text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);  /* Add white shadow for contrast */
-    background: rgba(255, 255, 255, 0.7);  /* Add semi-transparent white background */
-    padding: 10px 20px;  /* Add padding */
-    border-radius: 8px;  /* Round the corners */
-    display: inline-block;  /* Make background fit text */
-        }
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 60px;  /* Increase spacing below subtitle */
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    z-index: 3;
+    background: #fff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
         
         .hero-title-wrapper {
             position: relative;
             display: inline-block;
             margin: 0 auto;
+            margin-top: 100px; 
         }
         
         .hero-title {
@@ -259,6 +260,7 @@
             transform: translate(-50%, -50%);
             z-index: 1;
             pointer-events: none;
+             margin-top: 20px; 
         }
         
         .hero-contact {
