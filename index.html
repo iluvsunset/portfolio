@@ -2019,6 +2019,48 @@ body.loaded::before {
     }
 }
 
+/* Mute Button */
+.mute-toggle {
+    position: absolute;
+    bottom: 90px;
+    left: 30px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 20;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mute-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.mute-toggle.muted .mute-icon::after {
+    content: '🔇';
+    position: absolute;
+}
+
+.mute-toggle.muted .mute-icon {
+    opacity: 0;
+}
+
+@media (max-height: 768px) {
+    .mute-toggle {
+        bottom: 60px;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -2046,6 +2088,12 @@ body.loaded::before {
 <audio id="final-sound" preload="auto">
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c610647610.mp3" type="audio/mpeg">
 </audio>
+
+<!-- Mute Button (optional) -->
+<button class="mute-toggle" id="mute-toggle">
+    <span class="mute-icon">🔊</span>
+</button>
+
     <!-- Cinematic Bars -->
     <div class="cinematic-bars top"></div>
     <div class="cinematic-bars bottom"></div>
@@ -2921,11 +2969,12 @@ for (let i = 0; i < 20; i++) {
     particlesContainer.appendChild(particle);
 }
 
-// Cinematic Portfolio Trailer - WITH SOUND FX
-// Cinematic Portfolio Trailer - WITH SOUND FX (FIXED)
+// Cinematic Portfolio Trailer - AUTOPLAY WORKAROUND
+// Cinematic Portfolio Trailer - AUTOPLAY WORKAROUND WITH MUTE TOGGLE
 window.addEventListener('load', () => {
     const loader = document.querySelector('.loader');
     const skipBtn = document.querySelector('.skip-intro');
+    const muteBtn = document.getElementById('mute-toggle');
     
     // Sound effects
     const whooshSound = document.getElementById('whoosh-sound');
@@ -2933,74 +2982,101 @@ window.addEventListener('load', () => {
     const revealSound = document.getElementById('reveal-sound');
     const finalSound = document.getElementById('final-sound');
     
-    // Set volumes (0 to 1)
+    // TRICK: Try to play muted first, then unmute
+    const allSounds = [whooshSound, impactSound, revealSound, finalSound];
+    
+    // Attempt 1: Muted autoplay (browsers allow this)
+    allSounds.forEach(sound => {
+        if (sound) {
+            sound.muted = true;
+            sound.play().then(() => {
+                sound.pause();
+                sound.currentTime = 0;
+            }).catch(() => {});
+        }
+    });
+    
+    // Set volumes
     if (whooshSound) whooshSound.volume = 0.3;
     if (impactSound) impactSound.volume = 0.4;
     if (revealSound) revealSound.volume = 0.3;
     if (finalSound) finalSound.volume = 0.5;
     
-    // Sound state
-    let soundsStarted = false;
     let soundTimeouts = [];
+    let soundsEnabled = false;
+    let isMuted = false;
     
-    // Play sound helper with better error handling
+    // Mute toggle functionality
+    if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+            isMuted = !isMuted;
+            muteBtn.classList.toggle('muted');
+            
+            allSounds.forEach(sound => {
+                if (sound) sound.muted = isMuted;
+            });
+        });
+    }
+    
+    // Play sound helper
     function playSound(sound) {
-        if (sound && soundsStarted) {
+        if (sound) {
             sound.currentTime = 0;
+            if (!isMuted) {
+                sound.muted = false; // Unmute before playing
+            }
             const playPromise = sound.play();
             if (playPromise !== undefined) {
-                playPromise.catch(e => {
-                    // Silently fail - this is normal if user hasn't interacted yet
+                playPromise.then(() => {
+                    soundsEnabled = true;
+                }).catch(() => {
+                    // If it fails, just continue silently
+                    sound.muted = true;
                 });
             }
         }
     }
     
-    // Sound timeline
+    // Sound timeline - START IMMEDIATELY
     function startSoundTimeline() {
-        // Clear any existing timeouts
         soundTimeouts.forEach(timeout => clearTimeout(timeout));
         soundTimeouts = [];
         
-        // Scene 1: Email Marketing - Whoosh (0s)
+        // Unmute all sounds first (unless user muted)
+        if (!isMuted) {
+            allSounds.forEach(sound => {
+                if (sound) sound.muted = false;
+            });
+        }
+        
         soundTimeouts.push(setTimeout(() => playSound(whooshSound), 100));
-        
-        // Scene 2: Visual Design - Impact (1.2s)
         soundTimeouts.push(setTimeout(() => playSound(impactSound), 1200));
-        
-        // Scene 3: SEO & Content - Whoosh (2.4s)
         soundTimeouts.push(setTimeout(() => playSound(whooshSound), 2400));
-        
-        // Scene 4: Final Reveal - Reveal sound (3.6s)
         soundTimeouts.push(setTimeout(() => playSound(revealSound), 3600));
-        
-        // Stats appear - Final impact (4.2s)
         soundTimeouts.push(setTimeout(() => playSound(finalSound), 4200));
     }
     
-    // Initialize sounds ONLY after user interaction
-    function initSounds() {
-        if (!soundsStarted) {
-            soundsStarted = true;
-            startSoundTimeline();
+    // START SOUNDS IMMEDIATELY (with fallback)
+    setTimeout(() => {
+        startSoundTimeline();
+    }, 200);
+    
+    // Fallback: If user moves mouse or touches screen, ensure sounds work
+    const enableSounds = () => {
+        if (!soundsEnabled && !isMuted) {
+            allSounds.forEach(sound => {
+                if (sound) sound.muted = false;
+            });
         }
-    }
+    };
     
-    // CRITICAL: Only start sounds on user interaction (required by browsers)
-    // This prevents the "NotAllowedError"
-    const interactionEvents = ['click', 'touchstart', 'keydown'];
-    interactionEvents.forEach(eventType => {
-        document.addEventListener(eventType, initSounds, { once: true });
-    });
-    
-    // Also listen on skip button specifically
-    if (skipBtn) {
-        skipBtn.addEventListener('mouseenter', initSounds, { once: true });
-    }
+    document.addEventListener('mousemove', enableSounds, { once: true });
+    document.addEventListener('touchstart', enableSounds, { once: true });
     
     function endTrailer() {
         // Stop all sounds
-        [whooshSound, impactSound, revealSound, finalSound].forEach(sound => {
+        soundTimeouts.forEach(timeout => clearTimeout(timeout));
+        allSounds.forEach(sound => {
             if (sound) {
                 sound.pause();
                 sound.currentTime = 0;
@@ -3018,9 +3094,8 @@ window.addEventListener('load', () => {
             loader.classList.add('fade-out');
             setTimeout(() => {
                 loader.style.display = 'none';
-                loader.remove(); // Free memory
+                loader.remove();
                 
-                // Enable main page animations
                 document.body.classList.remove('loading');
                 document.body.classList.add('loaded');
             }, 1200);
