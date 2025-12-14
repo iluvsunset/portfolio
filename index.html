@@ -1483,12 +1483,17 @@ box-shadow: var(--shadow-md);
 }
 
 .loader.fade-out {
-    animation: trailer-fade-out 1s ease forwards;
+    animation: trailer-fade-out 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes trailer-fade-out {
-    to {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
         opacity: 0;
+        transform: scale(1.05);
         visibility: hidden;
     }
 }
@@ -2680,6 +2685,47 @@ box-shadow: var(--shadow-md);
     }
 }
 
+/* Disable main page animations while loader is active */
+body.loading {
+    overflow: hidden;
+}
+
+body.loading .particles,
+body.loading .cursor,
+body.loading .cursor-follower {
+    display: none !important;
+}
+
+/* Only enable main animations after loader is gone */
+.particles,
+body::before {
+    animation-play-state: paused;
+}
+
+body.loaded .particles,
+body.loaded::before {
+    animation-play-state: running;
+}
+
+/* Reduce animation complexity for performance */
+@media (max-width: 1366px), (max-height: 768px) {
+    /* Simplify gradients */
+    .scene-1,
+    .scene-2,
+    .scene-3 {
+        background: rgba(99, 102, 241, 0.05) !important;
+    }
+    
+    /* Disable blur effects */
+    .trailer-tag {
+        backdrop-filter: none !important;
+    }
+    
+    .skip-intro {
+        backdrop-filter: none !important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -3558,39 +3604,55 @@ box-shadow: var(--shadow-md);
     </div>
 </footer>
 <script>
-    // Create floating particles
-    const particlesContainer = document.querySelector('.particles');
-    for (let i = 0; i < 50; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-        particlesContainer.appendChild(particle);
-    }
+    // Create floating particles - REDUCED FOR PERFORMANCE
+const particlesContainer = document.querySelector('.particles');
+// Reduced from 50 to 20 particles
+for (let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+    particlesContainer.appendChild(particle);
+}
     
-    // Premium Loader with delay
-// Cinematic Portfolio Trailer
+    // Cinematic Portfolio Trailer - OPTIMIZED
 window.addEventListener('load', () => {
     const loader = document.querySelector('.loader');
     const skipBtn = document.querySelector('.skip-intro');
     
-    // Function to end trailer
+    // Function to end trailer smoothly
     function endTrailer() {
-        loader.classList.add('fade-out');
+        // Fade out all scenes first
+        document.querySelectorAll('.trailer-scene').forEach(scene => {
+            scene.style.transition = 'opacity 0.5s ease';
+            scene.style.opacity = '0';
+        });
+        
+        // Then fade out the entire loader
         setTimeout(() => {
-            loader.style.display = 'none';
-        }, 1000);
+            loader.classList.add('fade-out');
+            setTimeout(() => {
+                loader.style.display = 'none';
+                loader.remove(); // Remove from DOM
+                
+                // Enable main page animations
+                document.body.classList.remove('loading');
+                document.body.classList.add('loaded');
+            }, 1200);
+        }, 300);
     }
     
     // Auto end after 6 seconds
     const autoEnd = setTimeout(endTrailer, 6000);
     
     // Skip button
-    skipBtn.addEventListener('click', () => {
-        clearTimeout(autoEnd);
-        endTrailer();
-    });
+    if (skipBtn) {
+        skipBtn.addEventListener('click', () => {
+            clearTimeout(autoEnd);
+            endTrailer();
+        });
+    }
 });
     
     // Premium Cursor
