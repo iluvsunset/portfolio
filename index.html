@@ -913,13 +913,27 @@
         
         .testimonial-author {
             display: flex;
-            align-items: center;
-            gap: 15px;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .author-info {
+            margin-left: 140px;
+        }
+        
+        .testimonial-author {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 20px;
         }
         
         .author-avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -927,12 +941,18 @@
             font-weight: 600;
             font-size: 20px;
             overflow: hidden;
-            border: 3px solid var(--glass-border);
-            box-shadow: var(--shadow-md);
+            border: 4px solid var(--glass-border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 0 0 8px rgba(255, 255, 255, 0.8);
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             flex-shrink: 0;
             background: linear-gradient(135deg, #e8f4fd 0%, #f3e8ff 100%);
-            padding: 4px;
+            padding: 6px;
+            position: absolute;
+            top: -70px;
+            left: 0;
+            z-index: 10;
+            transform: translateY(0) scale(1) translateZ(0);
+            will-change: transform;
         }
         
         .author-avatar img {
@@ -942,10 +962,20 @@
             border-radius: 50%;
         }
         
+        .testimonial-card {
+            padding-top: 70px;
+            position: relative;
+        }
+        
         .testimonial-card:hover .author-avatar {
-            transform: scale(1.15);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-15px) scale(1.15) rotate(5deg) translateZ(20px);
+            box-shadow: 0 20px 60px rgba(0, 113, 227, 0.4), 0 0 0 10px rgba(255, 255, 255, 0.95);
             border-color: var(--accent);
+        }
+        
+        .author-info {
+            margin-left: 0;
+            padding-left: 140px;
         }
         
         .author-info h4 {
@@ -1474,12 +1504,30 @@
             </div>
         </div>
         
-        <!-- Email Marketing Gallery -->
-        <div class="portfolio-item email-gallery-trigger" data-category="email" data-gallery="email">
-            <img src="images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaunch1.png" alt="Email Marketing Gallery" class="portfolio-image">
+        <!-- Email Marketing - New Collection Launch -->
+        <div class="portfolio-item email-gallery-trigger" data-category="email" data-gallery="newcollection">
+            <img src="images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaunch1.png" alt="New Collection Launch" class="portfolio-image">
             <div class="portfolio-overlay">
-                <h3 class="portfolio-title">Email Marketing Collection</h3>
-                <p class="portfolio-category">Click to view all • Merci Majolie</p>
+                <h3 class="portfolio-title">New Collection Launch</h3>
+                <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
+            </div>
+        </div>
+        
+        <!-- Email Marketing - Back in Stock -->
+        <div class="portfolio-item email-gallery-trigger" data-category="email" data-gallery="backinstock">
+            <img src="images/social media desgin/email marketing/backinstock/backinstock1.png" alt="Back in Stock" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Back in Stock Campaign</h3>
+                <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
+            </div>
+        </div>
+        
+        <!-- Email Marketing - Summer Sale Off -->
+        <div class="portfolio-item email-gallery-trigger" data-category="email" data-gallery="summersale">
+            <img src="images/social media desgin/email marketing/summersaleoff/summersaleoff1.png" alt="Summer Sale Off" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Summer Sale Off</h3>
+                <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
             </div>
         </div>
         
@@ -1625,22 +1673,90 @@
             </div>
         </div>
         
-        <div class="portfolio-item" data-category="seo">
-            <img src="images/SEO:Copywriting/facebook/image1.png" alt="Content Strategy" class="portfolio-image">
+        <!-- Service Content Strategy - Facebook Posts -->
+        <div class="portfolio-item facebook-gallery-trigger" data-category="seo" data-gallery="facebook">
+            <img src="images/SEO:Copywriting/facebook/image1.png" alt="Service Content Strategy" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Service Content Strategy</h3>
-                <p class="portfolio-category">SEO & Content • USP Focus</p>
+                <p class="portfolio-category">SEO & Content • Click to view all • USP Focus</p>
             </div>
         </div>
         
+        <!-- Individual Facebook Posts (hidden, accessible via gallery) -->
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image1.2.png" alt="Facebook Post 1.2" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image1.3.png" alt="Facebook Post 1.3" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image1.4.png" alt="Facebook Post 1.4" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image3.1.png" alt="Facebook Post 3.1" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image3.2.png" alt="Facebook Post 3.2" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image3.3.png" alt="Facebook Post 3.3" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image3.4.png" alt="Facebook Post 3.4" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <!-- Report & Performance - Business -->
         <div class="portfolio-item" data-category="seo">
-            <img src="images/Report & Performance/Business/1.jpg" alt="Analytics Dashboard" class="portfolio-image">
+            <img src="images/Report & Performance/Business/1.jpg" alt="Performance Tracking" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Performance Tracking</h3>
                 <p class="portfolio-category">Analytics • Data-Driven Strategy</p>
             </div>
         </div>
         
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/Report & Performance/Business/2.png" alt="Business Analytics" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Business Analytics Dashboard</h3>
+                <p class="portfolio-category">Analytics • Performance Metrics</p>
+            </div>
+        </div>
+        
+        <!-- Report & Performance - Business2 -->
         <div class="portfolio-item" data-category="seo">
             <img src="images/Report & Performance/Business2/1.png" alt="Keyword Research" class="portfolio-image">
             <div class="portfolio-overlay">
@@ -1650,18 +1766,52 @@
         </div>
         
         <div class="portfolio-item" data-category="seo">
-            <img src="images/Report & Performance/Ranktank/1.jpg" alt="SEO Rankings" class="portfolio-image">
+            <img src="images/Report & Performance/Business2/2.png" alt="SEO Analysis" class="portfolio-image">
             <div class="portfolio-overlay">
-                <h3 class="portfolio-title">Top Google Rankings</h3>
-                <p class="portfolio-category">SEO Success • #1 Positions</p>
+                <h3 class="portfolio-title">SEO Analysis Report</h3>
+                <p class="portfolio-category">SEO Strategy • Data Analysis</p>
             </div>
         </div>
         
+        <!-- Report & Performance - Business3 -->
         <div class="portfolio-item" data-category="seo">
             <img src="images/Report & Performance/Business3/1.png" alt="Content Planning" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Strategic Content Planning</h3>
                 <p class="portfolio-category">Content Strategy • Multi-Platform</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/Report & Performance/Business3/2.png" alt="Content Strategy" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Content Strategy Overview</h3>
+                <p class="portfolio-category">Content Strategy • Planning</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/Report & Performance/Business3/3.png" alt="Content Performance" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Content Performance Metrics</h3>
+                <p class="portfolio-category">Analytics • Content Performance</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/Report & Performance/Business3/4.jpg" alt="Content Analytics" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Content Analytics Dashboard</h3>
+                <p class="portfolio-category">Analytics • Content Insights</p>
+            </div>
+        </div>
+        
+        <!-- Report & Performance - Ranktank -->
+        <div class="portfolio-item" data-category="seo">
+            <img src="images/Report & Performance/Ranktank/1.jpg" alt="SEO Rankings" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Top Google Rankings</h3>
+                <p class="portfolio-category">SEO Success • #1 Positions</p>
             </div>
         </div>
     </div>
@@ -1897,15 +2047,25 @@
     
     // Gallery Data
     const galleryData = {
-        email: {
-            title: 'Email Marketing Collection',
+        newcollection: {
+            title: 'New Collection Launch - Email Marketing',
             images: [
                 { src: 'images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaunch1.png', alt: 'New Collection Launch 1' },
                 { src: 'images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaunch2.png', alt: 'New Collection Launch 2' },
-                { src: 'images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaucn3.png', alt: 'New Collection Launch 3' },
+                { src: 'images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaucn3.png', alt: 'New Collection Launch 3' }
+            ]
+        },
+        backinstock: {
+            title: 'Back in Stock Campaign - Email Marketing',
+            images: [
                 { src: 'images/social media desgin/email marketing/backinstock/backinstock1.png', alt: 'Back in Stock 1' },
                 { src: 'images/social media desgin/email marketing/backinstock/backinstock2.png', alt: 'Back in Stock 2' },
-                { src: 'images/social media desgin/email marketing/backinstock/backinstock3.png', alt: 'Back in Stock 3' },
+                { src: 'images/social media desgin/email marketing/backinstock/backinstock3.png', alt: 'Back in Stock 3' }
+            ]
+        },
+        summersale: {
+            title: 'Summer Sale Off - Email Marketing',
+            images: [
                 { src: 'images/social media desgin/email marketing/summersaleoff/summersaleoff1.png', alt: 'Summer Sale 1' },
                 { src: 'images/social media desgin/email marketing/summersaleoff/summersaleoff2.png', alt: 'Summer Sale 2' },
                 { src: 'images/social media desgin/email marketing/summersaleoff/summersaleoff3.png', alt: 'Summer Sale 3' }
@@ -1922,6 +2082,19 @@
                 { src: 'images/SEO:Copywriting/Article/6.png', alt: 'SEO Article 6' },
                 { src: 'images/SEO:Copywriting/Article/7.png', alt: 'SEO Article 7' },
                 { src: 'images/SEO:Copywriting/Article/8.png', alt: 'SEO Article 8' }
+            ]
+        },
+        facebook: {
+            title: 'Service Content Strategy - Facebook Posts',
+            images: [
+                { src: 'images/SEO:Copywriting/facebook/image1.png', alt: 'Facebook Post 1' },
+                { src: 'images/SEO:Copywriting/facebook/image1.2.png', alt: 'Facebook Post 1.2' },
+                { src: 'images/SEO:Copywriting/facebook/image1.3.png', alt: 'Facebook Post 1.3' },
+                { src: 'images/SEO:Copywriting/facebook/image1.4.png', alt: 'Facebook Post 1.4' },
+                { src: 'images/SEO:Copywriting/facebook/image3.1.png', alt: 'Facebook Post 3.1' },
+                { src: 'images/SEO:Copywriting/facebook/image3.2.png', alt: 'Facebook Post 3.2' },
+                { src: 'images/SEO:Copywriting/facebook/image3.3.png', alt: 'Facebook Post 3.3' },
+                { src: 'images/SEO:Copywriting/facebook/image3.4.png', alt: 'Facebook Post 3.4' }
             ]
         }
     };
@@ -1959,11 +2132,13 @@
     }
     
     // Gallery triggers
-    document.querySelectorAll('.email-gallery-trigger, .article-gallery-trigger').forEach(trigger => {
+    document.querySelectorAll('.email-gallery-trigger, .article-gallery-trigger, .facebook-gallery-trigger').forEach(trigger => {
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
-            const galleryType = trigger.classList.contains('email-gallery-trigger') ? 'email' : 'articles';
-            openGallery(galleryType);
+            const galleryType = trigger.getAttribute('data-gallery');
+            if (galleryType) {
+                openGallery(galleryType);
+            }
         });
     });
     
@@ -1984,7 +2159,9 @@
     const closeLightbox = document.querySelector('.close-lightbox');
     
     portfolioItems.forEach(item => {
-        if (!item.classList.contains('email-gallery-trigger') && !item.classList.contains('article-gallery-trigger')) {
+        if (!item.classList.contains('email-gallery-trigger') && 
+            !item.classList.contains('article-gallery-trigger') && 
+            !item.classList.contains('facebook-gallery-trigger')) {
             item.addEventListener('click', () => {
                 const img = item.querySelector('.portfolio-image');
                 const title = item.querySelector('.portfolio-title').textContent;
