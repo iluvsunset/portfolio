@@ -277,8 +277,8 @@
     position: relative;
     width: 400px;
     height: 500px;
-    margin: 0 auto 40px;  /* Center horizontally and add bottom margin */
-    z-index: 1;
+    margin: 0 auto 40px;
+    z-index: 1;  /* Lower z-index than the title */
     pointer-events: none;
 }
         
@@ -356,22 +356,18 @@
         }
         
         .hero-title {
-            font-size: clamp(48px, 8vw, 80px); 
+    font-size: clamp(48px, 8vw, 80px); 
     font-weight: 900;
     letter-spacing: -2px;
     margin: 0;
-     color: #ffb84d;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-            position: relative;
-            z-index: 3;
-            line-height: 1.1;
-            white-space: nowrap;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    color: #ffb84d;  /* This solid color will show */
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 3;  /* Higher than the image's z-index: 1 */
+    line-height: 1.1;
+    white-space: nowrap;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
             animation: title-shimmer 4s ease-in-out infinite;
         }
@@ -2940,4 +2936,4 @@ box-shadow: var(--shadow-md);
         }
     </script>
 </body>
-</html>fix
+</html>
