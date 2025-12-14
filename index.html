@@ -171,138 +171,100 @@
         .hero {
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: visible;
-            padding: 140px 20px 60px;
+            padding: 80px 60px 120px;
+            background: #fafafa;
         }
         
         .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 30% 30%, rgba(0, 113, 227, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 70% 70%, rgba(147, 51, 234, 0.06) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-            z-index: 0;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
+            display: none;
         }
         
         .hero-profile-wrapper {
             position: absolute;
             width: 400px;
-            height: 400px;
-            border-radius: 50%;
+            height: 500px;
             top: 50%;
-            right: 10%;
-            transform: translateY(-50%);
-            background: linear-gradient(135deg, #e8f4fd 0%, #f3e8ff 100%);
-            padding: 12px;
-            box-shadow: 0 20px 60px rgba(0, 113, 227, 0.15);
-            z-index: 0;
-            opacity: 0;
-            animation: fadeInRight 1s ease forwards 0.3s;
-        }
-        
-        .hero-profile-wrapper::before {
-            content: '';
-            position: absolute;
-            inset: -12px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(0, 113, 227, 0.3), rgba(147, 51, 234, 0.3));
-            opacity: 0;
-            animation: pulse-ring 3s ease-in-out infinite;
-            z-index: -1;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            pointer-events: none;
         }
         
         .hero-profile {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             object-fit: cover;
-            filter: drop-shadow(0 10px 30px rgba(0, 113, 227, 0.2));
-            z-index: 0;
-            position: relative;
-        }
-        
-        @keyframes pulse-ring {
-            0%, 100% { opacity: 0; transform: scale(0.95); }
-            50% { opacity: 0.6; transform: scale(1.05); }
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateY(-50%) translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(-50%) translateX(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
+            object-position: center top;
+            border-radius: 0;
+            filter: none;
         }
         
         .hero-content {
-            text-align: left;
-            z-index: 2;
-            padding: 0 60px;
-            max-width: 1400px;
-            width: 100%;
+            text-align: center;
+            z-index: 1;
             position: relative;
+            width: 100%;
+            max-width: 1200px;
         }
         
         .hero-subtitle {
-            font-size: 16px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            letter-spacing: 2px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #333;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.2s;
+            margin-bottom: 40px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .hero-title-wrapper {
             position: relative;
-            z-index: 2;
+            display: inline-block;
+            margin: 0 auto;
         }
         
         .hero-title {
-            font-size: clamp(48px, 8vw, 96px);
-            font-weight: 700;
-            letter-spacing: -3px;
-            margin-bottom: 20px;
-            opacity: 0;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 50%, #9333ea 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 200% auto;
-            animation: fadeInUp 1s ease forwards 0.4s, gradient-shift 8s ease infinite;
+            font-size: clamp(72px, 12vw, 140px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin: 0;
+            color: #ffb84d;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
             position: relative;
-            z-index: 2;
-            max-width: 900px;
+            z-index: 1;
+            line-height: 1.1;
+        }
+        
+        .hero-contact {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 60px;
+            font-size: 14px;
+            color: #333;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .hero-contact-left,
+        .hero-contact-right {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .hero-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         @keyframes gradient-shift {
@@ -310,36 +272,6 @@
             50% { background-position: 100% center; }
         }
         
-        .hero-description {
-            font-size: 20px;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 0 40px;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.6s;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 16px 40px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 980px;
-            font-weight: 500;
-            font-size: 16px;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.8s;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 113, 227, 0.2);
-            z-index: 2;
-        }
         
         .cta-button::before {
             content: '';
@@ -385,6 +317,11 @@
             padding: 120px 60px;
             max-width: 1400px;
             margin: 0 auto;
+        }
+        
+        .testimonials-section {
+            background: #ffffff;
+            padding: 120px 60px;
         }
         
         .section-title {
@@ -886,26 +823,31 @@
     }
 
     /* Testimonials */
+    .testimonials-section {
+        background: #ffffff;
+    }
+    
     .testimonials-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
         margin-top: 60px;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .testimonial-card {
-        background: var(--glass-bg);
-        padding: 140px 40px 40px 40px;
-        border-radius: 24px;
-        border: 1px solid var(--glass-border);
-        backdrop-filter: saturate(180%) blur(20px);
-        -webkit-backdrop-filter: saturate(180%) blur(20px);
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        background: transparent;
+        padding: 0;
+        border: none;
+        display: flex;
+        align-items: flex-start;
+        gap: 30px;
         opacity: 0;
         transform: translateY(30px);
-        box-shadow: var(--shadow-sm);
-        position: relative;
-        min-height: 400px;
+        transition: all 0.8s ease;
+        min-height: auto;
     }
     
     .testimonial-card.visible {
@@ -914,53 +856,21 @@
     }
     
     .testimonial-card:hover {
-        background: var(--card-bg-hover);
-        transform: translateY(-12px) scale(1.02);
-        border-color: var(--accent);
-        box-shadow: var(--shadow-lg);
-    }
-    
-    .testimonial-text {
-        font-size: 18px;
-        line-height: 1.8;
-        color: var(--text-secondary);
-        margin-bottom: 30px;
-        font-style: italic;
-        font-family: 'Cormorant Garamond', serif;
-        padding-top: 20px;
-        text-align: center;
-    }
-    
-    .testimonial-author {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-        margin-top: 20px;
+        transform: none;
     }
     
     .author-avatar {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        font-size: 20px;
-        overflow: hidden;
-        border: 4px solid var(--glass-border);
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2), 0 0 0 10px rgba(255, 255, 255, 0.9);
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         flex-shrink: 0;
-        background: linear-gradient(135deg, #e8f4fd 0%, #f3e8ff 100%);
-        padding: 6px;
-        position: absolute;
-        top: -60px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
+        overflow: hidden;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        padding: 0;
+        position: static;
+        transform: none;
     }
     
     .author-avatar img {
@@ -971,32 +881,39 @@
         border-radius: 50%;
     }
     
-    .testimonial-card:hover .author-avatar {
-        transform: translateX(-50%) translateY(-10px) scale(1.1);
-        box-shadow: 0 25px 70px rgba(0, 113, 227, 0.5), 0 0 0 12px rgba(255, 255, 255, 0.95);
-        border-color: var(--accent);
+    .testimonial-content {
+        flex: 1;
     }
     
     .author-info {
-        margin-left: 0;
-        padding-left: 0;
-        margin-top: 70px;
-        text-align: center;
+        margin-bottom: 12px;
     }
     
     .author-info h4 {
-        font-size: 16px;
-        font-weight: 600;
-        margin-bottom: 5px;
-        font-family: 'Playfair Display', serif;
+        font-size: 18px;
         font-weight: 700;
-        font-style: italic;
-        color: var(--text-primary);
+        margin-bottom: 4px;
+        color: #000;
+        font-family: 'Montserrat', sans-serif;
     }
     
     .author-info p {
-        font-size: 14px;
-        color: var(--text-secondary);
+        font-size: 16px;
+        color: #000;
+        font-weight: 400;
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    .testimonial-text {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #000;
+        margin: 0;
+        font-style: normal;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        text-align: left;
+        padding: 0;
     }
     
     /* Learning Journey Section */
@@ -1569,23 +1486,38 @@
     </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="hero-profile-wrapper">
-        <img src="images/profile/profile.jpg" alt="Nguyen Tu Anh" class="hero-profile">
-    </div>
-    <div class="hero-content">
-        <p class="hero-subtitle">Hello, Welcome to the Portfolio of</p>
-        <h1 class="hero-title">NGUYEN TU ANH</h1>
-        <p class="hero-description">
-            Marketing specialist crafting compelling content and data-driven strategies.
-            I believe the best campaign content balances aesthetics with information—it should look good,
-            feel relevant, and deliver the core message in seconds.
-        </p>
-        <a href="#contact" class="cta-button">Get In Touch</a>
-    </div>
-</section>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-subtitle">HELLO, WELCOME TO THE PORTFOLIO OF</p>
+            <div class="hero-title-wrapper">
+                <div class="hero-profile-wrapper">
+                    <img src="images/profile/profile.jpg" alt="Nguyen Tu Anh" class="hero-profile">
+                </div>
+                <h1 class="hero-title">NGUYEN TU ANH</h1>
+            </div>
+        </div>
+        <div class="hero-contact">
+            <div class="hero-contact-left">
+                <div class="hero-contact-item">
+                    <span>📧</span>
+                    <span>tuanhwork1206@gmail.com</span>
+                </div>
+                <div class="hero-contact-item">
+                    <span>📱</span>
+                    <span>(+84)938206489</span>
+                </div>
+                <div class="hero-contact-item">
+                    <span>(+84)938206489</span>
+                </div>
+            </div>
+            <div class="hero-contact-right">
+                <div class="hero-contact-item">
+                    <span>tuanhwork1206@gmail.com</span>
+                </div>
+            </div>
+        </div>
+    </section>
     
     <!-- About Section -->
     <section id="about">
@@ -2190,76 +2122,75 @@
 </section>
 
 <!-- Testimonials Section -->
-<section id="testimonials">
-    <h2 class="section-title">What Leaders Say</h2>
-    <p class="section-subtitle">"How do you think about me?" - I asked my leaders</p>
+<section id="testimonials" class="testimonials-section">
+    <h2 class="section-title" style="font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; color: #000; font-style: normal;">"HOW DO YOU THINK ABOUT ME?" - I ASKED MY LEADERS</h2>
     <div class="testimonials-grid">
         <div class="testimonial-card">
-            <p class="testimonial-text">
-                "She is a reliable employee with a strong ability to consistently create content 
-                and optimize the website. What I like most is how she combines colors in videos 
-                and images. She is always eager to learn new things and strives to bring valuable 
-                suggestions to the business."
-            </p>
-            <div class="testimonial-author">
-                <div class="author-avatar">
-                    <img src="images/Leader/FounderofMerciMajolie.png" alt="Mr. Louis Haag">
-                </div>
-                <div class="author-info">
-                    <h4>Mr. Louis Haag</h4>
-                    <p>Founder of Merci Majolie</p>
-                </div>
+            <div class="author-avatar">
+                <img src="images/Leader/founderNaviiBeautyRoom.png" alt="Ms. Cao Thái Nguyệt Nga">
             </div>
-        </div>
-        
-        <div class="testimonial-card">
-            <p class="testimonial-text">
-                "She is a proactive person who quickly adapts to new challenges. Her communication 
-                skills, problem-solving mindset, and team spirit made her a reliable support to both 
-                managers and clients. What impressed me most was her mix of creativity and analytical 
-                thinking—she not only produced engaging content but also backed it up with performance 
-                tracking and competitor insights."
-            </p>
-            <div class="testimonial-author">
-                <div class="author-avatar">
-                    <img src="images/Leader/ceoCrossTechnologyandCommunicationAgency.png" alt="Mr. Huu Nghia">
-                </div>
-                <div class="author-info">
-                    <h4>Mr. Huu Nghia</h4>
-                    <p>CEO of Cross Technology and Communication Agency</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="testimonial-card">
-            <p class="testimonial-text">
-                "She creates engaging content that captures the beauty of our services. Her posts 
-                always bring in new customers and keep our regulars excited."
-            </p>
-            <div class="testimonial-author">
-                <div class="author-avatar">
-                    <img src="images/Leader/founderNaviiBeautyRoom.png" alt="Ms. Cao Thái Nguyệt Nga">
-                </div>
+            <div class="testimonial-content">
                 <div class="author-info">
                     <h4>Ms. Cao Thái Nguyệt Nga</h4>
-                    <p>Founder of Navii Beauty Room</p>
+                    <p>- Founder of Navii Beauty Room</p>
                 </div>
+                <p class="testimonial-text">
+                    "She creates engaging content that captures the beauty of our services. Her posts 
+                    always bring in new customers and keep our regulars excited"
+                </p>
             </div>
         </div>
         
         <div class="testimonial-card">
-            <p class="testimonial-text">
-                "Her creativity and eye for detail make our nail designs stand out online. 
-                She turns simple ideas into professional campaigns with great results."
-            </p>
-            <div class="testimonial-author">
-                <div class="author-avatar">
-                    <img src="images/Leader/FounderofDriaNailStudio.png" alt="Ms. Quỳnh">
-                </div>
+            <div class="author-avatar">
+                <img src="images/Leader/FounderofDriaNailStudio.png" alt="Ms. Quỳnh">
+            </div>
+            <div class="testimonial-content">
                 <div class="author-info">
                     <h4>Ms. Quỳnh</h4>
-                    <p>Founder of Dria. Nail Studio</p>
+                    <p>- Founder of Dria. Nail Studio</p>
                 </div>
+                <p class="testimonial-text">
+                    "Her creativity and eye for detail make our nail designs stand out online. 
+                    She turns simple ideas into professional campaigns with great results."
+                </p>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <div class="author-avatar">
+                <img src="images/Leader/FounderofMerciMajolie.png" alt="Mr. Louis Haag">
+            </div>
+            <div class="testimonial-content">
+                <div class="author-info">
+                    <h4>Mr. Louis Haag</h4>
+                    <p>- Founder of Merci Majolie</p>
+                </div>
+                <p class="testimonial-text">
+                    "She is a reliable employee with a strong ability to consistently create content 
+                    and optimize the website. What I like most is how she combines colors in videos 
+                    and images. She is always eager to learn new things and strives to bring valuable 
+                    suggestions to the busines."
+                </p>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <div class="author-avatar">
+                <img src="images/Leader/ceoCrossTechnologyandCommunicationAgency.png" alt="Mr. Huu Nghia">
+            </div>
+            <div class="testimonial-content">
+                <div class="author-info">
+                    <h4>Mr. Huu Nghia</h4>
+                    <p>- CEO of Cross Technology and Communication Agency</p>
+                </div>
+                <p class="testimonial-text">
+                    "She is a proactive person who quickly adapts to new challenges. Her communication 
+                    skills, problem-solving mindset, and team spirit made her a reliable support to both 
+                    managers and clients. What impressed me most was her mix of creativity and analytical 
+                    thinking - she not only produced engaging content but also backed it up with performance 
+                    tracking and competitor insights."
+                </p>
             </div>
         </div>
     </div>
@@ -2599,3 +2530,4 @@
 </script>
 </body>
 </html>
+
