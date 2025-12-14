@@ -349,12 +349,12 @@
             }
         }
         
-        .hero-title-wrapper {
+        /*.hero-title-wrapper {
             position: relative;
             display: inline-block;
             margin: 0 auto;
         }
-        
+        **/
         .hero-title {
     font-size: clamp(48px, 8vw, 80px); 
     font-weight: 900;
@@ -1748,12 +1748,14 @@ box-shadow: var(--shadow-md);
 <section class="hero" id="home">
     <div class="hero-content">
         <p class="hero-subtitle">WELCOME TO THE PORTFOLIO OF</p>
-        <div class="hero-title-wrapper">
-            <div class="hero-profile-wrapper">
-                <img src="images/profile/profile.jpg" alt="Nguyen Tu Anh" class="hero-profile">
-            </div>
-            <h1 class="hero-title">NGUYEN TU ANH</h1>
+        
+        <!-- Move the profile wrapper OUTSIDE of hero-title-wrapper -->
+        <div class="hero-profile-wrapper">
+            <img src="images/profile/profile.jpg" alt="Nguyen Tu Anh" class="hero-profile">
         </div>
+        
+        <!-- Title is now separate -->
+        <h1 class="hero-title">NGUYEN TU ANH</h1>
     </div>
     <div class="hero-contact">
         <div class="hero-contact-left">
