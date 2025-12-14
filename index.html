@@ -1909,29 +1909,6 @@ box-shadow: var(--shadow-md);
     }
 }
 
-/* Scene 3 Name - Letter by Letter */
-.trailer-container.playing .scene-3 .final-name {
-    animation: name-assemble 1.5s 11.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Scene 3 Tagline - Fade In */
-.trailer-container.playing .scene-3 .final-tagline {
-    animation: tagline-elegant 1.2s 12s ease-out both;
-}
-
-/* Scene 3 Stats - Counter Effect */
-.trailer-container.playing .scene-3 .trailer-stat-item {
-    animation: stat-count-up 1s 12.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.trailer-container.playing .scene-3 .trailer-stat-item:nth-child(2) {
-    animation-delay: 12.7s;
-}
-
-.trailer-container.playing .scene-3 .trailer-stat-item:nth-child(3) {
-    animation-delay: 12.9s;
-}
-
 /* Scene 4: FINAL REVEAL - Epic Entrance */
 .trailer-container.playing .scene-4 {
     visibility: visible;
@@ -1967,9 +1944,7 @@ box-shadow: var(--shadow-md);
     animation: profile-dramatic 2s 20.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.trailer-container.playing .scene-4 .trailer-title {
-    animation: title-digital-assemble 1.5s 14.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+
 
 @keyframes profile-dramatic {
     0% {
@@ -2019,9 +1994,6 @@ box-shadow: var(--shadow-md);
     animation: tagline-elegant 1.2s 22s ease-out both;
 }
 
-.trailer-container.playing .scene-4 .trailer-subtitle {
-    animation: subtitle-scan 2s 15s ease-out both;
-}
 
 @keyframes tagline-elegant {
     0% {
