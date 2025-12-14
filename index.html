@@ -1645,6 +1645,7 @@ box-shadow: var(--shadow-md);
 }
 
 /* Trailer Scenes */
+/* Trailer Scenes */
 .trailer-scene {
     position: absolute;
     top: 0;
@@ -1656,26 +1657,39 @@ box-shadow: var(--shadow-md);
     justify-content: center;
     padding: 80px 20px;
     opacity: 0;
+    visibility: hidden; /* ADD THIS */
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
 }
 
-.scene-1 {
+/* Hide scenes by default - ADD THIS NEW CLASS */
+.trailer-container.paused .trailer-scene {
+    animation: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* When trailer starts, allow animations - ADD THIS NEW CLASS */
+.trailer-container.playing .scene-1 {
+    visibility: visible;
     animation: scene-flash 1.2s ease-in-out forwards;
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
 }
 
-.scene-2 {
+.trailer-container.playing .scene-2 {
+    visibility: visible;
     animation: scene-flash 1.2s 1.2s ease-in-out forwards;
     background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(59, 130, 246, 0.1));
 }
 
-.scene-3 {
+.trailer-container.playing .scene-3 {
+    visibility: visible;
     animation: scene-flash 1.2s 2.4s ease-in-out forwards;
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(99, 102, 241, 0.1));
 }
 
-.scene-4 {
+.trailer-container.playing .scene-4 {
+    visibility: visible;
     animation: scene-final 2.4s 3.6s ease-in-out forwards;
     background: radial-gradient(circle at center, rgba(255, 184, 77, 0.15), transparent);
 }
@@ -2193,7 +2207,7 @@ body.loaded::before {
     <div class="cinematic-bars top"></div>
     <div class="cinematic-bars bottom"></div>
     
-    <div class="trailer-container">
+    <div class="trailer-container paused" id="trailer-container">
         <!-- Scene 1: Email Marketing (0-1.2s) -->
         <div class="trailer-scene scene-1">
             <div class="trailer-text">
@@ -3105,18 +3119,25 @@ window.addEventListener('load', () => {
         soundTimeouts.push(setTimeout(() => playSound(finalSound), 4200));
     }
     
-    // Start trailer
-    function startTrailer() {
-        // Hide start overlay
-        if (startOverlay) {
-            startOverlay.classList.add('hidden');
-            setTimeout(() => startOverlay.remove(), 600);
-        }
-        
-        // Start sounds and auto-end
-        startSoundTimeline();
-        trailerTimeout = setTimeout(endTrailer, 6000);
+    /// Start trailer
+function startTrailer() {
+    // Hide start overlay
+    if (startOverlay) {
+        startOverlay.classList.add('hidden');
+        setTimeout(() => startOverlay.remove(), 600);
     }
+    
+    // START TRAILER ANIMATIONS - ADD THIS
+    const trailerContainer = document.getElementById('trailer-container');
+    if (trailerContainer) {
+        trailerContainer.classList.remove('paused');
+        trailerContainer.classList.add('playing');
+    }
+    
+    // Start sounds and auto-end
+    startSoundTimeline();
+    trailerTimeout = setTimeout(endTrailer, 6000);
+}
     
     // End trailer
     function endTrailer() {
