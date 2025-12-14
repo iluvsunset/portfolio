@@ -2035,16 +2035,16 @@ body.loaded::before {
 <div class="loader">
   <!-- Audio for Trailer -->
 <audio id="whoosh-sound" preload="auto">
-    <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_4c3f3f0a14.mp3" type="audio/mpeg">
 </audio>
 <audio id="impact-sound" preload="auto">
-    <source src="https://assets.mixkit.co/active_storage/sfx/2287/2287-preview.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/audio/2022/03/24/audio_1324c1c2af.mp3" type="audio/mpeg">
 </audio>
 <audio id="reveal-sound" preload="auto">
-    <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_bb630cc098.mp3" type="audio/mpeg">
 </audio>
 <audio id="final-sound" preload="auto">
-    <source src="https://assets.mixkit.co/active_storage/sfx/2018/2018-preview.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c610647610.mp3" type="audio/mpeg">
 </audio>
     <!-- Cinematic Bars -->
     <div class="cinematic-bars top"></div>
@@ -2922,6 +2922,7 @@ for (let i = 0; i < 20; i++) {
 }
 
 // Cinematic Portfolio Trailer - WITH SOUND FX
+// Cinematic Portfolio Trailer - WITH SOUND FX (FIXED)
 window.addEventListener('load', () => {
     const loader = document.querySelector('.loader');
     const skipBtn = document.querySelector('.skip-intro');
@@ -2933,40 +2934,51 @@ window.addEventListener('load', () => {
     const finalSound = document.getElementById('final-sound');
     
     // Set volumes (0 to 1)
-    if (whooshSound) whooshSound.volume = 0.4;
-    if (impactSound) impactSound.volume = 0.5;
+    if (whooshSound) whooshSound.volume = 0.3;
+    if (impactSound) impactSound.volume = 0.4;
     if (revealSound) revealSound.volume = 0.3;
-    if (finalSound) finalSound.volume = 0.6;
+    if (finalSound) finalSound.volume = 0.5;
     
-    // Play sound helper
+    // Sound state
+    let soundsStarted = false;
+    let soundTimeouts = [];
+    
+    // Play sound helper with better error handling
     function playSound(sound) {
-        if (sound) {
+        if (sound && soundsStarted) {
             sound.currentTime = 0;
-            sound.play().catch(e => console.log('Audio play failed:', e));
+            const playPromise = sound.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    // Silently fail - this is normal if user hasn't interacted yet
+                });
+            }
         }
     }
     
     // Sound timeline
-    let soundTimeline;
     function startSoundTimeline() {
+        // Clear any existing timeouts
+        soundTimeouts.forEach(timeout => clearTimeout(timeout));
+        soundTimeouts = [];
+        
         // Scene 1: Email Marketing - Whoosh (0s)
-        setTimeout(() => playSound(whooshSound), 100);
+        soundTimeouts.push(setTimeout(() => playSound(whooshSound), 100));
         
         // Scene 2: Visual Design - Impact (1.2s)
-        setTimeout(() => playSound(impactSound), 1200);
+        soundTimeouts.push(setTimeout(() => playSound(impactSound), 1200));
         
         // Scene 3: SEO & Content - Whoosh (2.4s)
-        setTimeout(() => playSound(whooshSound), 2400);
+        soundTimeouts.push(setTimeout(() => playSound(whooshSound), 2400));
         
         // Scene 4: Final Reveal - Reveal sound (3.6s)
-        setTimeout(() => playSound(revealSound), 3600);
+        soundTimeouts.push(setTimeout(() => playSound(revealSound), 3600));
         
         // Stats appear - Final impact (4.2s)
-        setTimeout(() => playSound(finalSound), 4200);
+        soundTimeouts.push(setTimeout(() => playSound(finalSound), 4200));
     }
     
-    // Start sounds after user interaction (browsers require this)
-    let soundsStarted = false;
+    // Initialize sounds ONLY after user interaction
     function initSounds() {
         if (!soundsStarted) {
             soundsStarted = true;
@@ -2974,12 +2986,17 @@ window.addEventListener('load', () => {
         }
     }
     
-    // Try to start sounds on load, or wait for interaction
-    setTimeout(initSounds, 100);
+    // CRITICAL: Only start sounds on user interaction (required by browsers)
+    // This prevents the "NotAllowedError"
+    const interactionEvents = ['click', 'touchstart', 'keydown'];
+    interactionEvents.forEach(eventType => {
+        document.addEventListener(eventType, initSounds, { once: true });
+    });
     
-    // Also start on any interaction
-    document.addEventListener('click', initSounds, { once: true });
-    document.addEventListener('keydown', initSounds, { once: true });
+    // Also listen on skip button specifically
+    if (skipBtn) {
+        skipBtn.addEventListener('mouseenter', initSounds, { once: true });
+    }
     
     function endTrailer() {
         // Stop all sounds
