@@ -1669,28 +1669,28 @@ box-shadow: var(--shadow-md);
     visibility: hidden !important;
 }
 
-/* When trailer starts, allow animations - ADD THIS NEW CLASS */
+/* When trailer starts, allow animations - MATCHED TO AUDIO */
 .trailer-container.playing .scene-1 {
     visibility: visible;
-    animation: scene-flash 1.2s ease-in-out forwards;
+    animation: scene-flash 2s ease-in-out forwards;  /* 0-2s: Whoosh plays */
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
 }
 
 .trailer-container.playing .scene-2 {
     visibility: visible;
-    animation: scene-flash 1.2s 1.2s ease-in-out forwards;
+    animation: scene-flash 7s 2.5s ease-in-out forwards;  /* 2.5-9.5s: Impact plays (7s) */
     background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(59, 130, 246, 0.1));
 }
 
 .trailer-container.playing .scene-3 {
     visibility: visible;
-    animation: scene-flash 1.2s 2.4s ease-in-out forwards;
+    animation: scene-flash 10s 10s ease-in-out forwards;  /* 10-20s: Reveal plays (10s) */
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(99, 102, 241, 0.1));
 }
 
 .trailer-container.playing .scene-4 {
     visibility: visible;
-    animation: scene-final 2.4s 3.6s ease-in-out forwards;
+    animation: scene-final 4s 20s ease-in-out forwards;  /* 20-24s: Final plays (3s) + fade */
     background: radial-gradient(circle at center, rgba(255, 184, 77, 0.15), transparent);
 }
 
@@ -3077,8 +3077,7 @@ for (let i = 0; i < 20; i++) {
     particlesContainer.appendChild(particle);
 }
 
-// Cinematic Portfolio Trailer - AUTOPLAY WORKAROUND
-// Cinematic Portfolio Trailer - WITH START BUTTON
+// Cinematic Portfolio Trailer - WITH START BUTTON (TIMED TO AUDIO)
 window.addEventListener('load', () => {
     const loader = document.querySelector('.loader');
     const skipBtn = document.querySelector('.skip-intro');
@@ -3110,34 +3109,34 @@ window.addEventListener('load', () => {
         }
     }
     
-    // Sound timeline
+    // Sound timeline - MATCHED TO YOUR AUDIO LENGTHS
+    // Whoosh: 1.5s, Impact: 7s, Reveal: 10s, Final: 3s
     function startSoundTimeline() {
-        soundTimeouts.push(setTimeout(() => playSound(whooshSound), 100));
-        soundTimeouts.push(setTimeout(() => playSound(impactSound), 1200));
-        soundTimeouts.push(setTimeout(() => playSound(whooshSound), 2400));
-        soundTimeouts.push(setTimeout(() => playSound(revealSound), 3600));
-        soundTimeouts.push(setTimeout(() => playSound(finalSound), 4200));
+        soundTimeouts.push(setTimeout(() => playSound(whooshSound), 200));      // Scene 1: 0.2s - Whoosh (1.5s)
+        soundTimeouts.push(setTimeout(() => playSound(impactSound), 2500));     // Scene 2: 2.5s - Impact (7s)
+        soundTimeouts.push(setTimeout(() => playSound(revealSound), 10000));    // Scene 3: 10s - Reveal (10s)
+        soundTimeouts.push(setTimeout(() => playSound(finalSound), 20500));     // Scene 4: 20.5s - Final (3s)
     }
     
-    /// Start trailer
-function startTrailer() {
-    // Hide start overlay
-    if (startOverlay) {
-        startOverlay.classList.add('hidden');
-        setTimeout(() => startOverlay.remove(), 600);
+    // Start trailer
+    function startTrailer() {
+        // Hide start overlay
+        if (startOverlay) {
+            startOverlay.classList.add('hidden');
+            setTimeout(() => startOverlay.remove(), 600);
+        }
+        
+        // START TRAILER ANIMATIONS
+        const trailerContainer = document.getElementById('trailer-container');
+        if (trailerContainer) {
+            trailerContainer.classList.remove('paused');
+            trailerContainer.classList.add('playing');
+        }
+        
+        // Start sounds and auto-end after 24 seconds (let all sounds finish)
+        startSoundTimeline();
+        trailerTimeout = setTimeout(endTrailer, 24000);
     }
-    
-    // START TRAILER ANIMATIONS - ADD THIS
-    const trailerContainer = document.getElementById('trailer-container');
-    if (trailerContainer) {
-        trailerContainer.classList.remove('paused');
-        trailerContainer.classList.add('playing');
-    }
-    
-    // Start sounds and auto-end
-    startSoundTimeline();
-    trailerTimeout = setTimeout(endTrailer, 6000);
-}
     
     // End trailer
     function endTrailer() {
