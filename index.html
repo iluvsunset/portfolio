@@ -2565,6 +2565,7 @@ body.loaded::before {
     width: 100%;
     height: 100%;
     opacity: 0;
+    visibility: hidden;  /* ADD THIS */
     transform: scale(1.2) translateX(100%);
     display: flex;
     align-items: center;
@@ -2742,11 +2743,11 @@ body.loaded::before {
 /* ============================================
    FAST SLIDESHOW ANIMATIONS
    ============================================ */
-//* ============================================
-   SLOW & SMOOTH SLIDESHOW ANIMATIONS
+/* ============================================
+   CORRECTED SLIDESHOW ANIMATIONS - NO GAPS
    ============================================ */
 
-/* Slide 1: LIQUID MORPH ENTRY (0s - 5s) - SLOWER */
+/* Slide 1: EMAIL MARKETING (0s - 5s) */
 .slideshow-loader.active .slide-1 {
     animation: liquid-morph-in 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards,
                liquid-morph-out 1.2s 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -2777,14 +2778,15 @@ body.loaded::before {
     animation: ripple-water 0.9s 1.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Slide 2: CUBE ROTATION 3D (5s - 10s) - SLOWER */
+/* Slide 2: VISUAL DESIGN (5s - 10.5s) - FIXED TIMING */
 .slideshow-loader.active .slide-2 {
     animation: cube-rotate-in 1.5s 5s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-               cube-rotate-out 1.2s 8.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+               cube-rotate-out 1.2s 9.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-2 .slide-icon {
-    animation: kaleidoscope 1.8s 5.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: kaleidoscope 1.8s 5.5s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+               icon-float 3s 7.3s ease-in-out infinite;
 }
 
 .slideshow-loader.active .slide-2 .slide-title {
@@ -2795,72 +2797,72 @@ body.loaded::before {
     animation: wave-distort-in 1s 6.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.slideshow-loader.active .slide-2 .slide-tag {
+.slideshow-loader.active .slide-2 .slide-tag:nth-child(1) {
     animation: hyperspace-zoom 0.8s 7.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-2 .slide-tag:nth-child(2) {
-    animation-delay: 7.5s;
+    animation: hyperspace-zoom 0.8s 7.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Slide 3: SHATTER & PARTICLE EXPLOSION (10s - 15s) - SLOWER */
+/* Slide 3: SEO & CONTENT (10.5s - 15.5s) - FIXED TIMING */
 .slideshow-loader.active .slide-3 {
-    animation: ripple-water 1.5s 10s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-               shatter-glass 1.2s 13.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: ripple-water 1.5s 10.5s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+               shatter-glass 1.2s 14.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-3 .slide-icon {
-    animation: particle-explode 1.2s 10.5s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-               icon-float 3s 11.7s ease-in-out infinite;
+    animation: particle-explode 1.2s 11s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+               icon-float 3s 12.2s ease-in-out infinite;
 }
 
 .slideshow-loader.active .slide-3 .slide-title {
-    animation: prism-split 1.3s 11s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: prism-split 1.3s 11.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-3 .slide-desc {
-    animation: hyperspace-zoom 1s 12s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: hyperspace-zoom 1s 12.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.slideshow-loader.active .slide-3 .slide-tag {
-    animation: ripple-water 0.8s 12.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+.slideshow-loader.active .slide-3 .slide-tag:nth-child(1) {
+    animation: ripple-water 0.8s 13s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-3 .slide-tag:nth-child(2) {
-    animation-delay: 12.9s;
+    animation: ripple-water 0.8s 13.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-3 .slide-tag:nth-child(3) {
-    animation-delay: 13.2s;
+    animation: ripple-water 0.8s 13.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Slide 4: FINAL REVEAL - ULTIMATE MORPH (15s - 22s) - SLOWER */
+/* Slide 4: FINAL REVEAL (15.5s - 22s) - FIXED TIMING */
 .slideshow-loader.active .slide-4 {
-    animation: kaleidoscope 2s 15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: kaleidoscope 2s 15.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-4 .slide-profile {
-    animation: liquid-morph-in 2.2s 15.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: liquid-morph-in 2.2s 16.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-4 .slide-name {
-    animation: prism-split 1.8s 17.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: prism-split 1.8s 18s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-4 .slide-tagline {
-    animation: wave-distort-in 1.5s 18.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: wave-distort-in 1.5s 19.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-4 .slide-stat:nth-child(1) {
-    animation: hyperspace-zoom 1s 19.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.slideshow-loader.active .slide-4 .slide-stat:nth-child(2) {
     animation: hyperspace-zoom 1s 20.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.slideshow-loader.active .slide-4 .slide-stat:nth-child(3) {
+.slideshow-loader.active .slide-4 .slide-stat:nth-child(2) {
     animation: hyperspace-zoom 1s 20.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.slideshow-loader.active .slide-4 .slide-stat:nth-child(3) {
+    animation: hyperspace-zoom 1s 21.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ADD PARTICLE EFFECTS */
