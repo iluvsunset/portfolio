@@ -46,6 +46,42 @@
     --glass-noise-frequency: 0.008;
     --glass-distortion-strength: 30;
 }
+
+/* Liquid Glass Base Class */
+.liquid-glass {
+    position: relative;
+    isolation: isolate;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+/* Inner Shadow Layer */
+.liquid-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow: inset var(--glass-shadow-offset) var(--glass-shadow-offset) 
+                var(--glass-shadow-blur) var(--glass-shadow-spread) 
+                var(--glass-shadow-color);
+    background-color: rgba(var(--glass-tint-color), var(--glass-tint-opacity));
+    pointer-events: none;
+}
+
+/* Frost & Distortion Layer */
+.liquid-glass::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    border-radius: inherit;
+    backdrop-filter: blur(var(--glass-frost-blur)) saturate(180%) brightness(1.1);
+    -webkit-backdrop-filter: blur(var(--glass-frost-blur)) saturate(180%) brightness(1.1);
+    filter: url(#glass-distortion);
+    pointer-events: none;
+}
+
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
@@ -190,7 +226,7 @@ h1, h2, h3, h4, h5, h6 {
     content: '';
     position: absolute;
     inset: 0;
-    z-index: 0;
+    z-index: -1;
     border-radius: 50%;
     backdrop-filter: blur(var(--glass-frost-blur)) saturate(180%) brightness(1.1);
     -webkit-backdrop-filter: blur(var(--glass-frost-blur)) saturate(180%) brightness(1.1);
@@ -206,17 +242,14 @@ h1, h2, h3, h4, h5, h6 {
 .cursor::before {
     content: '';
     position: absolute;
-    top: 15%;
-    left: 20%;
-    width: 50%;
-    height: 40%;
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.7) 0%, 
-        rgba(255, 255, 255, 0.1) 50%,
-        transparent 100%);
+    inset: 0;
+    z-index: 0;
     border-radius: 50%;
-    filter: blur(4px);
-    mix-blend-mode: overlay;
+    box-shadow: inset var(--glass-shadow-offset) var(--glass-shadow-offset) 
+                var(--glass-shadow-blur) var(--glass-shadow-spread) 
+                var(--glass-shadow-color);
+    background-color: rgba(var(--glass-tint-color), var(--glass-tint-opacity));
+    border: 0.5px solid rgba(255, 255, 255, 0.3);
 }
 
 
@@ -584,6 +617,78 @@ body .cursor-follower {
     cursor: none !important;
 }
 
+.profile-card,
+.testimonial-card,
+.contact-card,
+.stat-card,
+.tool-item,
+.journey-card {
+    position: relative;
+    isolation: isolate;
+}
+
+.profile-card::before,
+.testimonial-card::before,
+.contact-card::before,
+.stat-card::before,
+.tool-item::before,
+.journey-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow: inset 0 0 15px -3px rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.profile-card::after,
+.testimonial-card::after,
+.contact-card::after,
+.stat-card::after,
+.tool-item::after,
+.journey-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    border-radius: inherit;
+    backdrop-filter: blur(12px) saturate(180%) brightness(1.05);
+    -webkit-backdrop-filter: blur(12px) saturate(180%) brightness(1.05);
+    filter: url(#glass-distortion);
+}
+
+.filter-btn,
+.skip-intro,
+.slideshow-skip {
+    position: relative;
+    isolation: isolate;
+}
+
+.filter-btn::before,
+.skip-intro::before,
+.slideshow-skip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow: inset 0 0 15px -3px rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.filter-btn::after,
+.skip-intro::after,
+.slideshow-skip::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    border-radius: inherit;
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+}
+
 /* Cursor on draggable elements */
 .portfolio-item .cursor.hover {
     background: rgba(99, 102, 241, 0.2);
@@ -616,6 +721,7 @@ nav {
     padding: 25px 80px;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     isolation: isolate;
+    border-radius: 0 0 20px 20px;
 }
 
 nav::before {
@@ -623,6 +729,7 @@ nav::before {
     position: absolute;
     inset: 0;
     z-index: -1;
+    border-radius: inherit;
     box-shadow: inset var(--glass-shadow-offset) var(--glass-shadow-offset) 
                 var(--glass-shadow-blur) var(--glass-shadow-spread) 
                 var(--glass-shadow-color);
@@ -635,6 +742,7 @@ nav::after {
     position: absolute;
     inset: 0;
     z-index: -2;
+    border-radius: inherit;
     backdrop-filter: blur(var(--glass-frost-blur)) saturate(180%);
     -webkit-backdrop-filter: blur(var(--glass-frost-blur)) saturate(180%);
     filter: url(#glass-distortion);
@@ -5928,9 +6036,10 @@ document.addEventListener('keydown', (e) => {
 
 </script>
 <!-- Liquid Glass SVG Filters -->
+<!-- Liquid Glass SVG Filters -->
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute; overflow:hidden">
     <defs>
-        <!-- Filter for Navigation -->
+        <!-- Filter for Navigation and Cards -->
         <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
             <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
             <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
