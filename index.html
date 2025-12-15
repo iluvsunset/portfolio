@@ -11,30 +11,41 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
         
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        :root {
-            --primary-bg: #ffffff;
-            --secondary-bg: #f8f9fa;
-            --text-primary: #1a1a1a;
-            --text-secondary: #6b7280;
-            --accent: #6366f1;
-            --accent-hover: #4f46e5;
-            --accent-light: #eef2ff;
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --card-bg-hover: rgba(255, 255, 255, 1);
-            --border: rgba(0, 0, 0, 0.08);
-            --border-hover: rgba(99, 102, 241, 0.4);
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(0, 0, 0, 0.1);
-            --shadow-sm: 0 2px 12px rgba(99, 102, 241, 0.08);
-            --shadow-md: 0 4px 24px rgba(99, 102, 241, 0.12);
-            --shadow-lg: 0 8px 40px rgba(99, 102, 241, 0.16);
-            --shadow-xl: 0 16px 60px rgba(99, 102, 241, 0.2);
-        }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-bg: #ffffff;
+    --secondary-bg: #f8f9fa;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b7280;
+    --accent: #6366f1;
+    --accent-hover: #4f46e5;
+    --accent-light: #eef2ff;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-bg-hover: rgba(255, 255, 255, 1);
+    --border: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(99, 102, 241, 0.4);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 2px 12px rgba(99, 102, 241, 0.08);
+    --shadow-md: 0 4px 24px rgba(99, 102, 241, 0.12);
+    --shadow-lg: 0 8px 40px rgba(99, 102, 241, 0.16);
+    --shadow-xl: 0 16px 60px rgba(99, 102, 241, 0.2);
+    
+    /* Liquid Glass Effect Variables */
+    --glass-shadow-offset: 0;
+    --glass-shadow-blur: 15px;
+    --glass-shadow-spread: -3px;
+    --glass-shadow-color: rgba(255, 255, 255, 0.7);
+    --glass-tint-color: 255, 255, 255;
+    --glass-tint-opacity: 0.15;
+    --glass-frost-blur: 12px;
+    --glass-noise-frequency: 0.008;
+    --glass-distortion-strength: 30;
+}
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
@@ -168,48 +179,28 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    /* iOS 26 Liquid Glass - Crystal Clear */
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.25) 0%,
-        rgba(255, 255, 255, 0.1) 100%);
-    backdrop-filter: blur(12px) saturate(180%) brightness(1.1);
-    -webkit-backdrop-filter: blur(12px) saturate(180%) brightness(1.1);
-    
-    /* Sharp borders like Apple Music menus */
-    border: 0.5px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 
-        /* Outer glow */
-        0 4px 24px rgba(99, 102, 241, 0.12),
-        /* Inner highlight (top) */
-        inset 0 1px 1px rgba(255, 255, 255, 0.8),
-        /* Inner shadow (bottom) */
-        inset 0 -1px 1px rgba(0, 0, 0, 0.05),
-        /* Crisp edge definition */
-        0 0 0 0.5px rgba(255, 255, 255, 0.2);
-    
-    /* Subtle color tint like macOS */
+    isolation: isolate;
+}
+
+/* Liquid Glass Inner Shadow Layer */
+
+
+/* Liquid Glass Frost & Distortion Layer */
+.cursor::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 50%;
+    backdrop-filter: blur(var(--glass-frost-blur)) saturate(180%) brightness(1.1);
+    -webkit-backdrop-filter: blur(var(--glass-frost-blur)) saturate(180%) brightness(1.1);
+    filter: url(#glass-distortion-cursor);
     background-image: 
         radial-gradient(circle at 30% 30%, 
             rgba(99, 102, 241, 0.08) 0%, 
             transparent 60%);
 }
 
-
-@keyframes liquid-shimmer {
-    0%, 100% {
-        box-shadow: 
-            0 8px 32px rgba(99, 102, 241, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.4),
-            0 0 0 1px rgba(99, 102, 241, 0.1);
-    }
-    50% {
-        box-shadow: 
-            0 8px 40px rgba(99, 102, 241, 0.25),
-            inset 0 1px 0 rgba(255, 255, 255, 0.6),
-            0 0 0 1px rgba(99, 102, 241, 0.2);
-    }
-}
 
 /* Light refraction streak */
 .cursor::before {
@@ -228,45 +219,6 @@ h1, h2, h3, h4, h5, h6 {
     mix-blend-mode: overlay;
 }
 
-@keyframes refraction-move {
-    0%, 100% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0.6;
-    }
-    50% {
-        transform: translate(5px, 3px) scale(1.1);
-        opacity: 0.8;
-    }
-}
-
-/* Glass edge highlight */
-.cursor::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 50%;
-    background: conic-gradient(from 45deg,
-        transparent 0deg,
-        rgba(255, 255, 255, 0.3) 90deg,
-        transparent 180deg,
-        transparent 360deg);
-    animation: edge-rotate 6s linear infinite;
-    pointer-events: none;
-}
-
-@keyframes edge-shine {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes edge-rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 
 
 .cursor-follower {
@@ -655,18 +607,38 @@ body.loaded .cursor-follower {
 }
         
         /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 25px 80px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid var(--border);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
+        /* Navigation with Liquid Glass */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 25px 80px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    isolation: isolate;
+}
+
+nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    box-shadow: inset var(--glass-shadow-offset) var(--glass-shadow-offset) 
+                var(--glass-shadow-blur) var(--glass-shadow-spread) 
+                var(--glass-shadow-color);
+    background-color: rgba(var(--glass-tint-color), var(--glass-tint-opacity));
+    border-bottom: 1px solid var(--border);
+}
+
+nav::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    backdrop-filter: blur(var(--glass-frost-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-frost-blur)) saturate(180%);
+    filter: url(#glass-distortion);
+}
         
         nav.scrolled {
             padding: 18px 80px;
@@ -5253,24 +5225,34 @@ if (particlesContainer) {
 // PREMIUM CURSOR
 // ============================================
 // Hide default cursor globally
-document.body.style.cursor = 'none';
-document.querySelectorAll('*').forEach(el => {
-    el.style.cursor = 'none';
+document.addEventListener('DOMContentLoaded', () => {
+    // Hide default cursor globally
+    if (document.body) {
+        document.body.style.cursor = 'none';
+        document.querySelectorAll('*').forEach(el => {
+            el.style.cursor = 'none';
+        });
+    }
 });
 
 const hideDefaultCursor = () => {
-    document.querySelectorAll('*').forEach(el => {
-        el.style.cursor = 'none';
-    });
+    if (document.body) {
+        document.querySelectorAll('*').forEach(el => {
+            if (el && el.style) {
+                el.style.cursor = 'none';
+            }
+        });
+    }
 };
 
-hideDefaultCursor();
 // Re-run when new elements are added
-const cursorObserver = new MutationObserver(hideDefaultCursor);
-cursorObserver.observe(document.body, {
-    childList: true,
-    subtree: true
-});
+if (document.body) {
+    const cursorObserver = new MutationObserver(hideDefaultCursor);
+    cursorObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+}
 
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
@@ -6022,5 +6004,23 @@ document.addEventListener('keydown', (e) => {
 });
 
 </script>
+<!-- Liquid Glass SVG Filters -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute; overflow:hidden">
+    <defs>
+        <!-- Filter for Navigation -->
+        <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
+            <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+            <feDisplacementMap in="SourceGraphic" in2="blurred" scale="30" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        
+        <!-- Filter for Cursor -->
+        <filter id="glass-distortion-cursor" x="-50%" y="-50%" width="200%" height="200%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015 0.015" numOctaves="3" seed="42" result="noise" />
+            <feGaussianBlur in="noise" stdDeviation="1.5" result="blurred" />
+            <feDisplacementMap in="SourceGraphic" in2="blurred" scale="20" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </defs>
+</svg>
 </body>
 </html>
