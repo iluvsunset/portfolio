@@ -2733,120 +2733,123 @@ body.loaded::before {
    ============================================ */
 
 /* Slide 1 Animation (0s - 1.5s) */
+/* Replace the existing slide animation timings with these: */
+
+/* Slide 1 Animation (0s - 3.5s) - SLOWER */
 .slideshow-loader.active .slide-1 {
-    animation: slide-in-out 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slide-in-out 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-1 .slide-icon {
-    animation: icon-zoom 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, icon-float 3s 0.8s ease-in-out infinite;
+    animation: icon-zoom 1s cubic-bezier(0.16, 1, 0.3, 1) forwards, icon-float 3s 1s ease-in-out infinite;
 }
 
 .slideshow-loader.active .slide-1 .slide-title {
-    animation: text-slide 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: text-slide 0.8s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-1 .slide-desc {
-    animation: text-fade 0.5s 0.4s ease both;
+    animation: text-fade 0.7s 0.6s ease both;
 }
 
 .slideshow-loader.active .slide-1 .slide-tag:nth-child(1) {
-    animation: tag-pop 0.4s 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: tag-pop 0.5s 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-1 .slide-tag:nth-child(2) {
-    animation: tag-pop 0.4s 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: tag-pop 0.5s 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-1 .slide-tag:nth-child(3) {
-    animation: tag-pop 0.4s 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: tag-pop 0.5s 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Slide 2 Animation (1.5s - 3s) */
+/* Slide 2 Animation (3.5s - 7s) - SLOWER */
 .slideshow-loader.active .slide-2 {
-    animation: slide-in-out 1.5s 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slide-in-out 3.5s 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-2 .slide-icon {
-    animation: icon-rotate 0.8s 1.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: icon-rotate 1s 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-2 .slide-title {
-    animation: text-glitch 0.8s 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: text-glitch 1s 4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-2 .slide-desc {
-    animation: text-fade 0.5s 2s ease both;
+    animation: text-fade 0.7s 4.5s ease both;
 }
 
 .slideshow-loader.active .slide-2 .slide-tag {
-    animation: tag-wave 0.5s 2.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: tag-wave 0.6s 4.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-2 .slide-tag:nth-child(2) {
-    animation-delay: 2.3s;
+    animation-delay: 5.1s;
 }
 
-/* Slide 3 Animation (3s - 4.5s) */
+/* Slide 3 Animation (7s - 10.5s) - SLOWER */
 .slideshow-loader.active .slide-3 {
-    animation: slide-in-out 1.5s 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slide-in-out 3.5s 7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-3 .slide-icon {
-    animation: icon-bounce 0.8s 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: icon-bounce 1s 7.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-3 .slide-title {
-    animation: text-type 0.8s 3.3s steps(15) both;
+    animation: text-type 1s 7.5s steps(15) both;
 }
 
 .slideshow-loader.active .slide-3 .slide-desc {
-    animation: text-fade 0.5s 3.6s ease both;
+    animation: text-fade 0.7s 8s ease both;
 }
 
 .slideshow-loader.active .slide-3 .slide-tag {
-    animation: tag-flip 0.5s 3.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: tag-flip 0.6s 8.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-3 .slide-tag:nth-child(2) {
-    animation-delay: 3.9s;
+    animation-delay: 8.6s;
 }
 
 .slideshow-loader.active .slide-3 .slide-tag:nth-child(3) {
-    animation-delay: 4s;
+    animation-delay: 8.8s;
 }
 
-/* Slide 4 Animation (4.5s - 7s) */
+/* Slide 4 Animation (10.5s - 15s) - SLOWER, STAYS LONGER */
 .slideshow-loader.active .slide-4 {
-    animation: slide-final 2.5s 4.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slide-final 4.5s 10.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-4 .slide-profile {
-    animation: profile-zoom 1.2s 4.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: profile-zoom 1.5s 11s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .slideshow-loader.active .slide-4 .slide-name {
-    animation: name-reveal 1s 5.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: name-reveal 1.2s 12s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-4 .slide-tagline {
-    animation: text-fade 0.8s 6s ease both;
+    animation: text-fade 1s 12.8s ease both;
 }
 
 .slideshow-loader.active .slide-4 .slide-stat:nth-child(1) {
-    animation: stat-count 0.8s 6.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: stat-count 1s 13.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-4 .slide-stat:nth-child(2) {
-    animation: stat-count 0.8s 6.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: stat-count 1s 13.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .slideshow-loader.active .slide-4 .slide-stat:nth-child(3) {
-    animation: stat-count 0.8s 6.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: stat-count 1s 13.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Progress Bar Animation */
+/* Progress Bar Animation - SLOWER */
 .slideshow-loader.active .slideshow-progress-bar {
-    animation: progress-fill 7s linear forwards;
+    animation: progress-fill 15s linear forwards; /* Changed from 7s to 15s */
 }
 
 @keyframes progress-fill {
@@ -2854,17 +2857,17 @@ body.loaded::before {
     to { width: 100%; }
 }
 
-/* Keyframe Animations */
+/* Update this keyframe animation: */
 @keyframes slide-in-out {
     0% {
         opacity: 0;
         transform: scale(1.2) translateX(100%);
     }
-    15% {
+    20% {  /* Changed from 15% to 20% - slower entry */
         opacity: 1;
         transform: scale(1) translateX(0);
     }
-    85% {
+    80% {  /* Changed from 85% to 80% - stays visible longer */
         opacity: 1;
         transform: scale(1) translateX(0);
     }
@@ -2879,7 +2882,7 @@ body.loaded::before {
         opacity: 0;
         transform: scale(1.2) translateX(100%);
     }
-    20% {
+    25% {  /* Changed from 20% to 25% - slower entry */
         opacity: 1;
         transform: scale(1) translateX(0);
     }
@@ -4089,6 +4092,8 @@ if (!LOADING_CONFIG.enabled) {
     });
 }
 
+    // Optimized Particles - Reduced from 50 to 20
+<script>
 // ============================================
 // LOADING SCREEN MASTER CONTROLLER
 // ============================================
@@ -4107,7 +4112,7 @@ window.addEventListener('load', () => {
     if (LOADING_CONFIG.mode === 'slideshow') {
         activeLoader = slideshowLoader;
         inactiveLoader = cinematicLoader;
-        loaderDuration = 7000; // 7 seconds
+        loaderDuration = 15000; // 7 seconds
         
         // Show and activate slideshow
         if (activeLoader) {
@@ -4302,7 +4307,7 @@ window.addEventListener('load', () => {
             setTimeout(endSlideshowLoader, LOADING_CONFIG.autoSkipAfter * 1000);
         } else {
             // Auto-end after 7 seconds
-            setTimeout(endSlideshowLoader, loaderDuration);
+            setTimeout(endSlideshowLoader, 15000);
         }
     }
     
