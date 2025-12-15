@@ -3497,14 +3497,14 @@ body.cinematic-mode .start-overlay {
 <div class="scroll-progress"></div>
 
 <!-- Cinematic Trailer with Start Button -->
-<div class="loader">
+<div class="loader" style="display: none !important;">
     <!-- Start Button Overlay -->
-<div class="start-overlay" id="start-overlay" style="display: none !important;">
-    <button class="start-btn" id="start-btn">
-        <span class="btn-icon">🎬</span>
-        <span class="btn-text">START EXPERIENCE</span>
-    </button>
-</div>
+    <div class="start-overlay" id="start-overlay" style="display: none !important;">
+        <button class="start-btn" id="start-btn">
+            <span class="btn-icon">🎬</span>
+            <span class="btn-text">START EXPERIENCE</span>
+        </button>
+    </div>
 
     <!-- Audio for Trailer -->
     <audio id="whoosh-sound" preload="auto">
@@ -3585,7 +3585,7 @@ body.cinematic-mode .start-overlay {
     </div>
 </div>
 
-<div class="slideshow-loader" style="display: none;">
+<div class="slideshow-loader" style="display: none !important;">
     <div class="slideshow-container">
         <!-- Slide 1: EMAIL MARKETING -->
         <div class="slideshow-slide slide-1">
@@ -4464,10 +4464,10 @@ body.cinematic-mode .start-overlay {
 // LOADING SCREEN CONFIGURATION
 // ============================================
 const LOADING_CONFIG = {
-    enabled: false,
-    mode: 'slideshow',          // Options: 'cinematic' or 'slideshow'
+    enabled: false,             // Disabled
+    mode: 'slideshow',
     skipButton: true,
-    autoSkipAfter: 1
+    autoSkipAfter: null
 };
 
 // ============================================
