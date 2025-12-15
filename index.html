@@ -117,42 +117,288 @@
             scroll-behavior: smooth;
         }
         
-        /* Premium Cursor Effect */
-        .cursor {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.15s cubic-bezier(0.075, 0.82, 0.165, 1);
-            opacity: 0;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-        }
-        
-        .cursor-follower {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.08s cubic-bezier(0.075, 0.82, 0.165, 1);
-            opacity: 0;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.6);
-        }
-        
-        .cursor.hover {
-            width: 70px;
-            height: 70px;
-            background: rgba(99, 102, 241, 0.08);
-            border-color: var(--accent);
-            backdrop-filter: blur(3px);
-        }
+        /* ============================================
+   ENHANCED PREMIUM CURSOR - ULTRA VFX
+   ============================================ */
+
+/* Hide default cursor globally */
+* {
+    cursor: none !important;
+}
+
+.cursor {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transition: all 0.15s cubic-bezier(0.075, 0.82, 0.165, 1);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.cursor-follower {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.8),
+                0 0 40px rgba(99, 102, 241, 0.4);
+}
+
+/* Hover States */
+.cursor.hover {
+    width: 70px;
+    height: 70px;
+    background: rgba(99, 102, 241, 0.12);
+    border-color: var(--accent);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+}
+
+.cursor.hover-pointer {
+    animation: cursor-pulse 1s ease-in-out infinite;
+}
+
+.cursor.hover-view {
+    background: rgba(236, 72, 153, 0.15);
+    border-color: #ec4899;
+}
+
+.cursor.hover-info {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: #3b82f6;
+}
+
+.cursor.hover-external {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: #10b981;
+    transform: translate(-50%, -50%) scale(1.3) rotate(45deg);
+}
+
+.cursor.hover-text {
+    height: 50px;
+    animation: cursor-blink 1s step-end infinite;
+}
+
+.cursor.hover-zoom {
+    animation: cursor-zoom 0.6s ease-in-out infinite alternate;
+}
+
+/* Cursor Animations */
+@keyframes cursor-pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.15);
+        box-shadow: 0 0 40px rgba(99, 102, 241, 0.8);
+    }
+}
+
+@keyframes cursor-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+@keyframes cursor-zoom {
+    from {
+        transform: translate(-50%, -50%) scale(1.8);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(2.2);
+    }
+}
+
+/* Ripple Effect */
+.cursor-ripple {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    animation: ripple-expand 1s ease-out forwards;
+}
+
+@keyframes ripple-expand {
+    0% {
+        width: 20px;
+        height: 20px;
+        opacity: 1;
+    }
+    100% {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+}
+
+/* Click Wave Effect */
+.cursor-click-wave {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.6) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    animation: click-wave-expand 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes click-wave-expand {
+    0% {
+        width: 40px;
+        height: 40px;
+        opacity: 1;
+    }
+    100% {
+        width: 150px;
+        height: 150px;
+        opacity: 0;
+    }
+}
+
+/* Trail Particles */
+.cursor-trail-particle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9997;
+    transform: translate(-50%, -50%);
+    animation: particle-fade 0.8s ease-out forwards;
+    box-shadow: 0 0 10px currentColor;
+}
+
+@keyframes particle-fade {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0) translateY(-30px);
+    }
+}
+
+/* Glow Trail Effect */
+.cursor-follower::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        width: 30px;
+        height: 30px;
+        opacity: 0.5;
+    }
+    50% {
+        width: 50px;
+        height: 50px;
+        opacity: 0.8;
+    }
+}
+
+/* Color shift on different sections */
+#portfolio .cursor {
+    border-color: #ec4899;
+}
+
+#portfolio .cursor-follower {
+    background: #ec4899;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.8);
+}
+
+#tools .cursor {
+    border-color: #3b82f6;
+}
+
+#tools .cursor-follower {
+    background: #3b82f6;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+}
+
+#testimonials .cursor {
+    border-color: #10b981;
+}
+
+#testimonials .cursor-follower {
+    background: #10b981;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+}
+
+#contact .cursor {
+    border-color: #f59e0b;
+}
+
+#contact .cursor-follower {
+    background: #f59e0b;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
+}
+
+/* Loading screen - show default cursor */
+.loader *, .slideshow-loader * {
+    cursor: default !important;
+}
+
+.loader .cursor,
+.loader .cursor-follower,
+.slideshow-loader .cursor,
+.slideshow-loader .cursor-follower {
+    display: none !important;
+}
+
+/* Cursor on draggable elements */
+.portfolio-item .cursor.hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-style: dashed;
+    animation: cursor-rotate 2s linear infinite;
+}
+
+@keyframes cursor-rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1.5);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg) scale(1.5);
+    }
+}
+
+/* Smooth cursor appearance */
+body.loaded .cursor,
+body.loaded .cursor-follower {
+    transition: opacity 0.3s ease;
+}
         
         /* Navigation */
         nav {
@@ -4693,6 +4939,16 @@ if (particlesContainer) {
 // ============================================
 // PREMIUM CURSOR
 // ============================================
+// ============================================
+// DISABLE DEFAULT CURSOR & ENHANCED CUSTOM CURSOR
+// ============================================
+
+// Hide default cursor globally
+document.body.style.cursor = 'none';
+document.querySelectorAll('*').forEach(el => {
+    el.style.cursor = 'none';
+});
+
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
 
@@ -4700,17 +4956,29 @@ if (cursor && cursorFollower) {
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
     let followerX = 0, followerY = 0;
+    let isClicking = false;
+    let isHovering = false;
     
+    // Track mouse movement
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
+        
+        // Add ripple effect on move
+        if (Math.random() > 0.95) {
+            createRipple(mouseX, mouseY);
+        }
     });
     
+    // Smooth cursor animation
     function animateCursor() {
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
-        followerX += (mouseX - followerX) * 0.1;
-        followerY += (mouseY - followerY) * 0.1;
+        // Main cursor - faster follow
+        cursorX += (mouseX - cursorX) * 0.25;
+        cursorY += (mouseY - cursorY) * 0.25;
+        
+        // Follower - slower, creating trail effect
+        followerX += (mouseX - followerX) * 0.12;
+        followerY += (mouseY - followerY) * 0.12;
         
         cursor.style.left = cursorX + 'px';
         cursor.style.top = cursorY + 'px';
@@ -4725,11 +4993,149 @@ if (cursor && cursorFollower) {
     
     animateCursor();
     
-    // Cursor hover effects
-    const hoverElements = document.querySelectorAll('a, button, .portfolio-item, .contact-card, .testimonial-card, .tool-item, .stat-card, .journey-card');
-    hoverElements.forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    // Click effect
+    document.addEventListener('mousedown', () => {
+        isClicking = true;
+        cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
+        createClickWave(mouseX, mouseY);
+    });
+    
+    document.addEventListener('mouseup', () => {
+        isClicking = false;
+        if (!isHovering) {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+    });
+    
+    // Enhanced hover effects with different cursor modes
+    const interactiveElements = {
+        'a, button, .portfolio-item, .filter-btn': 'pointer',
+        '.contact-card, .testimonial-card': 'view',
+        '.tool-item, .stat-card': 'info',
+        '.social-link': 'external',
+        'input, textarea': 'text',
+        '.lightbox-img, .portfolio-image': 'zoom'
+    };
+    
+    Object.entries(interactiveElements).forEach(([selector, mode]) => {
+        document.querySelectorAll(selector).forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                isHovering = true;
+                cursor.classList.add('hover', `hover-${mode}`);
+                cursorFollower.style.opacity = '0.5';
+                
+                // Add mode-specific effects
+                switch(mode) {
+                    case 'pointer':
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                        break;
+                    case 'view':
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                        cursor.innerHTML = '<span style="font-size: 16px;">👁️</span>';
+                        break;
+                    case 'info':
+                        cursor.innerHTML = '<span style="font-size: 14px;">ℹ️</span>';
+                        break;
+                    case 'external':
+                        cursor.innerHTML = '<span style="font-size: 14px;">↗</span>';
+                        break;
+                    case 'text':
+                        cursor.innerHTML = '<span style="font-size: 18px;">|</span>';
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1) scaleX(0.3)';
+                        break;
+                    case 'zoom':
+                        cursor.innerHTML = '<span style="font-size: 16px;">🔍</span>';
+                        cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+                        break;
+                }
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                isHovering = false;
+                cursor.classList.remove('hover', `hover-${mode}`);
+                cursor.innerHTML = '';
+                cursorFollower.style.opacity = '1';
+                if (!isClicking) {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                }
+            });
+        });
+    });
+    
+    // Magnetic attraction effect
+    document.querySelectorAll('button, .contact-card, .filter-btn').forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const elX = rect.left + rect.width / 2;
+            const elY = rect.top + rect.height / 2;
+            
+            const deltaX = (e.clientX - elX) * 0.3;
+            const deltaY = (e.clientY - elY) * 0.3;
+            
+            cursor.style.left = (mouseX + deltaX) + 'px';
+            cursor.style.top = (mouseY + deltaY) + 'px';
+        });
+        
+        el.addEventListener('mouseleave', () => {
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+    });
+    
+    // Create ripple effect
+    function createRipple(x, y) {
+        const ripple = document.createElement('div');
+        ripple.className = 'cursor-ripple';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        document.body.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 1000);
+    }
+    
+    // Create click wave effect
+    function createClickWave(x, y) {
+        const wave = document.createElement('div');
+        wave.className = 'cursor-click-wave';
+        wave.style.left = x + 'px';
+        wave.style.top = y + 'px';
+        document.body.appendChild(wave);
+        
+        setTimeout(() => wave.remove(), 600);
+    }
+    
+    // Trailing particles
+    let particleInterval;
+    document.addEventListener('mousemove', () => {
+        if (particleInterval) clearTimeout(particleInterval);
+        particleInterval = setTimeout(() => {
+            createTrailParticle(mouseX, mouseY);
+        }, 50);
+    });
+    
+    function createTrailParticle(x, y) {
+        const particle = document.createElement('div');
+        particle.className = 'cursor-trail-particle';
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+        document.body.appendChild(particle);
+        
+        setTimeout(() => particle.remove(), 800);
+    }
+    
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        cursorFollower.style.opacity = '0';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+        cursorFollower.style.opacity = '1';
     });
 }
 
