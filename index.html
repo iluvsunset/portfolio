@@ -3091,6 +3091,10 @@ body.loaded::before {
     }
 }
 
+.slideshow-loader .start-overlay {
+    display: none !important;
+}
+
 </style>
 </head>
 <body>
@@ -4080,15 +4084,13 @@ body.loaded::before {
 };
 
 // Apply configuration immediately
-if (!LOADING_CONFIG.enabled) {
-    document.body.classList.remove('loading');
-    document.body.classList.add('loaded');
-    // Hide all loaders
+if (LOADING_CONFIG.mode === 'slideshow') {
     document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.loader, .slideshow-loader').forEach(el => {
-            el.style.display = 'none';
-            el.remove();
-        });
+        const startOverlay = document.getElementById('start-overlay');
+        if (startOverlay) {
+            startOverlay.style.display = 'none';
+            startOverlay.remove();
+        }
     });
 }
 
@@ -4112,13 +4114,21 @@ window.addEventListener('load', () => {
     if (LOADING_CONFIG.mode === 'slideshow') {
         activeLoader = slideshowLoader;
         inactiveLoader = cinematicLoader;
-        loaderDuration = 15000; // 7 seconds
-        
-        // Show and activate slideshow
-        if (activeLoader) {
-            activeLoader.style.display = 'block';
-            setTimeout(() => activeLoader.classList.add('active'), 50);
-        }
+        loaderDuration = 15000; // 7 secondsif (LOADING_CONFIG.mode === 'slideshow') {
+    
+    // REMOVE START OVERLAY FOR SLIDESHOW MODE
+    const startOverlay = document.getElementById('start-overlay');
+    if (startOverlay) {
+        startOverlay.style.display = 'none';
+        startOverlay.remove();
+    }
+    
+    // Show and activate slideshow
+    if (activeLoader) {
+        activeLoader.style.display = 'block';
+        setTimeout(() => activeLoader.classList.add('active'), 50);
+    }
+}
         
     } else {
         // Cinematic mode
