@@ -5221,38 +5221,57 @@ if (particlesContainer) {
 // ============================================
 // PREMIUM CURSOR
 // ============================================
-// ============================================
-// PREMIUM CURSOR
-// ============================================
-// Hide default cursor globally
-document.addEventListener('DOMContentLoaded', () => {
-    // Hide default cursor globally
-    if (document.body) {
+// Initialize cursor hiding after full page load
+(function initCursor() {
+    function hideAllCursors() {
+        if (!document.body) return;
+        
         document.body.style.cursor = 'none';
-        document.querySelectorAll('*').forEach(el => {
-            el.style.cursor = 'none';
-        });
-    }
-});
-
-const hideDefaultCursor = () => {
-    if (document.body) {
         document.querySelectorAll('*').forEach(el => {
             if (el && el.style) {
                 el.style.cursor = 'none';
             }
         });
     }
-};
-
-// Re-run when new elements are added
-if (document.body) {
-    const cursorObserver = new MutationObserver(hideDefaultCursor);
-    cursorObserver.observe(document.body, {
-        childList: true,
-        subtree: true
+    
+    // Try immediately
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', hideAllCursors);
+    } else {
+        hideAllCursors();
+    }
+    
+    // Also try on full load
+    window.addEventListener('load', hideAllCursors);
+    
+    // Watch for new elements
+    const observer = new MutationObserver(() => {
+        if (document.body) {
+            document.querySelectorAll('*').forEach(el => {
+                if (el && el.style) {
+                    el.style.cursor = 'none';
+                }
+            });
+        }
     });
-}
+    
+    // Start observing when body is ready
+    if (document.body) {
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    } else {
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.body) {
+                observer.observe(document.body, {
+                    childList: true,
+                    subtree: true
+                });
+            }
+        });
+    }
+})();
 
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
