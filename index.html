@@ -133,7 +133,7 @@
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 10000;
+    z-index: 10001 !important;
     transition: all 0.15s cubic-bezier(0.075, 0.82, 0.165, 1);
     opacity: 0;
     transform: translate(-50%, -50%);
@@ -153,7 +153,7 @@
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 10000 !important;
     transition: all 0.1s cubic-bezier(0.075, 0.82, 0.165, 1);
     opacity: 0;
     transform: translate(-50%, -50%);
@@ -379,14 +379,15 @@
 }
 
 /* KEEP CURSOR VISIBLE IN LIGHTBOX & GALLERY */
+body .cursor,
+body .cursor-follower,
 .lightbox .cursor,
 .lightbox .cursor-follower,
 .gallery-modal .cursor,
 .gallery-modal .cursor-follower {
     display: flex !important;
-    opacity: 1 !important;
     visibility: visible !important;
-    pointer-events: none !important;
+    opacity: 1 !important;
 }
 
 .lightbox,
@@ -5019,9 +5020,8 @@ if (particlesContainer) {
 // PREMIUM CURSOR
 // ============================================
 // ============================================
-// DISABLE DEFAULT CURSOR & ENHANCED CUSTOM CURSOR
+// PREMIUM CURSOR
 // ============================================
-
 // Hide default cursor globally
 document.body.style.cursor = 'none';
 document.querySelectorAll('*').forEach(el => {
@@ -5037,37 +5037,32 @@ if (cursor && cursorFollower) {
     let followerX = 0, followerY = 0;
     let isClicking = false;
     let isHovering = false;
-
-    // **ADD THIS: Force cursor visibility on lightbox/gallery**
-    const observeLightbox = new MutationObserver(() => {
-        const lightbox = document.getElementById('lightbox');
-        const galleryModal = document.getElementById('gallery-modal');
-        
-        if (lightbox && lightbox.classList.contains('active')) {
-            cursor.style.display = 'flex';
-            cursor.style.opacity = '1';
-            cursorFollower.style.display = 'block';
-            cursorFollower.style.opacity = '1';
-        }
-        
-        if (galleryModal && galleryModal.classList.contains('active')) {
-            cursor.style.display = 'flex';
-            cursor.style.opacity = '1';
-            cursorFollower.style.display = 'block';
-            cursorFollower.style.opacity = '1';
-        }
-    });
     
-    observeLightbox.observe(document.body, {
-        attributes: true,
-        subtree: true,
-        attributeFilter: ['class']
-    });
+    // **FORCE CURSOR TO ALWAYS BE VISIBLE**
+    function ensureCursorVisible() {
+        if (cursor && cursorFollower) {
+            cursor.style.display = 'flex';
+            cursor.style.visibility = 'visible';
+            cursor.style.opacity = '1';
+            cursorFollower.style.display = 'block';
+            cursorFollower.style.visibility = 'visible';
+            cursorFollower.style.opacity = '1';
+        }
+    }
+    
+    // Run immediately
+    ensureCursorVisible();
+    
+    // Run every 100ms to ensure cursor stays visible
+    setInterval(ensureCursorVisible, 100);
     
     // Track mouse movement
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
+        
+        // Ensure cursor is visible on every move
+        ensureCursorVisible();
         
         // Add ripple effect on move
         if (Math.random() > 0.95) {
@@ -5088,10 +5083,12 @@ if (cursor && cursorFollower) {
         cursor.style.left = cursorX + 'px';
         cursor.style.top = cursorY + 'px';
         cursor.style.opacity = '1';
+        cursor.style.visibility = 'visible';
         
         cursorFollower.style.left = followerX + 'px';
         cursorFollower.style.top = followerY + 'px';
         cursorFollower.style.opacity = '1';
+        cursorFollower.style.visibility = 'visible';
         
         requestAnimationFrame(animateCursor);
     }
@@ -5121,7 +5118,7 @@ if (cursor && cursorFollower) {
         '.tool-item, .stat-card': 'info',
         '.social-link': 'external',
         'input, textarea': 'text',
-        '.lightbox-img, .portfolio-image': 'zoom'
+        '.lightbox-img, .portfolio-image, .gallery-item': 'zoom'
     };
     
     Object.entries(interactiveElements).forEach(([selector, mode]) => {
@@ -5130,6 +5127,7 @@ if (cursor && cursorFollower) {
                 isHovering = true;
                 cursor.classList.add('hover', `hover-${mode}`);
                 cursorFollower.style.opacity = '0.5';
+                ensureCursorVisible();
                 
                 // Add mode-specific effects
                 switch(mode) {
@@ -5232,15 +5230,54 @@ if (cursor && cursorFollower) {
         setTimeout(() => particle.remove(), 800);
     }
     
-    // Hide cursor when leaving window
+    // **FORCE CURSOR VISIBLE ON LIGHTBOX OPEN**
+    const lightbox = document.getElementById('lightbox');
+    const galleryModal = document.getElementById('gallery-modal');
+    
+    if (lightbox) {
+        const lightboxObserver = new MutationObserver(() => {
+            if (lightbox.classList.contains('active')) {
+                ensureCursorVisible();
+                cursor.style.zIndex = '10001';
+                cursorFollower.style.zIndex = '10000';
+            } else {
+                cursor.style.zIndex = '10000';
+                cursorFollower.style.zIndex = '9999';
+            }
+        });
+        
+        lightboxObserver.observe(lightbox, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    }
+    
+    if (galleryModal) {
+        const galleryObserver = new MutationObserver(() => {
+            if (galleryModal.classList.contains('active')) {
+                ensureCursorVisible();
+                cursor.style.zIndex = '10001';
+                cursorFollower.style.zIndex = '10000';
+            } else {
+                cursor.style.zIndex = '10000';
+                cursorFollower.style.zIndex = '9999';
+            }
+        });
+        
+        galleryObserver.observe(galleryModal, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    }
+    
+    // Don't hide cursor when leaving window
     document.addEventListener('mouseleave', () => {
-        cursor.style.opacity = '0';
-        cursorFollower.style.opacity = '0';
+        // Keep visible instead of hiding
+        ensureCursorVisible();
     });
     
     document.addEventListener('mouseenter', () => {
-        cursor.style.opacity = '1';
-        cursorFollower.style.opacity = '1';
+        ensureCursorVisible();
     });
 }
 
