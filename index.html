@@ -5221,318 +5221,218 @@ if (particlesContainer) {
 // ============================================
 // PREMIUM CURSOR
 // ============================================
-// Initialize cursor hiding after full page load
-(function initCursor() {
-    function hideAllCursors() {
-        if (!document.body) return;
-        
-        document.body.style.cursor = 'none';
-        document.querySelectorAll('*').forEach(el => {
-            if (el && el.style) {
-                el.style.cursor = 'none';
-            }
-        });
-    }
-    
-    // Try immediately
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', hideAllCursors);
-    } else {
-        hideAllCursors();
-    }
-    
-    // Also try on full load
-    window.addEventListener('load', hideAllCursors);
-    
-    // Watch for new elements
-    const observer = new MutationObserver(() => {
-        if (document.body) {
-            document.querySelectorAll('*').forEach(el => {
-                if (el && el.style) {
-                    el.style.cursor = 'none';
-                }
-            });
-        }
-    });
-    
-    // Start observing when body is ready
-    if (document.body) {
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    } else {
+// ============================================
+// PREMIUM CURSOR
+// ============================================
+ // ============================================
+        // FIX: Wait for DOM to be fully loaded
+        // ============================================
         document.addEventListener('DOMContentLoaded', () => {
-            if (document.body) {
-                observer.observe(document.body, {
-                    childList: true,
-                    subtree: true
-                });
-            }
-        });
-    }
-})();
+            // ============================================
+            // HIDE DEFAULT CURSOR - FIXED VERSION
+            // ============================================
+            const hideDefaultCursor = () => {
+                if (document.body) {
+                    document.body.style.cursor = 'none';
+                    document.querySelectorAll('*').forEach(el => {
+                        if (el && el.style) {
+                            el.style.cursor = 'none';
+                        }
+                    });
+                }
+            };
 
-const cursor = document.querySelector('.cursor');
-const cursorFollower = document.querySelector('.cursor-follower');
+            // Run immediately after DOM is ready
+            hideDefaultCursor();
 
-if (cursor && cursorFollower) {
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let followerX = 0, followerY = 0;
-    let isClicking = false;
-    let isHovering = false;
-    
-    // **FORCE CURSOR TO ALWAYS BE VISIBLE**
-    function ensureCursorVisible() {
-        if (cursor && cursorFollower) {
-            cursor.style.display = 'flex';
-            cursor.style.visibility = 'visible';
-            cursor.style.opacity = '1';
-            cursorFollower.style.display = 'block';
-            cursorFollower.style.visibility = 'visible';
-            cursorFollower.style.opacity = '1';
-        }
-    }
-    
-    // Run immediately
-    ensureCursorVisible();
-    
-    // Run every 100ms to ensure cursor stays visible
-    setInterval(ensureCursorVisible, 100);
-    
-    // Track mouse movement
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        // Ensure cursor is visible on every move
-        ensureCursorVisible();
-        
-        // Add ripple effect on move
-        if (Math.random() > 0.95) {
-            createRipple(mouseX, mouseY);
-        }
-    });
-    
-    // Smooth cursor animation
-    function animateCursor() {
-        // Main cursor - faster follow
-        cursorX += (mouseX - cursorX) * 0.25;
-        cursorY += (mouseY - cursorY) * 0.25;
-        
-        // Follower - slower, creating trail effect
-        followerX += (mouseX - followerX) * 0.12;
-        followerY += (mouseY - followerY) * 0.12;
-        
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        cursor.style.opacity = '1';
-        cursor.style.visibility = 'visible';
-        
-        cursorFollower.style.left = followerX + 'px';
-        cursorFollower.style.top = followerY + 'px';
-        cursorFollower.style.opacity = '1';
-        cursorFollower.style.visibility = 'visible';
-        
-        requestAnimationFrame(animateCursor);
-    }
-    
-    animateCursor();
-    
-    // Click effect
-    document.addEventListener('mousedown', () => {
-        isClicking = true;
-        cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-        cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
-        createClickWave(mouseX, mouseY);
-    });
-    
-    document.addEventListener('mouseup', () => {
-        isClicking = false;
-        if (!isHovering) {
-            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-        }
-    });
-    
-    // Enhanced hover effects with different cursor modes
-    const interactiveElements = {
-        'a, button, .portfolio-item, .filter-btn': 'pointer',
-        '.contact-card, .testimonial-card': 'view',
-        '.tool-item, .stat-card': 'info',
-        '.social-link': 'external',
-        'input, textarea': 'text',
-        '.lightbox-img, .portfolio-image, .gallery-item': 'zoom'
-    };
-    
-    Object.entries(interactiveElements).forEach(([selector, mode]) => {
-        document.querySelectorAll(selector).forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                isHovering = true;
-                cursor.classList.add('hover', `hover-${mode}`);
-                cursorFollower.style.opacity = '0.5';
-                ensureCursorVisible();
+            // Re-run when new elements are added
+            const cursorObserver = new MutationObserver(hideDefaultCursor);
+            cursorObserver.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+
+            // ============================================
+            // PREMIUM CURSOR
+            // ============================================
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
+
+            if (cursor && cursorFollower) {
+                let mouseX = 0, mouseY = 0;
+                let cursorX = 0, cursorY = 0;
+                let followerX = 0, followerY = 0;
+                let isClicking = false;
+                let isHovering = false;
                 
-                // Add mode-specific effects
-                switch(mode) {
-                    case 'pointer':
-                        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                        break;
-                    case 'view':
-                        cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-                        cursor.innerHTML = '<span style="font-size: 16px;">👁️</span>';
-                        break;
-                    case 'info':
-                        cursor.innerHTML = '<span style="font-size: 14px;">ℹ️</span>';
-                        break;
-                    case 'external':
-                        cursor.innerHTML = '<span style="font-size: 14px;">↗</span>';
-                        break;
-                    case 'text':
-                        cursor.innerHTML = '<span style="font-size: 18px;">|</span>';
-                        cursor.style.transform = 'translate(-50%, -50%) scale(1) scaleX(0.3)';
-                        break;
-                    case 'zoom':
-                        cursor.innerHTML = '<span style="font-size: 16px;">🔍</span>';
-                        cursor.style.transform = 'translate(-50%, -50%) scale(2)';
-                        break;
+                // Force cursor visible
+                function ensureCursorVisible() {
+                    cursor.style.display = 'flex';
+                    cursor.style.visibility = 'visible';
+                    cursor.style.opacity = '1';
+                    cursorFollower.style.display = 'block';
+                    cursorFollower.style.visibility = 'visible';
+                    cursorFollower.style.opacity = '1';
                 }
-            });
-            
-            el.addEventListener('mouseleave', () => {
-                isHovering = false;
-                cursor.classList.remove('hover', `hover-${mode}`);
-                cursor.innerHTML = '';
-                cursorFollower.style.opacity = '1';
-                if (!isClicking) {
-                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                
+                ensureCursorVisible();
+                setInterval(ensureCursorVisible, 100);
+                
+                // Track mouse movement
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    ensureCursorVisible();
+                    
+                    // Add ripple effect on move
+                    if (Math.random() > 0.95) {
+                        createRipple(mouseX, mouseY);
+                    }
+                });
+                
+                // Smooth cursor animation
+                function animateCursor() {
+                    cursorX += (mouseX - cursorX) * 0.25;
+                    cursorY += (mouseY - cursorY) * 0.25;
+                    
+                    followerX += (mouseX - followerX) * 0.12;
+                    followerY += (mouseY - followerY) * 0.12;
+                    
+                    cursor.style.left = cursorX + 'px';
+                    cursor.style.top = cursorY + 'px';
+                    cursor.style.opacity = '1';
+                    
+                    cursorFollower.style.left = followerX + 'px';
+                    cursorFollower.style.top = followerY + 'px';
+                    cursorFollower.style.opacity = '1';
+                    
+                    requestAnimationFrame(animateCursor);
                 }
-            });
-        });
-    });
-    
-    // Magnetic attraction effect
-    document.querySelectorAll('button, .contact-card, .filter-btn').forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const elX = rect.left + rect.width / 2;
-            const elY = rect.top + rect.height / 2;
-            
-            const deltaX = (e.clientX - elX) * 0.3;
-            const deltaY = (e.clientY - elY) * 0.3;
-            
-            cursor.style.left = (mouseX + deltaX) + 'px';
-            cursor.style.top = (mouseY + deltaY) + 'px';
-        });
-        
-        el.addEventListener('mouseleave', () => {
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
-        });
-    });
-    
-    // Create ripple effect
-    function createRipple(x, y) {
-        const ripple = document.createElement('div');
-        ripple.className = 'cursor-ripple';
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        document.body.appendChild(ripple);
-        
-        setTimeout(() => ripple.remove(), 1000);
-    }
-    
-    // Create click wave effect
-    function createClickWave(x, y) {
-        const wave = document.createElement('div');
-        wave.className = 'cursor-click-wave';
-        wave.style.left = x + 'px';
-        wave.style.top = y + 'px';
-        document.body.appendChild(wave);
-        
-        setTimeout(() => wave.remove(), 600);
-    }
-    
-    // Trailing particles
-    let particleInterval;
-    document.addEventListener('mousemove', () => {
-        if (particleInterval) clearTimeout(particleInterval);
-        particleInterval = setTimeout(() => {
-            createTrailParticle(mouseX, mouseY);
-        }, 50);
-    });
-    
-    function createTrailParticle(x, y) {
-        const particle = document.createElement('div');
-        particle.className = 'cursor-trail-particle';
-        particle.style.left = x + 'px';
-        particle.style.top = y + 'px';
-        particle.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
-        document.body.appendChild(particle);
-        
-        setTimeout(() => particle.remove(), 800);
-    }
-    
-    // **FORCE CURSOR VISIBLE ON LIGHTBOX OPEN**
-    const lightbox = document.getElementById('lightbox');
-    const galleryModal = document.getElementById('gallery-modal');
-    
-    if (lightbox) {
-        const lightboxObserver = new MutationObserver(() => {
-            if (lightbox.classList.contains('active')) {
-                ensureCursorVisible();
-                cursor.style.zIndex = '10001';
-                cursorFollower.style.zIndex = '10000';
-            } else {
-                cursor.style.zIndex = '10000';
-                cursorFollower.style.zIndex = '9999';
-            }
-        });
-        
-        lightboxObserver.observe(lightbox, {
-            attributes: true,
-            attributeFilter: ['class']
-        });
-    }
-    
-    if (galleryModal) {
-        const galleryObserver = new MutationObserver(() => {
-            if (galleryModal.classList.contains('active')) {
-                ensureCursorVisible();
-                cursor.style.zIndex = '10001';
-                cursorFollower.style.zIndex = '10000';
-            } else {
-                cursor.style.zIndex = '10000';
-                cursorFollower.style.zIndex = '9999';
-            }
-        });
-        
-        galleryObserver.observe(galleryModal, {
-            attributes: true,
-            attributeFilter: ['class']
-        });
-    }
-    
-    // Force hide default cursor on all events
-    document.addEventListener('mouseover', (e) => {
-        if (e.target) e.target.style.cursor = 'none';
-    }, true);
+                
+                animateCursor();
+                
+                // Click effect
+                document.addEventListener('mousedown', () => {
+                    isClicking = true;
+                    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
+                    createClickWave(mouseX, mouseY);
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    isClicking = false;
+                    if (!isHovering) {
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                        cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                    }
+                });
+                
+                // Enhanced hover effects
+                const interactiveElements = {
+                    'a, button': 'pointer',
+                    '.contact-card': 'view',
+                    '.profile-card': 'info',
+                    '.social-link': 'external',
+                    'input, textarea': 'text'
+                };
+                
+                Object.entries(interactiveElements).forEach(([selector, mode]) => {
+                    document.querySelectorAll(selector).forEach(el => {
+                        el.addEventListener('mouseenter', () => {
+                            isHovering = true;
+                            cursor.classList.add('hover', `hover-${mode}`);
+                            cursorFollower.style.opacity = '0.5';
+                            ensureCursorVisible();
+                            
+                            switch(mode) {
+                                case 'pointer':
+                                    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                                    break;
+                                case 'view':
+                                    cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                                    cursor.innerHTML = '<span style="font-size: 16px;">👁️</span>';
+                                    break;
+                                case 'info':
+                                    cursor.innerHTML = '<span style="font-size: 14px;">ℹ️</span>';
+                                    break;
+                                case 'external':
+                                    cursor.innerHTML = '<span style="font-size: 14px;">↗</span>';
+                                    break;
+                                case 'text':
+                                    cursor.innerHTML = '<span style="font-size: 18px;">|</span>';
+                                    cursor.style.transform = 'translate(-50%, -50%) scale(1) scaleX(0.3)';
+                                    break;
+                            }
+                        });
+                        
+                        el.addEventListener('mouseleave', () => {
+                            isHovering = false;
+                            cursor.classList.remove('hover', `hover-${mode}`);
+                            cursor.innerHTML = '';
+                            cursorFollower.style.opacity = '1';
+                            if (!isClicking) {
+                                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                            }
+                        });
+                    });
+                });
+                
+                // Create ripple effect
+                function createRipple(x, y) {
+                    const ripple = document.createElement('div');
+                    ripple.style.cssText = `
+                        position: fixed;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        border: 1px solid rgba(99, 102, 241, 0.4);
+                        background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
+                        pointer-events: none;
+                        z-index: 9998;
+                        left: ${x}px;
+                        top: ${y}px;
+                        transform: translate(-50%, -50%);
+                        animation: ripple-expand 0.8s ease-out forwards;
+                    `;
+                    document.body.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 1000);
+                }
+                
+                // Create click wave effect
+                function createClickWave(x, y) {
+                    const wave = document.createElement('div');
+                    wave.style.cssText = `
+                        position: fixed;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background: radial-gradient(circle, rgba(99, 102, 241, 0.4), rgba(99, 102, 241, 0.1) 50%, transparent 70%);
+                        border: 1px solid rgba(99, 102, 241, 0.3);
+                        pointer-events: none;
+                        z-index: 9998;
+                        left: ${x}px;
+                        top: ${y}px;
+                        transform: translate(-50%, -50%);
+                        animation: click-wave-expand 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+                    `;
+                    document.body.appendChild(wave);
+                    setTimeout(() => wave.remove(), 600);
+                }
+                
+                // Force hide default cursor on all events
+                document.addEventListener('mouseover', (e) => {
+                    if (e.target) e.target.style.cursor = 'none';
+                }, true);
 
-    document.addEventListener('mouseenter', (e) => {
-        if (e.target) e.target.style.cursor = 'none';
-    }, true);
+                document.addEventListener('mouseenter', (e) => {
+                    if (e.target) e.target.style.cursor = 'none';
+                }, true);
 
-    // Don't hide cursor when leaving window
-    document.addEventListener('mouseleave', () => {
-        ensureCursorVisible();
-    });
-    
-    document.addEventListener('mouseenter', () => {
-        ensureCursorVisible();
-    });
-} // <-- CLOSING BRACKET FOR if (cursor && cursorFollower)
+                document.addEventListener('mouseleave', () => {
+                    ensureCursorVisible();
+                });
+            } // <-- CLOSING BRACKET FOR if (cursor && cursorFollower)
 
 // ============================================
 // SCROLL PROGRESS BAR
