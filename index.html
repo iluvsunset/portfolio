@@ -117,8 +117,8 @@
             scroll-behavior: smooth;
         }
         
-        /* ============================================
-   ENHANCED PREMIUM CURSOR - ULTRA VFX
+/* ============================================
+   iOS 26 LIQUID GLASS CURSOR
    ============================================ */
 
 /* Hide default cursor globally */
@@ -126,49 +126,202 @@
     cursor: none !important;
 }
 
+html,
+body,
+a,
+button,
+input,
+textarea,
+select,
+img,
+video,
+canvas,
+div,
+span,
+p,
+h1, h2, h3, h4, h5, h6 {
+    cursor: none !important;
+}
+
+/* Ensure cursor stays hidden even on interactive elements */
+*:hover,
+*:active,
+*:focus {
+    cursor: none !important;
+}
+
+/* Override any inline cursor styles */
+[style*="cursor"] {
+    cursor: none !important;
+}
+
 .cursor {
-    width: 40px;
-    height: 40px;
-    border: 2px solid var(--accent);
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 10001 !important;
-    transition: all 0.15s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
-    backdrop-filter: blur(2px);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--accent);
-    font-weight: bold;
+    
+    /* Liquid Glass Effect */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(99, 102, 241, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(99, 102, 241, 0.1);
+    
+    /* Glass refraction effect */
+    background-image: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.3) 0%, 
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(99, 102, 241, 0.1) 100%);
+    
+    animation: liquid-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes liquid-shimmer {
+    0%, 100% {
+        box-shadow: 
+            0 8px 32px rgba(99, 102, 241, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4),
+            0 0 0 1px rgba(99, 102, 241, 0.1);
+    }
+    50% {
+        box-shadow: 
+            0 8px 40px rgba(99, 102, 241, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6),
+            0 0 0 1px rgba(99, 102, 241, 0.2);
+    }
+}
+
+/* Light refraction streak */
+.cursor::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    width: 60%;
+    height: 30%;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.6) 0%, 
+        rgba(255, 255, 255, 0) 100%);
+    border-radius: 50%;
+    filter: blur(8px);
+    animation: refraction-move 2s ease-in-out infinite;
+}
+
+@keyframes refraction-move {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(5px, 3px) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+/* Glass edge highlight */
+.cursor::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, 
+        transparent 40%, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        transparent 60%);
+    animation: edge-shine 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes edge-shine {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .cursor-follower {
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 10000 !important;
-    transition: all 0.1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.8),
-                0 0 40px rgba(99, 102, 241, 0.4);
+    
+    /* Liquid glass core */
+    background: radial-gradient(circle, 
+        rgba(99, 102, 241, 0.8) 0%, 
+        rgba(99, 102, 241, 0.4) 50%,
+        rgba(99, 102, 241, 0.1) 100%);
+    backdrop-filter: blur(5px);
+    box-shadow: 
+        0 0 20px rgba(99, 102, 241, 0.6),
+        0 0 40px rgba(99, 102, 241, 0.3),
+        inset 0 0 8px rgba(255, 255, 255, 0.5);
+    animation: core-pulse 2s ease-in-out infinite;
+}
+
+@keyframes core-pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 
+            0 0 20px rgba(99, 102, 241, 0.6),
+            0 0 40px rgba(99, 102, 241, 0.3);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        box-shadow: 
+            0 0 30px rgba(99, 102, 241, 0.8),
+            0 0 60px rgba(99, 102, 241, 0.5);
+    }
 }
 
 /* Hover States */
+/* Hover States - Liquid Glass Morphing */
 .cursor.hover {
-    width: 70px;
-    height: 70px;
-    background: rgba(99, 102, 241, 0.12);
-    border-color: var(--accent);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(25px) saturate(200%);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 12px 48px rgba(99, 102, 241, 0.25),
+        inset 0 2px 0 rgba(255, 255, 255, 0.6),
+        0 0 0 2px rgba(99, 102, 241, 0.15);
+    animation: liquid-shimmer 2s ease-in-out infinite, liquid-morph 1s ease-in-out infinite;
+}
+
+@keyframes liquid-morph {
+    0%, 100% {
+        border-radius: 50%;
+    }
+    25% {
+        border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%;
+    }
+    50% {
+        border-radius: 60% 40% 40% 60% / 60% 40% 60% 40%;
+    }
+    75% {
+        border-radius: 40% 60% 40% 60% / 50% 60% 40% 50%;
+    }
 }
 
 .cursor.hover-pointer {
@@ -5028,6 +5181,20 @@ document.querySelectorAll('*').forEach(el => {
     el.style.cursor = 'none';
 });
 
+const hideDefaultCursor = () => {
+    document.querySelectorAll('*').forEach(el => {
+        el.style.cursor = 'none';
+    });
+};
+
+hideDefaultCursor();
+// Re-run when new elements are added
+const cursorObserver = new MutationObserver(hideDefaultCursor);
+cursorObserver.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
 
@@ -5270,16 +5437,24 @@ if (cursor && cursorFollower) {
         });
     }
     
+    // Force hide default cursor on all events
+    document.addEventListener('mouseover', (e) => {
+        if (e.target) e.target.style.cursor = 'none';
+    }, true);
+
+    document.addEventListener('mouseenter', (e) => {
+        if (e.target) e.target.style.cursor = 'none';
+    }, true);
+
     // Don't hide cursor when leaving window
     document.addEventListener('mouseleave', () => {
-        // Keep visible instead of hiding
         ensureCursorVisible();
     });
     
     document.addEventListener('mouseenter', () => {
         ensureCursorVisible();
     });
-}
+} // <-- CLOSING BRACKET FOR if (cursor && cursorFollower)
 
 // ============================================
 // SCROLL PROGRESS BAR
