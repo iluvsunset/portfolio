@@ -4087,11 +4087,9 @@ body.cinematic-mode .start-overlay {
 </footer>
 
 <script>
-// ADD THIS FIRST - BEFORE LOADING_CONFIG
-if (typeof LOADING_CONFIG === 'undefined' || LOADING_CONFIG.mode !== 'cinematic') {
-    document.documentElement.style.setProperty('--start-overlay-display', 'none');
-}
-
+// ============================================
+// LOADING SCREEN CONFIGURATION
+// ============================================
 const LOADING_CONFIG = {
     enabled: true,
     mode: 'slideshow',          // Options: 'cinematic' or 'slideshow'
@@ -4099,36 +4097,15 @@ const LOADING_CONFIG = {
     autoSkipAfter: null
 };
 
-// Add body class based on mode - IMMEDIATE
-if (LOADING_CONFIG.mode === 'cinematic') {
-    const startOverlay = document.getElementById('start-overlay');
-    if (startOverlay) {
-        startOverlay.style.display = 'flex'; // Show it for cinematic mode
-        startOverlay.style.visibility = 'visible';
-        startOverlay.style.opacity = '1';
-    }
-}
-
-// Apply configuration immediately
-if (LOADING_CONFIG.mode === 'slideshow') {
-    document.addEventListener('DOMContentLoaded', () => {
-        const startOverlay = document.getElementById('start-overlay');
-        if (startOverlay) {
-            startOverlay.style.display = 'none';
-            startOverlay.remove();
-        }
-    });
-}
-
-    // Optimized Particles - Reduced from 50 to 20
-
 // ============================================
 // LOADING SCREEN MASTER CONTROLLER
 // ============================================
 window.addEventListener('load', () => {
     // Check if loading is disabled
     if (!LOADING_CONFIG.enabled) {
-        return; // Exit early - already handled above
+        document.body.classList.remove('loading');
+        document.body.classList.add('loaded');
+        return;
     }
 
     // Select which loader to show
@@ -4140,30 +4117,27 @@ window.addEventListener('load', () => {
     if (LOADING_CONFIG.mode === 'slideshow') {
         activeLoader = slideshowLoader;
         inactiveLoader = cinematicLoader;
-        loaderDuration = 15000; // 7 secondsif (LOADING_CONFIG.mode === 'slideshow') {
-    
-    // REMOVE START OVERLAY FOR SLIDESHOW MODE
-    const startOverlay = document.getElementById('start-overlay');
-    if (startOverlay) {
-        startOverlay.style.display = 'none';
-        startOverlay.remove();
-    }
-    
-    // Show and activate slideshow
-    if (activeLoader) {
-        activeLoader.style.display = 'block';
-        setTimeout(() => activeLoader.classList.add('active'), 50);
-    }
-}
+        loaderDuration = 15000;
+        
+        // Show and activate slideshow
+        if (activeLoader) {
+            activeLoader.style.display = 'block';
+            setTimeout(() => activeLoader.classList.add('active'), 50);
+        }
         
     } else {
         // Cinematic mode
         activeLoader = cinematicLoader;
         inactiveLoader = slideshowLoader;
-        loaderDuration = 24000; // 24 seconds
+        loaderDuration = 24000;
         
-        // Cinematic loader has its own initialization (start button, etc.)
-        // The existing cinematic code will handle it
+        // Show start overlay for cinematic
+        const startOverlay = document.getElementById('start-overlay');
+        if (startOverlay) {
+            startOverlay.style.display = 'flex';
+            startOverlay.style.visibility = 'visible';
+            startOverlay.style.opacity = '1';
+        }
     }
     
     // Hide inactive loader
@@ -4173,7 +4147,7 @@ window.addEventListener('load', () => {
     }
     
     // ============================================
-    // CINEMATIC TRAILER INITIALIZATION (if mode is 'cinematic')
+    // CINEMATIC TRAILER INITIALIZATION
     // ============================================
     if (LOADING_CONFIG.mode === 'cinematic') {
         const startBtn = document.getElementById('start-btn');
@@ -4197,7 +4171,6 @@ window.addEventListener('load', () => {
         let soundTimeouts = [];
         let trailerTimeout;
         
-        // Play sound helper
         function playSound(sound) {
             if (sound) {
                 sound.currentTime = 0;
@@ -4205,37 +4178,30 @@ window.addEventListener('load', () => {
             }
         }
         
-        // Sound timeline - MATCHED TO YOUR AUDIO LENGTHS
         function startSoundTimeline() {
-            soundTimeouts.push(setTimeout(() => playSound(whooshSound), 200));      // Scene 1: 0.2s
-            soundTimeouts.push(setTimeout(() => playSound(impactSound), 2000));     // Scene 2: 2.5s
-            soundTimeouts.push(setTimeout(() => playSound(finalSound), 10000));     // Scene 3: 10s
-            soundTimeouts.push(setTimeout(() => playSound(revealSound), 14000));    // Scene 4: 14s
+            soundTimeouts.push(setTimeout(() => playSound(whooshSound), 200));
+            soundTimeouts.push(setTimeout(() => playSound(impactSound), 2000));
+            soundTimeouts.push(setTimeout(() => playSound(finalSound), 10000));
+            soundTimeouts.push(setTimeout(() => playSound(revealSound), 14000));
         }
         
-        // Start cinematic trailer
         function startCinematicTrailer() {
-            // Hide start overlay
             if (startOverlay) {
                 startOverlay.classList.add('hidden');
                 setTimeout(() => startOverlay.remove(), 600);
             }
             
-            // START TRAILER ANIMATIONS
             const trailerContainer = document.getElementById('trailer-container');
             if (trailerContainer) {
                 trailerContainer.classList.remove('paused');
                 trailerContainer.classList.add('playing');
             }
             
-            // Start sounds and auto-end
             startSoundTimeline();
             trailerTimeout = setTimeout(endCinematicTrailer, 26000);
         }
         
-        // End cinematic trailer
         function endCinematicTrailer() {
-            // Stop all sounds
             soundTimeouts.forEach(timeout => clearTimeout(timeout));
             if (trailerTimeout) clearTimeout(trailerTimeout);
             
@@ -4246,13 +4212,11 @@ window.addEventListener('load', () => {
                 }
             });
             
-            // Fade out scenes
             document.querySelectorAll('.trailer-scene').forEach(scene => {
                 scene.style.transition = 'opacity 0.5s ease';
                 scene.style.opacity = '0';
             });
             
-            // Fade out loader
             setTimeout(() => {
                 activeLoader.classList.add('fade-out');
                 setTimeout(() => {
@@ -4264,12 +4228,10 @@ window.addEventListener('load', () => {
             }, 300);
         }
         
-        // Start button click
         if (startBtn) {
             startBtn.addEventListener('click', startCinematicTrailer);
         }
         
-        // Skip button
         if (LOADING_CONFIG.skipButton && skipBtn) {
             skipBtn.style.display = 'block';
             skipBtn.addEventListener('click', () => {
@@ -4280,22 +4242,16 @@ window.addEventListener('load', () => {
             skipBtn.style.display = 'none';
         }
         
-        // Enter key to start
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && startOverlay && !startOverlay.classList.contains('hidden')) {
                 startCinematicTrailer();
             }
-        });
-        
-        // Escape key to skip
-        document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && LOADING_CONFIG.skipButton) {
                 if (trailerTimeout) clearTimeout(trailerTimeout);
                 endCinematicTrailer();
             }
         });
         
-        // Auto-skip functionality
         if (LOADING_CONFIG.autoSkipAfter) {
             setTimeout(() => {
                 if (trailerTimeout) clearTimeout(trailerTimeout);
@@ -4305,7 +4261,7 @@ window.addEventListener('load', () => {
     }
     
     // ============================================
-    // SLIDESHOW LOADER FUNCTIONALITY (if mode is 'slideshow')
+    // SLIDESHOW LOADER FUNCTIONALITY
     // ============================================
     if (LOADING_CONFIG.mode === 'slideshow') {
         const skipBtn = activeLoader.querySelector('.slideshow-skip');
@@ -4323,7 +4279,6 @@ window.addEventListener('load', () => {
             }
         }
         
-        // Skip button functionality
         if (LOADING_CONFIG.skipButton && skipBtn) {
             skipBtn.style.display = 'block';
             skipBtn.addEventListener('click', endSlideshowLoader);
@@ -4331,30 +4286,24 @@ window.addEventListener('load', () => {
             skipBtn.style.display = 'none';
         }
         
-        // Escape key to skip
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && LOADING_CONFIG.skipButton) {
                 endSlideshowLoader();
             }
         });
         
-        // Auto-skip functionality
         if (LOADING_CONFIG.autoSkipAfter) {
             setTimeout(endSlideshowLoader, LOADING_CONFIG.autoSkipAfter * 1000);
         } else {
-            // Auto-end after 7 seconds
-            setTimeout(endSlideshowLoader, 15000);
+            setTimeout(endSlideshowLoader, loaderDuration);
         }
     }
     
-    // ============================================
-    // COMMON FUNCTIONALITY (runs for both modes)
-    // ============================================
     console.log(`🎬 Loading Screen Active: ${LOADING_CONFIG.mode.toUpperCase()} mode`);
 });
 
 // ============================================
-// OPTIMIZED PARTICLES
+// REST OF YOUR CODE (Particles, Cursor, etc.)
 // ============================================
 const particlesContainer = document.querySelector('.particles');
 if (particlesContainer) {
