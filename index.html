@@ -3091,8 +3091,19 @@ body.loaded::before {
     }
 }
 
-.slideshow-loader .start-overlay {
+/* Hide start overlay in slideshow mode - IMMEDIATE */
+body .start-overlay {
     display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Only show start overlay in cinematic mode */
+body.cinematic-mode .start-overlay {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 </style>
@@ -3110,12 +3121,12 @@ body.loaded::before {
 <!-- Cinematic Trailer with Start Button -->
 <div class="loader">
     <!-- Start Button Overlay -->
-    <div class="start-overlay" id="start-overlay">
-        <button class="start-btn" id="start-btn">
-            <span class="btn-icon">🎬</span>
-            <span class="btn-text">START EXPERIENCE</span>
-        </button>
-    </div>
+<div class="start-overlay" id="start-overlay" style="display: none !important;">
+    <button class="start-btn" id="start-btn">
+        <span class="btn-icon">🎬</span>
+        <span class="btn-text">START EXPERIENCE</span>
+    </button>
+</div>
 
     <!-- Audio for Trailer -->
     <audio id="whoosh-sound" preload="auto">
@@ -4074,14 +4085,29 @@ body.loaded::before {
         </div>
     </div>
 </footer>
-<script>
 
-  const LOADING_CONFIG = {
-    enabled: true,              // Set to false to skip ALL loading screens
+<script>
+// ADD THIS FIRST - BEFORE LOADING_CONFIG
+if (typeof LOADING_CONFIG === 'undefined' || LOADING_CONFIG.mode !== 'cinematic') {
+    document.documentElement.style.setProperty('--start-overlay-display', 'none');
+}
+
+const LOADING_CONFIG = {
+    enabled: true,
     mode: 'slideshow',          // Options: 'cinematic' or 'slideshow'
-    skipButton: true,           // Show skip button?
-    autoSkipAfter: null         // Auto-skip after X seconds (null = disabled)
+    skipButton: true,
+    autoSkipAfter: null
 };
+
+// Add body class based on mode - IMMEDIATE
+if (LOADING_CONFIG.mode === 'cinematic') {
+    const startOverlay = document.getElementById('start-overlay');
+    if (startOverlay) {
+        startOverlay.style.display = 'flex'; // Show it for cinematic mode
+        startOverlay.style.visibility = 'visible';
+        startOverlay.style.opacity = '1';
+    }
+}
 
 // Apply configuration immediately
 if (LOADING_CONFIG.mode === 'slideshow') {
