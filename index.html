@@ -5449,16 +5449,17 @@ window.addEventListener('scroll', () => {
 // ============================================
 // NAVIGATION SCROLL EFFECT
 // ============================================
-const nav = document.getElementById('nav');
-if (nav) {
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-}
+            const nav = document.getElementById('nav');
+            if (nav) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        nav.classList.add('scrolled');
+                    } else {
+                        nav.classList.remove('scrolled');
+                    }
+                });
+            }
+
 
 // ============================================
 // INTERSECTION OBSERVER FOR ANIMATIONS
@@ -5702,18 +5703,20 @@ portfolioItems.forEach((item, index) => {
 // ============================================
 // SMOOTH SCROLL
 // ============================================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
             });
-        }
-    });
-});
+        });
+
 
 // ============================================
 // PARALLAX EFFECT ON HERO
@@ -5915,12 +5918,27 @@ customContextMenu.addEventListener('click', (e) => {
     customContextMenu.classList.remove('active');
 });
 
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple-expand {
+                0% { width: 20px; height: 20px; opacity: 1; }
+                100% { width: 80px; height: 80px; opacity: 0; }
+            }
+            @keyframes click-wave-expand {
+                0% { width: 30px; height: 30px; opacity: 1; }
+                100% { width: 100px; height: 100px; opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
 // Close menu on Escape
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         customContextMenu.classList.remove('active');
     }
 });
+
+
 
 </script>
 <!-- Liquid Glass SVG Filters -->
