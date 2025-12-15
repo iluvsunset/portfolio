@@ -5433,6 +5433,8 @@ if (particlesContainer) {
                     ensureCursorVisible();
                 });
             } // <-- CLOSING BRACKET FOR if (cursor && cursorFollower)
+}); // <-- This closes DOMContentLoaded
+
 
 // ============================================
 // SCROLL PROGRESS BAR
@@ -5918,18 +5920,7 @@ customContextMenu.addEventListener('click', (e) => {
     customContextMenu.classList.remove('active');
 });
 
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple-expand {
-                0% { width: 20px; height: 20px; opacity: 1; }
-                100% { width: 80px; height: 80px; opacity: 0; }
-            }
-            @keyframes click-wave-expand {
-                0% { width: 30px; height: 30px; opacity: 1; }
-                100% { width: 100px; height: 100px; opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
+
 
 // Close menu on Escape
 document.addEventListener('keydown', (e) => {
