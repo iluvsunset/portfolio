@@ -384,11 +384,20 @@
 .gallery-modal .cursor,
 .gallery-modal .cursor-follower {
     display: flex !important;
-    pointer-events: none;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: none !important;
 }
 
+.lightbox,
 .lightbox *,
+.gallery-modal,
 .gallery-modal * {
+    cursor: none !important;
+}
+
+.lightbox-img,
+.gallery-item img {
     cursor: none !important;
 }
 
@@ -5028,6 +5037,32 @@ if (cursor && cursorFollower) {
     let followerX = 0, followerY = 0;
     let isClicking = false;
     let isHovering = false;
+
+    // **ADD THIS: Force cursor visibility on lightbox/gallery**
+    const observeLightbox = new MutationObserver(() => {
+        const lightbox = document.getElementById('lightbox');
+        const galleryModal = document.getElementById('gallery-modal');
+        
+        if (lightbox && lightbox.classList.contains('active')) {
+            cursor.style.display = 'flex';
+            cursor.style.opacity = '1';
+            cursorFollower.style.display = 'block';
+            cursorFollower.style.opacity = '1';
+        }
+        
+        if (galleryModal && galleryModal.classList.contains('active')) {
+            cursor.style.display = 'flex';
+            cursor.style.opacity = '1';
+            cursorFollower.style.display = 'block';
+            cursorFollower.style.opacity = '1';
+        }
+    });
+    
+    observeLightbox.observe(document.body, {
+        attributes: true,
+        subtree: true,
+        attributeFilter: ['class']
+    });
     
     // Track mouse movement
     document.addEventListener('mousemove', (e) => {
@@ -5627,11 +5662,6 @@ customContextMenu.innerHTML = `
         <span class="context-menu-icon">🖨️</span>
         <span>Print</span>
     </div>
-    <div class="context-menu-item" data-action="viewsource">
-        <span class="context-menu-icon">📄</span>
-        <span>View Page Source</span>
-    </div>
-    <div class="context-menu-divider"></div>
     <div class="context-menu-item" data-action="top">
         <span class="context-menu-icon">↑</span>
         <span>Back to Top</span>
@@ -5645,7 +5675,7 @@ document.addEventListener('contextmenu', (e) => {
     
     // Position custom menu
     const menuWidth = 220;
-    const menuHeight = 280;
+    const menuHeight = 240;
     let x = e.clientX;
     let y = e.clientY;
     
@@ -5686,9 +5716,6 @@ customContextMenu.addEventListener('click', (e) => {
             break;
         case 'print':
             window.print();
-            break;
-        case 'viewsource':
-            window.open('view-source:' + window.location.href);
             break;
         case 'top':
             window.scrollTo({ top: 0, behavior: 'smooth' });
