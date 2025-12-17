@@ -657,6 +657,24 @@ body .cursor-follower {
     filter: url(#glass-distortion);
 }
 
+/* Hide liquid glass effects during loading */
+body.loading .profile-card::before,
+body.loading .profile-card::after,
+body.loading .testimonial-card::before,
+body.loading .testimonial-card::after,
+body.loading .contact-card::before,
+body.loading .contact-card::after,
+body.loading .stat-card::before,
+body.loading .stat-card::after,
+body.loading .tool-item::before,
+body.loading .tool-item::after,
+body.loading .journey-card::before,
+body.loading .journey-card::after,
+body.loading .filter-btn::before,
+body.loading .filter-btn::after {
+    display: none !important;
+}
+
 .filter-btn,
 .skip-intro,
 .slideshow-skip {
@@ -3414,9 +3432,34 @@ body.loaded::before {
     animation: ripple-water 0.8s 13.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Slide 4: FINAL REVEAL (15.5s - 22s) - FIXED TIMING */
+/* Slide 4: FINAL REVEAL (15.5s - 22s) - STAYS VISIBLE */
 .slideshow-loader.active .slide-4 {
-    animation: kaleidoscope 2s 15.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: kaleidoscope-stay 6.5s 15.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes kaleidoscope-stay {
+    0% {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.3);
+        filter: blur(50px) hue-rotate(0deg) saturate(3);
+    }
+    15% {
+        transform: rotate(90deg) scale(0.6);
+        filter: blur(30px) hue-rotate(90deg) saturate(2);
+    }
+    30% {
+        transform: rotate(180deg) scale(0.9);
+        filter: blur(15px) hue-rotate(180deg) saturate(1.5);
+    }
+    45% {
+        transform: rotate(270deg) scale(1.05);
+        filter: blur(5px) hue-rotate(270deg) saturate(1.2);
+    }
+    60%, 100% {
+        opacity: 1;
+        transform: rotate(360deg) scale(1);
+        filter: blur(0) hue-rotate(360deg) saturate(1);
+    }
 }
 
 .slideshow-loader.active .slide-4 .slide-profile {
@@ -5093,7 +5136,7 @@ body.slideshow-mode .start-overlay {
 // ============================================
 const LOADING_CONFIG = {
     enabled: true,             // Disabled
-    mode: 'slideshow',
+    mode: 'cinematic',
     skipButton: true,
     autoSkipAfter: null
 };
@@ -6027,6 +6070,7 @@ document.addEventListener('keydown', (e) => {
 
 
 </script>
+<!-- Liquid Glass SVG Filters -->
 <!-- Liquid Glass SVG Filters -->
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute; overflow:hidden">
     <defs>
