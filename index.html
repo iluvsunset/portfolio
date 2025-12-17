@@ -3799,17 +3799,12 @@ body.loaded::before {
 }
 
 /* Hide start overlay in slideshow mode - IMMEDIATE */
-body .start-overlay {
+/* Only hide start overlay in slideshow mode */
+body.slideshow-mode .start-overlay {
+    display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
     pointer-events: none !important;
-}
-
-/* Only show start overlay in cinematic mode */
-body.cinematic-mode .start-overlay {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
 }
 
 /* ============================================
