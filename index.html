@@ -5375,22 +5375,15 @@ if (particlesContainer) {
         particlesContainer.appendChild(particle);
     }
 }
+
 // ============================================
 // PREMIUM CURSOR
 // ============================================
+
         // FIX: Wait for DOM to be fully loaded
         // ============================================
         document.addEventListener('DOMContentLoaded', () => {
-          const initCursor = () => {
-        if (!document.body.classList.contains('loaded')) {
-            // Cursor stays hidden during loading
-            const cursor = document.querySelector('.cursor');
-            const cursorFollower = document.querySelector('.cursor-follower');
-            if (cursor) cursor.style.display = 'none';
-            if (cursorFollower) cursorFollower.style.display = 'none';
-            return;
-        }
-          }}
+        
             // ============================================
             // HIDE DEFAULT CURSOR - FIXED VERSION
             // ============================================
