@@ -5150,7 +5150,7 @@ body.slideshow-mode .start-overlay {
 // LOADING SCREEN CONFIGURATION
 // ============================================
 const LOADING_CONFIG = {
-    enabled: true,             // Disabled
+    enabled: true,
     mode: 'cinematic',
     skipButton: true,
     autoSkipAfter: null
@@ -5164,6 +5164,7 @@ window.addEventListener('load', () => {
     if (!LOADING_CONFIG.enabled) {
         document.body.classList.remove('loading');
         document.body.classList.add('loaded');
+        initializeCursor(); // Initialize cursor immediately if loading disabled
         return;
     }
 
@@ -5283,6 +5284,11 @@ window.addEventListener('load', () => {
                     activeLoader.remove();
                     document.body.classList.remove('loading');
                     document.body.classList.add('loaded');
+                    
+                    // ✅ ACTIVATE CURSOR AFTER TRAILER ENDS
+                    setTimeout(() => {
+                        initializeCursor();
+                    }, 300);
                 }, 1200);
             }, 300);
         }
@@ -5334,6 +5340,11 @@ window.addEventListener('load', () => {
                     activeLoader.remove();
                     document.body.classList.remove('loading');
                     document.body.classList.add('loaded');
+                    
+                    // ✅ ACTIVATE CURSOR AFTER SLIDESHOW ENDS
+                    setTimeout(() => {
+                        initializeCursor();
+                    }, 300);
                 }, 1000);
             }
         }
@@ -5377,224 +5388,205 @@ if (particlesContainer) {
 }
 
 // ============================================
-// PREMIUM CURSOR - ONLY AFTER LOADING
+// PREMIUM CURSOR - ONLY ACTIVATES AFTER LOADING
 // ============================================
-document.addEventListener('DOMContentLoaded', () => {
-    // Wait for body to have 'loaded' class before initializing cursor
-    const initCursor = () => {
-        if (!document.body.classList.contains('loaded')) {
-            // Cursor stays hidden during loading
-            const cursor = document.querySelector('.cursor');
-            const cursorFollower = document.querySelector('.cursor-follower');
-            if (cursor) cursor.style.display = 'none';
-            if (cursorFollower) cursorFollower.style.display = 'none';
-            return;
-        }
-        
-        // ... rest of your cursor code stays the same
-            // ============================================
-            // HIDE DEFAULT CURSOR - FIXED VERSION
-            // ============================================
-            const hideDefaultCursor = () => {
-                if (document.body) {
-                    document.body.style.cursor = 'none';
-                    document.querySelectorAll('*').forEach(el => {
-                        if (el && el.style) {
-                            el.style.cursor = 'none';
-                        }
-                    });
+function initializeCursor() {
+    console.log('✅ Cursor initialized');
+    
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+
+    if (!cursor || !cursorFollower) {
+        console.warn('❌ Cursor elements not found');
+        return;
+    }
+
+    // Hide default cursor
+    const hideDefaultCursor = () => {
+        if (document.body) {
+            document.body.style.cursor = 'none';
+            document.querySelectorAll('*').forEach(el => {
+                if (el && el.style) {
+                    el.style.cursor = 'none';
                 }
-            };
-
-            // Run immediately after DOM is ready
-            hideDefaultCursor();
-
-            // Re-run when new elements are added
-            const cursorObserver = new MutationObserver(hideDefaultCursor);
-            cursorObserver.observe(document.body, {
-                childList: true,
-                subtree: true
             });
+        }
+    };
 
-            // ============================================
-            // PREMIUM CURSOR
-            // ============================================
-            const cursor = document.querySelector('.cursor');
-            const cursorFollower = document.querySelector('.cursor-follower');
+    hideDefaultCursor();
 
-            if (cursor && cursorFollower) {
-                let mouseX = 0, mouseY = 0;
-                let cursorX = 0, cursorY = 0;
-                let followerX = 0, followerY = 0;
-                let isClicking = false;
-                let isHovering = false;
-                
-                // Force cursor visible
-                function ensureCursorVisible() {
-                    cursor.style.display = 'flex';
-                    cursor.style.visibility = 'visible';
-                    cursor.style.opacity = '1';
-                    cursorFollower.style.display = 'block';
-                    cursorFollower.style.visibility = 'visible';
-                    cursorFollower.style.opacity = '1';
-                }
-                
-                ensureCursorVisible();
-                setInterval(ensureCursorVisible, 100);
-                
-                // Track mouse movement
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    ensureCursorVisible();
-                    
-                    // Add ripple effect on move
-                    if (Math.random() > 0.95) {
-                        createRipple(mouseX, mouseY);
-                    }
-                });
-                
-                // Smooth cursor animation
-                function animateCursor() {
-                    cursorX += (mouseX - cursorX) * 0.25;
-                    cursorY += (mouseY - cursorY) * 0.25;
-                    
-                    followerX += (mouseX - followerX) * 0.12;
-                    followerY += (mouseY - followerY) * 0.12;
-                    
-                    cursor.style.left = cursorX + 'px';
-                    cursor.style.top = cursorY + 'px';
-                    cursor.style.opacity = '1';
-                    
-                    cursorFollower.style.left = followerX + 'px';
-                    cursorFollower.style.top = followerY + 'px';
-                    cursorFollower.style.opacity = '1';
-                    
-                    requestAnimationFrame(animateCursor);
-                }
-                
-                animateCursor();
-                
-                // Click effect
-                document.addEventListener('mousedown', () => {
-                    isClicking = true;
-                    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
-                    createClickWave(mouseX, mouseY);
-                });
-                
-                document.addEventListener('mouseup', () => {
-                    isClicking = false;
-                    if (!isHovering) {
-                        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                        cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-                    }
-                });
-                
-                // Enhanced hover effects
-                const interactiveElements = {
-                    'a, button': 'pointer',
-                    '.contact-card': 'view',
-                    '.profile-card': 'info',
-                    '.social-link': 'external',
-                    'input, textarea': 'text'
-                };
-                
-                Object.entries(interactiveElements).forEach(([selector, mode]) => {
-                    document.querySelectorAll(selector).forEach(el => {
-                        el.addEventListener('mouseenter', () => {
-                            isHovering = true;
-                            cursor.classList.add('hover', `hover-${mode}`);
-                            cursorFollower.style.opacity = '0.5';
-                            ensureCursorVisible();
-                            
-                            switch(mode) {
-                                case 'pointer':
-                                    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                                    break;
-                                case 'view':
-                                    cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-                                    cursor.innerHTML = '<span style="font-size: 16px;">👁️</span>';
-                                    break;
-                                case 'info':
-                                    cursor.innerHTML = '<span style="font-size: 14px;">ℹ️</span>';
-                                    break;
-                                case 'external':
-                                    cursor.innerHTML = '<span style="font-size: 14px;">↗</span>';
-                                    break;
-                                case 'text':
-                                    cursor.innerHTML = '<span style="font-size: 18px;">|</span>';
-                                    cursor.style.transform = 'translate(-50%, -50%) scale(1) scaleX(0.3)';
-                                    break;
-                            }
-                        });
-                        
-                        el.addEventListener('mouseleave', () => {
-                            isHovering = false;
-                            cursor.classList.remove('hover', `hover-${mode}`);
-                            cursor.innerHTML = '';
-                            cursorFollower.style.opacity = '1';
-                            if (!isClicking) {
-                                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-                            }
-                        });
-                    });
-                });
-                
-                // Create ripple effect
-                function createRipple(x, y) {
-                    const ripple = document.createElement('div');
-                    ripple.style.cssText = `
-                        position: fixed;
-                        width: 20px;
-                        height: 20px;
-                        border-radius: 50%;
-                        border: 1px solid rgba(99, 102, 241, 0.4);
-                        background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
-                        pointer-events: none;
-                        z-index: 9998;
-                        left: ${x}px;
-                        top: ${y}px;
-                        transform: translate(-50%, -50%);
-                        animation: ripple-expand 0.8s ease-out forwards;
-                    `;
-                    document.body.appendChild(ripple);
-                    setTimeout(() => ripple.remove(), 1000);
-                }
-                
-                // Create click wave effect
-                function createClickWave(x, y) {
-                    const wave = document.createElement('div');
-                    wave.style.cssText = `
-                        position: fixed;
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                        background: radial-gradient(circle, rgba(99, 102, 241, 0.4), rgba(99, 102, 241, 0.1) 50%, transparent 70%);
-                        border: 1px solid rgba(99, 102, 241, 0.3);
-                        pointer-events: none;
-                        z-index: 9998;
-                        left: ${x}px;
-                        top: ${y}px;
-                        transform: translate(-50%, -50%);
-                        animation: click-wave-expand 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-                    `;
-                    document.body.appendChild(wave);
-                    setTimeout(() => wave.remove(), 600);
-                }
-                
-                // Force hide default cursor on all events
-                document.addEventListener('mouseover', (e) => {
-                    if (e.target) e.target.style.cursor = 'none';
-                }, true);
+    // Re-run when new elements are added
+    const cursorObserver = new MutationObserver(hideDefaultCursor);
+    cursorObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 
-                document.addEventListener('mouseleave', () => {
-                    ensureCursorVisible();
-                });
-            } // <-- CLOSING BRACKET FOR if (cursor && cursorFollower)
-}); // <-- This closes DOMContentLoaded
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let followerX = 0, followerY = 0;
+    let isClicking = false;
+    let isHovering = false;
+    
+    // Force cursor visible
+    function ensureCursorVisible() {
+        cursor.style.display = 'flex';
+        cursor.style.visibility = 'visible';
+        cursor.style.opacity = '1';
+        cursorFollower.style.display = 'block';
+        cursorFollower.style.visibility = 'visible';
+        cursorFollower.style.opacity = '1';
+    }
+    
+    ensureCursorVisible();
+    
+    // Track mouse movement
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Add ripple effect on move
+        if (Math.random() > 0.95) {
+            createRipple(mouseX, mouseY);
+        }
+    });
+    
+    // Smooth cursor animation
+    function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.25;
+        cursorY += (mouseY - cursorY) * 0.25;
+        
+        followerX += (mouseX - followerX) * 0.12;
+        followerY += (mouseY - followerY) * 0.12;
+        
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+        
+        cursorFollower.style.left = followerX + 'px';
+        cursorFollower.style.top = followerY + 'px';
+        
+        requestAnimationFrame(animateCursor);
+    }
+    
+    animateCursor();
+    
+    // Click effect
+    document.addEventListener('mousedown', () => {
+        isClicking = true;
+        cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
+        createClickWave(mouseX, mouseY);
+    });
+    
+    document.addEventListener('mouseup', () => {
+        isClicking = false;
+        if (!isHovering) {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+    });
+    
+    // Enhanced hover effects
+    const interactiveElements = {
+        'a, button': 'pointer',
+        '.contact-card': 'view',
+        '.profile-card': 'info',
+        '.social-link': 'external',
+        'input, textarea': 'text'
+    };
+    
+    Object.entries(interactiveElements).forEach(([selector, mode]) => {
+        document.querySelectorAll(selector).forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                isHovering = true;
+                cursor.classList.add('hover', `hover-${mode}`);
+                cursorFollower.style.opacity = '0.5';
+                
+                switch(mode) {
+                    case 'pointer':
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                        break;
+                    case 'view':
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                        cursor.innerHTML = '<span style="font-size: 16px;">👁️</span>';
+                        break;
+                    case 'info':
+                        cursor.innerHTML = '<span style="font-size: 14px;">ℹ️</span>';
+                        break;
+                    case 'external':
+                        cursor.innerHTML = '<span style="font-size: 14px;">↗</span>';
+                        break;
+                    case 'text':
+                        cursor.innerHTML = '<span style="font-size: 18px;">|</span>';
+                        cursor.style.transform = 'translate(-50%, -50%) scale(1) scaleX(0.3)';
+                        break;
+                }
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                isHovering = false;
+                cursor.classList.remove('hover', `hover-${mode}`);
+                cursor.innerHTML = '';
+                cursorFollower.style.opacity = '1';
+                if (!isClicking) {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                }
+            });
+        });
+    });
+    
+    // Create ripple effect
+    function createRipple(x, y) {
+        const ripple = document.createElement('div');
+        ripple.style.cssText = `
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
+            pointer-events: none;
+            z-index: 9998;
+            left: ${x}px;
+            top: ${y}px;
+            transform: translate(-50%, -50%);
+            animation: ripple-expand 0.8s ease-out forwards;
+        `;
+        document.body.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 1000);
+    }
+    
+    // Create click wave effect
+    function createClickWave(x, y) {
+        const wave = document.createElement('div');
+        wave.style.cssText = `
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.4), rgba(99, 102, 241, 0.1) 50%, transparent 70%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            pointer-events: none;
+            z-index: 9998;
+            left: ${x}px;
+            top: ${y}px;
+            transform: translate(-50%, -50%);
+            animation: click-wave-expand 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        `;
+        document.body.appendChild(wave);
+        setTimeout(() => wave.remove(), 600);
+    }
+    
+    // Force hide default cursor on all events
+    document.addEventListener('mouseover', (e) => {
+        if (e.target) e.target.style.cursor = 'none';
+    }, true);
 
+    document.addEventListener('mouseleave', () => {
+        ensureCursorVisible();
+    });
+}
 
 // ============================================
 // SCROLL PROGRESS BAR
@@ -5611,17 +5603,16 @@ window.addEventListener('scroll', () => {
 // ============================================
 // NAVIGATION SCROLL EFFECT
 // ============================================
-            const nav = document.getElementById('nav');
-            if (nav) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 50) {
-                        nav.classList.add('scrolled');
-                    } else {
-                        nav.classList.remove('scrolled');
-                    }
-                });
-            }
-
+const nav = document.getElementById('nav');
+if (nav) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+}
 
 // ============================================
 // INTERSECTION OBSERVER FOR ANIMATIONS
@@ -5878,7 +5869,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-
 // ============================================
 // PARALLAX EFFECT ON HERO
 // ============================================
@@ -6078,8 +6068,6 @@ customContextMenu.addEventListener('click', (e) => {
     
     customContextMenu.classList.remove('active');
 });
-
-
 
 // Close menu on Escape
 document.addEventListener('keydown', (e) => {
