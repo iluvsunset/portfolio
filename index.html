@@ -586,7 +586,6 @@ h1, h2, h3, h4, h5, h6 {
 .loader .cursor-follower,
 .slideshow-loader .cursor,
 .slideshow-loader .cursor-follower {
-    display: none !important;
 }
 
 /* KEEP CURSOR VISIBLE IN LIGHTBOX & GALLERY */
@@ -3046,7 +3045,6 @@ body.loading {
 body.loading .particles,
 body.loading .cursor,
 body.loading .cursor-follower {
-    display: none !important;
 }
 
 /* Only enable main animations after loader is gone */
@@ -3802,7 +3800,6 @@ body.loaded::before {
 
 /* Hide start overlay in slideshow mode - IMMEDIATE */
 body .start-overlay {
-    display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
     pointer-events: none !important;
@@ -4135,7 +4132,7 @@ body.cinematic-mode .start-overlay {
 <!-- Cinematic Trailer with Start Button -->
 <div class="loader">
     <!-- Start Button Overlay -->
-    <div class="start-overlay" id="start-overlay" style="display: none !important;">
+    <div class="start-overlay" id="start-overlay">
         <button class="start-btn" id="start-btn">
             <span class="btn-icon">🎬</span>
             <span class="btn-text">START EXPERIENCE</span>
