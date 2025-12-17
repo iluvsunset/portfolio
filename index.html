@@ -5375,13 +5375,13 @@ if (particlesContainer) {
         particlesContainer.appendChild(particle);
     }
 }
-
 // ============================================
-// PREMIUM CURSOR - ONLY AFTER LOADING
+// PREMIUM CURSOR
 // ============================================
-document.addEventListener('DOMContentLoaded', () => {
-    // Wait for body to have 'loaded' class before initializing cursor
-    const initCursor = () => {
+        // FIX: Wait for DOM to be fully loaded
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+          const initCursor = () => {
         if (!document.body.classList.contains('loaded')) {
             // Cursor stays hidden during loading
             const cursor = document.querySelector('.cursor');
@@ -5390,8 +5390,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cursorFollower) cursorFollower.style.display = 'none';
             return;
         }
-        
-        // ... rest of your cursor code stays the same
+          }}
             // ============================================
             // HIDE DEFAULT CURSOR - FIXED VERSION
             // ============================================
