@@ -674,6 +674,21 @@ body.loading .filter-btn::before,
 body.loading .filter-btn::after {
     display: none !important;
 }
+/* Hide cursor during loading screens */
+body.loading .cursor,
+body.loading .cursor-follower {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Show cursor only when loaded */
+body.loaded .cursor,
+body.loaded .cursor-follower {
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
 
 .filter-btn,
 .skip-intro,
@@ -5362,15 +5377,21 @@ if (particlesContainer) {
 }
 
 // ============================================
-// PREMIUM CURSOR
+// PREMIUM CURSOR - ONLY AFTER LOADING
 // ============================================
-// ============================================
-// PREMIUM CURSOR
-// ============================================
- // ============================================
-        // FIX: Wait for DOM to be fully loaded
-        // ============================================
-        document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+    // Wait for body to have 'loaded' class before initializing cursor
+    const initCursor = () => {
+        if (!document.body.classList.contains('loaded')) {
+            // Cursor stays hidden during loading
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
+            if (cursor) cursor.style.display = 'none';
+            if (cursorFollower) cursorFollower.style.display = 'none';
+            return;
+        }
+        
+        // ... rest of your cursor code stays the same
             // ============================================
             // HIDE DEFAULT CURSOR - FIXED VERSION
             // ============================================
