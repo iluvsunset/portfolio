@@ -5457,7 +5457,7 @@ footer::before {
 <div class="scroll-progress"></div>
 
 <!-- Cinematic Trailer with Start Button -->
-<div class="loader">
+<div class="loader" style="display: none;">
     <!-- Start Button Overlay -->
     <div class="start-overlay" id="start-overlay"">
         <button class="start-btn" id="start-btn">
@@ -5545,7 +5545,7 @@ footer::before {
     </div>
 </div>
 
-<div class="slideshow-loader">
+<div class="slideshow-loader"  style="display: none;">
     <div class="slideshow-container">
         <!-- Slide 1: EMAIL MARKETING -->
         <div class="slideshow-slide slide-1">
@@ -6436,9 +6436,22 @@ const LOADING_CONFIG = {
 window.addEventListener('load', () => {
     // Check if loading is disabled
     if (!LOADING_CONFIG.enabled) {
+        // Remove all loader elements from DOM
+        const cinematicLoader = document.querySelector('.loader');
+        const slideshowLoader = document.querySelector('.slideshow-loader');
+        
+        if (cinematicLoader) {
+            cinematicLoader.style.display = 'none';
+            cinematicLoader.remove();
+        }
+        if (slideshowLoader) {
+            slideshowLoader.style.display = 'none';
+            slideshowLoader.remove();
+        }
+        
         document.body.classList.remove('loading');
         document.body.classList.add('loaded');
-        return;
+        return; // EXIT EARLY - Don't run any loader code below
     }
 
     // Select which loader to show
@@ -6636,111 +6649,111 @@ window.addEventListener('load', () => {
 });
 
 // Create particle trails on mouse move during trailer
-    const trailerContainer = document.getElementById('trailer-container');
-    if (trailerContainer) {
-        let particleCount = 0;
-        const maxParticles = 50;
-        
-        document.addEventListener('mousemove', (e) => {
-            if (trailerContainer.classList.contains('playing') && particleCount < maxParticles) {
-                createParticleTrail(e.clientX, e.clientY);
-                particleCount++;
-            }
-        });
-        
-        function createParticleTrail(x, y) {
-            const particle = document.createElement('div');
-            const colors = ['#6366f1', '#ec4899', '#3b82f6', '#ffb84d'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            particle.style.cssText = `
-                position: fixed;
-                width: ${Math.random() * 8 + 4}px;
-                height: ${Math.random() * 8 + 4}px;
-                background: ${randomColor};
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                left: ${x}px;
-                top: ${y}px;
-                transform: translate(-50%, -50%);
-                box-shadow: 0 0 20px ${randomColor};
-                --tx: ${(Math.random() - 0.5) * 200}px;
-                --ty: ${(Math.random() - 0.5) * 200}px;
-                animation: particle-trail 1s ease-out forwards;
-            `;
-            
-            document.body.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-                particleCount--;
-            }, 1000);
+const trailerContainer = document.getElementById('trailer-container');
+if (trailerContainer) {
+    let particleCount = 0;
+    const maxParticles = 50;
+    
+    document.addEventListener('mousemove', (e) => {
+        if (trailerContainer.classList.contains('playing') && particleCount < maxParticles) {
+            createParticleTrail(e.clientX, e.clientY);
+            particleCount++;
         }
-    }
+    });
     
-    // Add hologram effect to scene 2
-    const scene2 = document.querySelector('.scene-2');
-    if (scene2) {
-        scene2.classList.add('trailer-scene-hologram');
-    }
-    
-    // Create energy pulse on scene transitions
-    function createEnergyPulse(x, y) {
-        const pulse = document.createElement('div');
-        pulse.style.cssText = `
+    function createParticleTrail(x, y) {
+        const particle = document.createElement('div');
+        const colors = ['#6366f1', '#ec4899', '#3b82f6', '#ffb84d'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        particle.style.cssText = `
             position: fixed;
-            width: 100px;
-            height: 100px;
-            border: 3px solid rgba(99, 102, 241, 0.8);
+            width: ${Math.random() * 8 + 4}px;
+            height: ${Math.random() * 8 + 4}px;
+            background: ${randomColor};
             border-radius: 50%;
             pointer-events: none;
-            z-index: 9998;
+            z-index: 9999;
             left: ${x}px;
             top: ${y}px;
             transform: translate(-50%, -50%);
-            animation: pulse-expand 1.5s ease-out forwards;
+            box-shadow: 0 0 20px ${randomColor};
+            --tx: ${(Math.random() - 0.5) * 200}px;
+            --ty: ${(Math.random() - 0.5) * 200}px;
+            animation: particle-trail 1s ease-out forwards;
         `;
         
-        document.body.appendChild(pulse);
-        setTimeout(() => pulse.remove(), 1500);
-    }
-    
-    // Trigger energy pulses at key moments
-    if (trailerContainer) {
-        const pulseTimings = [1000, 5000, 12000, 20000]; // Scene transitions
+        document.body.appendChild(particle);
         
-        pulseTimings.forEach(timing => {
-            setTimeout(() => {
-                if (trailerContainer.classList.contains('playing')) {
-                    createEnergyPulse(window.innerWidth / 2, window.innerHeight / 2);
-                }
-            }, timing);
-        });
+        setTimeout(() => {
+            particle.remove();
+            particleCount--;
+        }, 1000);
     }
+}
+
+// Add hologram effect to scene 2
+const scene2 = document.querySelector('.scene-2');
+if (scene2) {
+    scene2.classList.add('trailer-scene-hologram');
+}
+
+// Create energy pulse on scene transitions
+function createEnergyPulse(x, y) {
+    const pulse = document.createElement('div');
+    pulse.style.cssText = `
+        position: fixed;
+        width: 100px;
+        height: 100px;
+        border: 3px solid rgba(99, 102, 241, 0.8);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        left: ${x}px;
+        top: ${y}px;
+        transform: translate(-50%, -50%);
+        animation: pulse-expand 1.5s ease-out forwards;
+    `;
     
-    // Add pulse animation if not exists
-    if (!document.querySelector('#pulse-expand-style')) {
-        const style = document.createElement('style');
-        style.id = 'pulse-expand-style';
-        style.textContent = `
-            @keyframes pulse-expand {
-                0% {
-                    width: 100px;
-                    height: 100px;
-                    opacity: 1;
-                    border-width: 3px;
-                }
-                100% {
-                    width: 400px;
-                    height: 400px;
-                    opacity: 0;
-                    border-width: 0px;
-                }
+    document.body.appendChild(pulse);
+    setTimeout(() => pulse.remove(), 1500);
+}
+
+// Trigger energy pulses at key moments
+if (trailerContainer) {
+    const pulseTimings = [1000, 5000, 12000, 20000]; // Scene transitions
+    
+    pulseTimings.forEach(timing => {
+        setTimeout(() => {
+            if (trailerContainer.classList.contains('playing')) {
+                createEnergyPulse(window.innerWidth / 2, window.innerHeight / 2);
             }
-        `;
-        document.head.appendChild(style);
-    }
+        }, timing);
+    });
+}
+
+// Add pulse animation if not exists
+if (!document.querySelector('#pulse-expand-style')) {
+    const style = document.createElement('style');
+    style.id = 'pulse-expand-style';
+    style.textContent = `
+        @keyframes pulse-expand {
+            0% {
+                width: 100px;
+                height: 100px;
+                opacity: 1;
+                border-width: 3px;
+            }
+            100% {
+                width: 400px;
+                height: 400px;
+                opacity: 0;
+                border-width: 0px;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
 
 // ============================================
 // REST OF YOUR CODE (Particles, Cursor, etc.)
@@ -6761,215 +6774,214 @@ if (particlesContainer) {
 // PREMIUM CURSOR
 // ============================================
 
-        // FIX: Wait for DOM to be fully loaded
-        // ============================================
-        document.addEventListener('DOMContentLoaded', () => {
-                document.querySelectorAll('.trailer-title').forEach(el => {
+// FIX: Wait for DOM to be fully loaded
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.trailer-title').forEach(el => {
         el.setAttribute('data-text', el.textContent);
     });
-            // ============================================
-            // HIDE DEFAULT CURSOR - FIXED VERSION
-            // ============================================
-            const hideDefaultCursor = () => {
-                if (document.body) {
-                    document.body.style.cursor = 'none';
-                    document.querySelectorAll('*').forEach(el => {
-                        if (el && el.style) {
-                            el.style.cursor = 'none';
-                        }
-                    });
+    // ============================================
+    // HIDE DEFAULT CURSOR - FIXED VERSION
+    // ============================================
+    const hideDefaultCursor = () => {
+        if (document.body) {
+            document.body.style.cursor = 'none';
+            document.querySelectorAll('*').forEach(el => {
+                if (el && el.style) {
+                    el.style.cursor = 'none';
                 }
-            };
-
-            // Run immediately after DOM is ready
-            hideDefaultCursor();
-
-            // Re-run when new elements are added
-            const cursorObserver = new MutationObserver(hideDefaultCursor);
-            cursorObserver.observe(document.body, {
-                childList: true,
-                subtree: true
             });
+        }
+    };
 
-            // ============================================
-            // PREMIUM CURSOR
-            // ============================================
-            const cursor = document.querySelector('.cursor');
-            const cursorFollower = document.querySelector('.cursor-follower');
+    // Run immediately after DOM is ready
+    hideDefaultCursor();
 
-            if (cursor && cursorFollower) {
-                let mouseX = 0, mouseY = 0;
-                let cursorX = 0, cursorY = 0;
-                let followerX = 0, followerY = 0;
-                let isClicking = false;
-                let isHovering = false;
-                
-                // Force cursor visible
-                function ensureCursorVisible() {
-                    cursor.style.display = 'flex';
-                    cursor.style.visibility = 'visible';
-                    cursor.style.opacity = '1';
-                    cursorFollower.style.display = 'block';
-                    cursorFollower.style.visibility = 'visible';
-                    cursorFollower.style.opacity = '1';
-                }
-                
-                ensureCursorVisible();
-                setInterval(ensureCursorVisible, 100);
-                
-                // Track mouse movement
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
+    // Re-run when new elements are added
+    const cursorObserver = new MutationObserver(hideDefaultCursor);
+    cursorObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // ============================================
+    // PREMIUM CURSOR
+    // ============================================
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+
+    if (cursor && cursorFollower) {
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let followerX = 0, followerY = 0;
+        let isClicking = false;
+        let isHovering = false;
+        
+        // Force cursor visible
+        function ensureCursorVisible() {
+            cursor.style.display = 'flex';
+            cursor.style.visibility = 'visible';
+            cursor.style.opacity = '1';
+            cursorFollower.style.display = 'block';
+            cursorFollower.style.visibility = 'visible';
+            cursorFollower.style.opacity = '1';
+        }
+        
+        ensureCursorVisible();
+        setInterval(ensureCursorVisible, 100);
+        
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            ensureCursorVisible();
+            
+            // Add ripple effect on move
+            if (Math.random() > 0.95) {
+                createRipple(mouseX, mouseY);
+            }
+        });
+        
+        // Smooth cursor animation
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.25;
+            cursorY += (mouseY - cursorY) * 0.25;
+            
+            followerX += (mouseX - followerX) * 0.12;
+            followerY += (mouseY - followerY) * 0.12;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            cursor.style.opacity = '1';
+            
+            cursorFollower.style.left = followerX + 'px';
+            cursorFollower.style.top = followerY + 'px';
+            cursorFollower.style.opacity = '1';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        
+        animateCursor();
+        
+        // Click effect
+        document.addEventListener('mousedown', () => {
+            isClicking = true;
+            cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
+            createClickWave(mouseX, mouseY);
+        });
+        
+        document.addEventListener('mouseup', () => {
+            isClicking = false;
+            if (!isHovering) {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+            }
+        });
+        
+        // Enhanced hover effects
+        const interactiveElements = {
+            'a, button': 'pointer',
+            '.contact-card': 'view',
+            '.profile-card': 'info',
+            '.social-link': 'external',
+            'input, textarea': 'text'
+        };
+        
+        Object.entries(interactiveElements).forEach(([selector, mode]) => {
+            document.querySelectorAll(selector).forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    isHovering = true;
+                    cursor.classList.add('hover', `hover-${mode}`);
+                    cursorFollower.style.opacity = '0.5';
                     ensureCursorVisible();
                     
-                    // Add ripple effect on move
-                    if (Math.random() > 0.95) {
-                        createRipple(mouseX, mouseY);
+                    switch(mode) {
+                        case 'pointer':
+                            cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                            break;
+                        case 'view':
+                            cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                            cursor.innerHTML = '<span style="font-size: 16px;">👁️</span>';
+                            break;
+                        case 'info':
+                            cursor.innerHTML = '<span style="font-size: 14px;">ℹ️</span>';
+                            break;
+                        case 'external':
+                            cursor.innerHTML = '<span style="font-size: 14px;">↗</span>';
+                            break;
+                        case 'text':
+                            cursor.innerHTML = '<span style="font-size: 18px;">|</span>';
+                            cursor.style.transform = 'translate(-50%, -50%) scale(1) scaleX(0.3)';
+                            break;
                     }
                 });
                 
-                // Smooth cursor animation
-                function animateCursor() {
-                    cursorX += (mouseX - cursorX) * 0.25;
-                    cursorY += (mouseY - cursorY) * 0.25;
-                    
-                    followerX += (mouseX - followerX) * 0.12;
-                    followerY += (mouseY - followerY) * 0.12;
-                    
-                    cursor.style.left = cursorX + 'px';
-                    cursor.style.top = cursorY + 'px';
-                    cursor.style.opacity = '1';
-                    
-                    cursorFollower.style.left = followerX + 'px';
-                    cursorFollower.style.top = followerY + 'px';
+                el.addEventListener('mouseleave', () => {
+                    isHovering = false;
+                    cursor.classList.remove('hover', `hover-${mode}`);
+                    cursor.innerHTML = '';
                     cursorFollower.style.opacity = '1';
-                    
-                    requestAnimationFrame(animateCursor);
-                }
-                
-                animateCursor();
-                
-                // Click effect
-                document.addEventListener('mousedown', () => {
-                    isClicking = true;
-                    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
-                    createClickWave(mouseX, mouseY);
-                });
-                
-                document.addEventListener('mouseup', () => {
-                    isClicking = false;
-                    if (!isHovering) {
+                    if (!isClicking) {
                         cursor.style.transform = 'translate(-50%, -50%) scale(1)';
                         cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
                     }
                 });
-                
-                // Enhanced hover effects
-                const interactiveElements = {
-                    'a, button': 'pointer',
-                    '.contact-card': 'view',
-                    '.profile-card': 'info',
-                    '.social-link': 'external',
-                    'input, textarea': 'text'
-                };
-                
-                Object.entries(interactiveElements).forEach(([selector, mode]) => {
-                    document.querySelectorAll(selector).forEach(el => {
-                        el.addEventListener('mouseenter', () => {
-                            isHovering = true;
-                            cursor.classList.add('hover', `hover-${mode}`);
-                            cursorFollower.style.opacity = '0.5';
-                            ensureCursorVisible();
-                            
-                            switch(mode) {
-                                case 'pointer':
-                                    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                                    break;
-                                case 'view':
-                                    cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-                                    cursor.innerHTML = '<span style="font-size: 16px;">👁️</span>';
-                                    break;
-                                case 'info':
-                                    cursor.innerHTML = '<span style="font-size: 14px;">ℹ️</span>';
-                                    break;
-                                case 'external':
-                                    cursor.innerHTML = '<span style="font-size: 14px;">↗</span>';
-                                    break;
-                                case 'text':
-                                    cursor.innerHTML = '<span style="font-size: 18px;">|</span>';
-                                    cursor.style.transform = 'translate(-50%, -50%) scale(1) scaleX(0.3)';
-                                    break;
-                            }
-                        });
-                        
-                        el.addEventListener('mouseleave', () => {
-                            isHovering = false;
-                            cursor.classList.remove('hover', `hover-${mode}`);
-                            cursor.innerHTML = '';
-                            cursorFollower.style.opacity = '1';
-                            if (!isClicking) {
-                                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-                            }
-                        });
-                    });
-                });
-                
-                // Create ripple effect
-                function createRipple(x, y) {
-                    const ripple = document.createElement('div');
-                    ripple.style.cssText = `
-                        position: fixed;
-                        width: 20px;
-                        height: 20px;
-                        border-radius: 50%;
-                        border: 1px solid rgba(99, 102, 241, 0.4);
-                        background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
-                        pointer-events: none;
-                        z-index: 9998;
-                        left: ${x}px;
-                        top: ${y}px;
-                        transform: translate(-50%, -50%);
-                        animation: ripple-expand 0.8s ease-out forwards;
-                    `;
-                    document.body.appendChild(ripple);
-                    setTimeout(() => ripple.remove(), 1000);
-                }
-                
-                // Create click wave effect
-                function createClickWave(x, y) {
-                    const wave = document.createElement('div');
-                    wave.style.cssText = `
-                        position: fixed;
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                        background: radial-gradient(circle, rgba(99, 102, 241, 0.4), rgba(99, 102, 241, 0.1) 50%, transparent 70%);
-                        border: 1px solid rgba(99, 102, 241, 0.3);
-                        pointer-events: none;
-                        z-index: 9998;
-                        left: ${x}px;
-                        top: ${y}px;
-                        transform: translate(-50%, -50%);
-                        animation: click-wave-expand 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-                    `;
-                    document.body.appendChild(wave);
-                    setTimeout(() => wave.remove(), 600);
-                }
-                
-                // Force hide default cursor on all events
-                document.addEventListener('mouseover', (e) => {
-                    if (e.target) e.target.style.cursor = 'none';
-                }, true);
+            });
+        });
+        
+        // Create ripple effect
+        function createRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: fixed;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                border: 1px solid rgba(99, 102, 241, 0.4);
+                background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
+                pointer-events: none;
+                z-index: 9998;
+                left: ${x}px;
+                top: ${y}px;
+                transform: translate(-50%, -50%);
+                animation: ripple-expand 0.8s ease-out forwards;
+            `;
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 1000);
+        }
+        
+        // Create click wave effect
+        function createClickWave(x, y) {
+            const wave = document.createElement('div');
+            wave.style.cssText = `
+                position: fixed;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(99, 102, 241, 0.4), rgba(99, 102, 241, 0.1) 50%, transparent 70%);
+                border: 1px solid rgba(99, 102, 241, 0.3);
+                pointer-events: none;
+                z-index: 9998;
+                left: ${x}px;
+                top: ${y}px;
+                transform: translate(-50%, -50%);
+                animation: click-wave-expand 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            `;
+            document.body.appendChild(wave);
+            setTimeout(() => wave.remove(), 600);
+        }
+        
+        // Force hide default cursor on all events
+        document.addEventListener('mouseover', (e) => {
+            if (e.target) e.target.style.cursor = 'none';
+        }, true);
 
-                document.addEventListener('mouseleave', () => {
-                    ensureCursorVisible();
-                });
-            } // <-- CLOSING BRACKET FOR if (cursor && cursorFollower)
-}); // <-- This closes DOMContentLoaded
-
+        document.addEventListener('mouseleave', () => {
+            ensureCursorVisible();
+        });
+    }
+});
 
 // ============================================
 // SCROLL PROGRESS BAR
@@ -6986,17 +6998,16 @@ window.addEventListener('scroll', () => {
 // ============================================
 // NAVIGATION SCROLL EFFECT
 // ============================================
-            const nav = document.getElementById('nav');
-            if (nav) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 50) {
-                        nav.classList.add('scrolled');
-                    } else {
-                        nav.classList.remove('scrolled');
-                    }
-                });
-            }
-
+const nav = document.getElementById('nav');
+if (nav) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+}
 
 // ============================================
 // INTERSECTION OBSERVER FOR ANIMATIONS
@@ -7210,262 +7221,256 @@ if (closeLightbox) {
 }
 
 if (lightbox) {
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            lightbox.classList.remove('active');
-        }
-    });
-}
-
-// Escape key to close modals
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        if (lightbox) lightbox.classList.remove('active');
-        if (galleryModal) galleryModal.classList.remove('active');
-    }
-});
-
-// ============================================
-// STAGGERED ANIMATIONS
-// ============================================
-const testimonialCards = document.querySelectorAll('.testimonial-card');
-testimonialCards.forEach((card, index) => {
-    card.style.transitionDelay = `${index * 0.2}s`;
-});
-
-portfolioItems.forEach((item, index) => {
-    item.style.transitionDelay = `${index * 0.08}s`;
-});
-
-// ============================================
-// SMOOTH SCROLL
-// ============================================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                }
             });
         }
-    });
-});
 
-
-// ============================================
-// PARALLAX EFFECT ON HERO
-// ============================================
-let ticking = false;
-
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            const scrolled = window.scrollY;
-            const heroContent = document.querySelector('.hero-content');
-            const heroProfile = document.querySelector('.hero-profile');
-            
-            if (heroContent) {
-                heroContent.style.transform = `translateY(${scrolled * 0.4}px)`;
-                heroContent.style.opacity = Math.max(0, 1 - (scrolled / 600));
+        // Escape key to close modals
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (lightbox) lightbox.classList.remove('active');
+                if (galleryModal) galleryModal.classList.remove('active');
             }
-            
-            if (heroProfile) {
-                heroProfile.style.transform = `translateY(${scrolled * 0.25}px) scale(${1 + scrolled * 0.0003})`;
-            }
-            
-            ticking = false;
         });
-        
-        ticking = true;
-    }
-});
 
-// ============================================
-// MAGNETIC EFFECT ON BUTTONS
-// ============================================
-const magneticElements = document.querySelectorAll('.filter-btn, .contact-card, .social-link');
+        // ============================================
+        // STAGGERED ANIMATIONS
+        // ============================================
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        testimonialCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.2}s`;
+        });
 
-magneticElements.forEach(el => {
-    el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-    });
-    
-    el.addEventListener('mouseleave', () => {
-        el.style.transform = '';
-    });
-});
+        portfolioItems.forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.08}s`;
+        });
 
-// ============================================
-// REVEAL ELEMENTS ON SCROLL
-// ============================================
-const revealElements = document.querySelectorAll('.tool-item, .stat-card, .journey-card');
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }, index * 100);
-        }
-    });
-}, { threshold: 0.1 });
-
-revealElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(50px)';
-    el.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-    revealObserver.observe(el);
-});
-
-// ============================================
-// NOISE TEXTURE EFFECT
-// ============================================
-const createNoiseTexture = () => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = 200;
-    canvas.height = 200;
-    
-    for (let x = 0; x < canvas.width; x++) {
-        for (let y = 0; y < canvas.height; y++) {
-            const value = Math.random() * 255;
-            ctx.fillStyle = `rgba(${value}, ${value}, ${value}, 0.02)`;
-            ctx.fillRect(x, y, 1, 1);
-        }
-    }
-    
-    document.body.style.backgroundImage = `url(${canvas.toDataURL()}), ${document.body.style.backgroundImage}`;
-};
-
-createNoiseTexture();
-
-// ============================================
-// LAZY LOAD IMAGES
-// ============================================
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
+        // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
-                imageObserver.unobserve(img);
+            });
+        });
+
+        // ============================================
+        // PARALLAX EFFECT ON HERO
+        // ============================================
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.scrollY;
+                    const heroContent = document.querySelector('.hero-content');
+                    const heroProfile = document.querySelector('.hero-profile');
+                    
+                    if (heroContent) {
+                        heroContent.style.transform = `translateY(${scrolled * 0.4}px)`;
+                        heroContent.style.opacity = Math.max(0, 1 - (scrolled / 600));
+                    }
+                    
+                    if (heroProfile) {
+                        heroProfile.style.transform = `translateY(${scrolled * 0.25}px) scale(${1 + scrolled * 0.0003})`;
+                    }
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
             }
         });
-    });
-    
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
-    });
-}
 
-// ============================================
-// CUSTOM RIGHT-CLICK CONTEXT MENU
-// ============================================
-const customContextMenu = document.createElement('div');
-customContextMenu.className = 'custom-context-menu';
-customContextMenu.innerHTML = `
-    <div class="context-menu-item" data-action="back">
-        <span class="context-menu-icon">←</span>
-        <span>Back</span>
-    </div>
-    <div class="context-menu-item" data-action="forward">
-        <span class="context-menu-icon">→</span>
-        <span>Forward</span>
-    </div>
-    <div class="context-menu-item" data-action="reload">
-        <span class="context-menu-icon">⟳</span>
-        <span>Reload</span>
-    </div>
-    <div class="context-menu-divider"></div>
-    <div class="context-menu-item" data-action="print">
-        <span class="context-menu-icon">🖨️</span>
-        <span>Print</span>
-    </div>
-    <div class="context-menu-item" data-action="top">
-        <span class="context-menu-icon">↑</span>
-        <span>Back to Top</span>
-    </div>
-`;
-document.body.appendChild(customContextMenu);
+        // ============================================
+        // MAGNETIC EFFECT ON BUTTONS
+        // ============================================
+        const magneticElements = document.querySelectorAll('.filter-btn, .contact-card, .social-link');
 
-// Prevent default context menu
-document.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    
-    // Position custom menu
-    const menuWidth = 220;
-    const menuHeight = 240;
-    let x = e.clientX;
-    let y = e.clientY;
-    
-    // Adjust if menu goes off screen
-    if (x + menuWidth > window.innerWidth) {
-        x = window.innerWidth - menuWidth - 10;
-    }
-    if (y + menuHeight > window.innerHeight) {
-        y = window.innerHeight - menuHeight - 10;
-    }
-    
-    customContextMenu.style.left = x + 'px';
-    customContextMenu.style.top = y + 'px';
-    customContextMenu.classList.add('active');
-});
+        magneticElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
 
-// Close menu on click outside
-document.addEventListener('click', () => {
-    customContextMenu.classList.remove('active');
-});
+        // ============================================
+        // REVEAL ELEMENTS ON SCROLL
+        // ============================================
+        const revealElements = document.querySelectorAll('.tool-item, .stat-card, .journey-card');
 
-// Handle menu actions
-customContextMenu.addEventListener('click', (e) => {
-    const item = e.target.closest('.context-menu-item');
-    if (!item) return;
-    
-    const action = item.getAttribute('data-action');
-    
-    switch(action) {
-        case 'back':
-            window.history.back();
-            break;
-        case 'forward':
-            window.history.forward();
-            break;
-        case 'reload':
-            window.location.reload();
-            break;
-        case 'print':
-            window.print();
-            break;
-        case 'top':
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            break;
-    }
-    
-    customContextMenu.classList.remove('active');
-});
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
 
+        revealElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            revealObserver.observe(el);
+        });
 
+        // ============================================
+        // NOISE TEXTURE EFFECT
+        // ============================================
+        const createNoiseTexture = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 200;
+            canvas.height = 200;
+            
+            for (let x = 0; x < canvas.width; x++) {
+                for (let y = 0; y < canvas.height; y++) {
+                    const value = Math.random() * 255;
+                    ctx.fillStyle = `rgba(${value}, ${value}, ${value}, 0.02)`;
+                    ctx.fillRect(x, y, 1, 1);
+                }
+            }
+            
+            document.body.style.backgroundImage = `url(${canvas.toDataURL()}), ${document.body.style.backgroundImage}`;
+        };
 
-// Close menu on Escape
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        customContextMenu.classList.remove('active');
-    }
-});
+        createNoiseTexture();
 
+        // ============================================
+        // LAZY LOAD IMAGES
+        // ============================================
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                        }
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
 
+        // ============================================
+        // CUSTOM RIGHT-CLICK CONTEXT MENU
+        // ============================================
+        const customContextMenu = document.createElement('div');
+        customContextMenu.className = 'custom-context-menu';
+        customContextMenu.innerHTML = `
+            <div class="context-menu-item" data-action="back">
+                <span class="context-menu-icon">←</span>
+                <span>Back</span>
+            </div>
+            <div class="context-menu-item" data-action="forward">
+                <span class="context-menu-icon">→</span>
+                <span>Forward</span>
+            </div>
+            <div class="context-menu-item" data-action="reload">
+                <span class="context-menu-icon">⟳</span>
+                <span>Reload</span>
+            </div>
+            <div class="context-menu-divider"></div>
+            <div class="context-menu-item" data-action="print">
+                <span class="context-menu-icon">🖨️</span>
+                <span>Print</span>
+            </div>
+            <div class="context-menu-item" data-action="top">
+                <span class="context-menu-icon">↑</span>
+                <span>Back to Top</span>
+            </div>
+        `;
+        document.body.appendChild(customContextMenu);
 
-</script>
+        // Prevent default context menu
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            
+            // Position custom menu
+            const menuWidth = 220;
+            const menuHeight = 240;
+            let x = e.clientX;
+            let y = e.clientY;
+            
+            // Adjust if menu goes off screen
+            if (x + menuWidth > window.innerWidth) {
+                x = window.innerWidth - menuWidth - 10;
+            }
+            if (y + menuHeight > window.innerHeight) {
+                y = window.innerHeight - menuHeight - 10;
+            }
+            
+            customContextMenu.style.left = x + 'px';
+            customContextMenu.style.top = y + 'px';
+            customContextMenu.classList.add('active');
+        });
+
+        // Close menu on click outside
+        document.addEventListener('click', () => {
+            customContextMenu.classList.remove('active');
+        });
+
+        // Handle menu actions
+        customContextMenu.addEventListener('click', (e) => {
+            const item = e.target.closest('.context-menu-item');
+            if (!item) return;
+            
+            const action = item.getAttribute('data-action');
+            
+            switch(action) {
+                case 'back':
+                    window.history.back();
+                    break;
+                case 'forward':
+                    window.history.forward();
+                    break;
+                case 'reload':
+                    window.location.reload();
+                    break;
+                case 'print':
+                    window.print();
+                    break;
+                case 'top':
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    break;
+            }
+            
+            customContextMenu.classList.remove('active');
+        });
+
+        // Close menu on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                customContextMenu.classList.remove('active');
+            }
+        });
+    </script>
 <!-- Liquid Glass SVG Filters -->
 <!-- Liquid Glass SVG Filters -->
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute; overflow:hidden">
