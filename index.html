@@ -208,7 +208,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 99999 !important; /* CHANGED from 10001 to 99999 */
+    z-index: 10001 !important;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     transform: translate(-50%, -50%);
@@ -216,8 +216,6 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
     isolation: isolate;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.4);
 }
 
 /* Liquid Glass Inner Shadow Layer */
@@ -262,7 +260,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 99998 !important; /* CHANGED from 10000 to 99998 */
+    z-index: 10000 !important;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     transform: translate(-50%, -50%);
@@ -1251,394 +1249,155 @@ nav::after {
             height: 100%;
         }
 
-        /* ============================================
-   ULTRA COMPLEX VFX PORTFOLIO GALLERY
-   ============================================ */
-
-/* Enhanced Filter Buttons */
-.portfolio-filters {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 60px 0 70px;
-    flex-wrap: wrap;
-    position: relative;
-}
-
-.filter-btn {
-    padding: 16px 36px;
-    background: transparent;
-    border: 2px solid var(--border);
-    border-radius: 50px;
-    color: var(--text-secondary);
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    font-family: 'Inter', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-}
-
-.filter-text {
-    position: relative;
-    z-index: 2;
-}
-
-.filter-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-    opacity: 0;
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1;
-}
-
-.filter-btn:hover .filter-glow,
-.filter-btn.active .filter-glow {
-    width: 300px;
-    height: 300px;
-    opacity: 0.3;
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-    transform: translateY(-5px);
-    box-shadow: 
-        0 10px 30px rgba(99, 102, 241, 0.3),
-        0 0 0 1px rgba(99, 102, 241, 0.2);
-}
-
-/* 3D Tilt Portfolio Items */
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-    gap: 40px;
-    margin-top: 60px;
-    perspective: 1000px;
-}
-
-.portfolio-item {
-    position: relative;
-    border-radius: 25px;
-    aspect-ratio: 4/3;
-    cursor: pointer;
-    opacity: 0;
-    transform: scale(0.9) translateY(40px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    transform-style: preserve-3d;
-    perspective: 1000px;
-}
-
-.portfolio-item.visible {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-}
-
-/* 3D Wrapper for Tilt Effect */
-.portfolio-3d-wrapper {
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: 25px;
-    overflow: hidden;
-    position: relative;
-}
-
-.portfolio-tilt-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    border-radius: 25px;
-    overflow: hidden;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-}
-
-.portfolio-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    z-index: 1;
-}
-
-/* Glass Overlay */
-.portfolio-glass-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0.05) 50%,
-        transparent 100%
-    );
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    z-index: 2;
-    pointer-events: none;
-}
-
-/* Particles Effect */
-.portfolio-particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.3) 1px, transparent 1px),
-        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.3) 1px, transparent 1px),
-        radial-gradient(circle at 40% 60%, rgba(255, 184, 77, 0.3) 1px, transparent 1px);
-    background-size: 50px 50px, 70px 70px, 60px 60px;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    z-index: 3;
-    pointer-events: none;
-    animation: particles-float 20s linear infinite;
-}
-
-@keyframes particles-float {
-    0% {
-        background-position: 0 0, 0 0, 0 0;
-    }
-    100% {
-        background-position: 50px 50px, -70px 70px, 60px -60px;
-    }
-}
-
-/* Light Beam Effect */
-.portfolio-light-beam {
-    position: absolute;
-    top: -100%;
-    left: -100%;
-    width: 300%;
-    height: 300%;
-    background: linear-gradient(
-        45deg,
-        transparent 40%,
-        rgba(255, 255, 255, 0.6) 50%,
-        transparent 60%
-    );
-    opacity: 0;
-    transform: translateX(-100%) translateY(-100%) rotate(45deg);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 4;
-    pointer-events: none;
-}
-
-/* Gallery Badge */
-.portfolio-gallery-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(99, 102, 241, 0.95);
-    backdrop-filter: blur(10px);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    font-weight: 700;
-    z-index: 5;
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
-    transform: translateY(-100px);
-    opacity: 0;
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.portfolio-gallery-badge svg {
-    width: 16px;
-    height: 16px;
-}
-
-/* Enhanced Overlay */
-.portfolio-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 35px;
-    opacity: 0;
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 10;
-    border-radius: 25px;
-    pointer-events: none;
-}
-
-.portfolio-overlay-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.95) 0%,
-        rgba(0, 0, 0, 0.7) 40%,
-        rgba(0, 0, 0, 0.3) 70%,
-        transparent 100%
-    );
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 25px;
-}
-
-.portfolio-content-wrapper {
-    position: relative;
-    z-index: 2;
-}
-
-.portfolio-title {
-    font-size: 26px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: white;
-    transform: translateY(30px);
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-.portfolio-category {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    transform: translateY(30px);
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
-}
-
-.portfolio-view-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 28px;
-    background: rgba(99, 102, 241, 0.9);
-    color: white;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: 700;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    transform: translateY(30px);
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s, background 0.4s ease;
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
-    pointer-events: all;
-}
-.portfolio-view-btn svg {
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.portfolio-view-btn:hover {
-    background: rgba(99, 102, 241, 1);
-    transform: translateY(0) translateX(5px);
-    box-shadow: 0 6px 30px rgba(99, 102, 241, 0.6);
-}
-
-.portfolio-view-btn:hover svg {
-    transform: translateX(5px);
-}
-
-/* Hover State - ALL Effects Activate */
-.portfolio-item:hover .portfolio-3d-wrapper {
-    transform: translateY(-10px) scale(1.02);
-}
-
-.portfolio-item:hover .portfolio-image {
-    transform: scale(1.15);
-}
-
-.portfolio-item:hover .portfolio-glass-overlay {
-    opacity: 1;
-}
-
-.portfolio-item:hover .portfolio-particles {
-    opacity: 1;
-}
-
-.portfolio-item:hover .portfolio-light-beam {
-    opacity: 1;
-    transform: translateX(200%) translateY(200%) rotate(45deg);
-}
-
-.portfolio-item:hover .portfolio-gallery-badge {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.portfolio-item:hover .portfolio-overlay {
-    opacity: 1;
-}
-
-.portfolio-item:hover .portfolio-title,
-.portfolio-item:hover .portfolio-category,
-.portfolio-item:hover .portfolio-view-btn {
-    transform: translateY(0);
-}
-
-.portfolio-item:hover .portfolio-tilt-inner {
-    border-color: var(--accent);
-    box-shadow: 
-        0 25px 60px rgba(99, 102, 241, 0.3),
-        0 0 0 1px var(--accent);
-}
-
-/* 3D Tilt Effect with Mouse Movement */
-.portfolio-item[data-tilt] .portfolio-3d-wrapper {
-    transition: transform 0.3s ease-out;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .portfolio-filters {
-        flex-direction: column;
-        gap: 12px;
-    }
-    
-    .filter-btn {
-        width: 100%;
-    }
-    
-    .portfolio-title {
-        font-size: 20px;
-    }
-    
-    .portfolio-category {
-        font-size: 12px;
-    }
-}
-
+        /* Portfolio Filters */
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 60px 0 70px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 14px 32px;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: 'Inter', sans-serif;
+            backdrop-filter: blur(20px);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .filter-btn:hover::before,
+        .filter-btn.active::before {
+            width: 300px;
+            height: 300px;
+            opacity: 1;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9) translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .portfolio-item.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+        
+        .portfolio-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent);
+        }
+        
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.15);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 35px;
+            opacity: 0;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(3px);
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: white;
+            transform: translateY(20px);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+        }
+        
+        .portfolio-item:hover .portfolio-title {
+            transform: translateY(0);
+        }
+        
+        .portfolio-category {
+            font-size: 13px;
+            color: var(--accent-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transform: translateY(20px);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+        }
+        
+        .portfolio-item:hover .portfolio-category {
+            transform: translateY(0);
+        }
 
         /* Lightbox */
         .lightbox {
@@ -2483,7 +2242,8 @@ box-shadow: var(--shadow-md);
     to { transform: translateY(0); }
 }
 
-/* 3D Scene Setup */
+/* Trailer Scenes */
+/* Trailer Scenes */
 .trailer-scene {
     position: absolute;
     top: 0;
@@ -2493,14 +2253,12 @@ box-shadow: var(--shadow-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 80px 20px;
+    padding: 0px 20px;
     opacity: 0;
-    visibility: hidden;
-    transform-style: preserve-3d;
-    perspective: 1200px;
+    visibility: hidden; /* ADD THIS */
+    transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
 }
-
 
 /* FIX: Show slideshow slides when active */
 .slideshow-loader.active .slideshow-slide {
@@ -2524,99 +2282,68 @@ box-shadow: var(--shadow-md);
    CINEMATIC SCENE ANIMATIONS - HOLLYWOOD STYLE
    ============================================ */
 
+/* Scene 1: EMAIL MARKETING - Starts at 0s, stays until 5s */
 /* ===================== */
 /* SCENE 1: EMAIL MARKETING */
 /* ===================== */
 .trailer-container.playing .scene-1 {
     visibility: visible;
-    animation: scene1-complex-morph 5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    background: radial-gradient(ellipse at center,
-        rgba(99, 102, 241, 0.25),
-        rgba(236, 72, 153, 0.15),
+    animation: scene1-explosive-entry 5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    background: radial-gradient(circle at center,
+        rgba(99, 102, 241, 0.18),
+        rgba(236, 72, 153, 0.08),
         transparent
     );
 }
 
-@keyframes scene1-complex-morph {
+@keyframes scene1-explosive-entry {
     0% {
         opacity: 0;
-        transform: perspective(1200px) 
-                   rotateX(90deg) rotateY(45deg) rotateZ(-15deg) 
-                   translateZ(-500px) scale(0.3);
-        filter: blur(80px) brightness(3) saturate(0);
-        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        transform: scale(1.4) translateY(60px);
+        filter: brightness(1.8) blur(25px);
     }
     15% {
-        clip-path: polygon(30% 0%, 100% 20%, 70% 100%, 0% 80%);
-        filter: blur(40px) brightness(2) saturate(0.5);
+        opacity: 1;
+        filter: brightness(1.2) blur(6px);
     }
     30% {
-        opacity: 1;
-        transform: perspective(1200px) 
-                   rotateX(0deg) rotateY(0deg) rotateZ(0deg) 
-                   translateZ(0) scale(1.05);
-        filter: blur(0) brightness(1) saturate(1);
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+        transform: scale(1.02) translateY(-6px);
+        filter: brightness(1) blur(0);
     }
     85% {
         opacity: 1;
-        transform: perspective(1200px) scale(1);
+        transform: scale(1);
     }
     100% {
         opacity: 0;
-        transform: perspective(1200px) 
-                   rotateX(-60deg) rotateY(-30deg) 
-                   translateZ(-400px) scale(0.5);
-        filter: blur(60px) brightness(0.5);
-        clip-path: circle(0% at 50% 50%);
+        transform: scale(0.96) translateY(-40px);
+        filter: brightness(0.9);
     }
 }
-
 
 /* Scene 1 Text */
 .trailer-container.playing .scene-1 .trailer-title {
-    animation: title-letter-explosion 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    transform-style: preserve-3d;
+    animation: title-slam 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-@keyframes title-letter-explosion {
+@keyframes title-slam {
     0% {
         opacity: 0;
-        transform: translateZ(-300px) scale(3) rotateX(90deg);
-        filter: blur(40px) brightness(3);
-        letter-spacing: 100px;
+        transform: translateY(80px) scale(0.85);
+        filter: blur(12px);
     }
-    30% {
-        letter-spacing: 50px;
-        filter: blur(20px) brightness(2);
-    }
-    60% {
-        transform: translateZ(20px) scale(1.1) rotateX(-5deg);
-        letter-spacing: 5px;
+    70% {
+        transform: translateY(-4px) scale(1.03);
     }
     100% {
         opacity: 1;
-        transform: translateZ(0) scale(1) rotateX(0deg);
-        filter: blur(0) brightness(1);
-        letter-spacing: 3px;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
 .trailer-container.playing .scene-1 .trailer-tag {
-    animation: tag-liquid-morph 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-    transform-style: preserve-3d;
-}
-
-.trailer-container.playing .scene-1 .trailer-tag:nth-child(1) {
-    animation-delay: 0.4s;
-}
-
-.trailer-container.playing .scene-1 .trailer-tag:nth-child(2) {
-    animation-delay: 0.6s;
-}
-
-.trailer-container.playing .scene-1 .trailer-tag:nth-child(3) {
-    animation-delay: 0.8s;
+    animation: tag-slide 0.7s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes tag-slide {
@@ -2627,31 +2354,6 @@ box-shadow: var(--shadow-md);
     to {
         opacity: 1;
         transform: translateX(0);
-    }
-}
-
-@keyframes tag-liquid-morph {
-    0% {
-        opacity: 0;
-        transform: translateZ(-200px) scale(0) rotate(180deg);
-        filter: blur(30px);
-        border-radius: 50%;
-        clip-path: circle(0% at 50% 50%);
-    }
-    30% {
-        border-radius: 40% 60% 60% 40% / 50% 50% 50% 50%;
-        clip-path: circle(60% at 50% 50%);
-    }
-    60% {
-        border-radius: 60% 40% 40% 60% / 60% 40% 60% 40%;
-        transform: translateZ(30px) scale(1.2) rotate(20deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateZ(0) scale(1) rotate(0deg);
-        filter: blur(0);
-        border-radius: 25px;
-        clip-path: circle(100% at 50% 50%);
     }
 }
 
@@ -2677,63 +2379,13 @@ box-shadow: var(--shadow-md);
 /* ===================== */
 .trailer-container.playing .scene-2 {
     visibility: visible;
-    animation: scene2-hologram-cube 7s 5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform-style: preserve-3d;
+    animation: scene2-3d-rotate 7s 5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     background: linear-gradient(135deg,
-        rgba(236, 72, 153, 0.2),
-        rgba(59, 130, 246, 0.2)
+        rgba(236, 72, 153, 0.12),
+        rgba(59, 130, 246, 0.12)
     );
 }
-
-@keyframes scene2-hologram-cube {
-    0% {
-        opacity: 0;
-        transform: perspective(1200px) 
-                   rotateY(-180deg) rotateX(90deg) rotateZ(45deg)
-                   translateZ(-600px) scale(0.2);
-        filter: blur(100px) brightness(4) saturate(3);
-        clip-path: polygon(
-            20% 0%, 80% 0%,
-            100% 20%, 100% 80%,
-            80% 100%, 20% 100%,
-            0% 80%, 0% 20%
-        );
-    }
-    15% {
-        clip-path: polygon(
-            30% 0%, 70% 0%,
-            100% 30%, 100% 70%,
-            70% 100%, 30% 100%,
-            0% 70%, 0% 30%
-        );
-        filter: blur(50px) brightness(2.5) saturate(2);
-    }
-    30% {
-        opacity: 1;
-        transform: perspective(1200px) 
-                   rotateY(0deg) rotateX(0deg) rotateZ(0deg)
-                   translateZ(0) scale(1.05);
-        filter: blur(0) brightness(1) saturate(1);
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    }
-    50% {
-        transform: perspective(1200px) 
-                   rotateY(10deg) rotateX(-5deg) 
-                   scale(1);
-    }
-    75% {
-        opacity: 1;
-        transform: perspective(1200px) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: perspective(1200px) 
-                   rotateY(180deg) rotateX(-90deg) rotateZ(-45deg)
-                   translateZ(-600px) scale(0.3);
-        filter: blur(80px) brightness(0.5) saturate(0.5);
-        clip-path: circle(0% at 50% 50%);
-    }
-}
-
 
 @keyframes scene2-3d-rotate {
     0% {
@@ -2760,7 +2412,7 @@ box-shadow: var(--shadow-md);
 
 /* Scene 2 Text */
 .trailer-container.playing .scene-2 .trailer-title {
-    animation: title-kaleidoscope 1.8s 5.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: title-glitch 1.4s 5.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes title-glitch {
@@ -2783,75 +2435,12 @@ box-shadow: var(--shadow-md);
     }
 }
 
-@keyframes title-kaleidoscope {
-    0% {
-        opacity: 0;
-        transform: rotate(0deg) scale(0.2) translateZ(-400px);
-        filter: blur(60px) hue-rotate(0deg) saturate(5) brightness(3);
-    }
-    20% {
-        transform: rotate(90deg) scale(0.5) translateZ(-200px);
-        filter: blur(40px) hue-rotate(90deg) saturate(3) brightness(2);
-    }
-    40% {
-        transform: rotate(180deg) scale(0.8) translateZ(-50px);
-        filter: blur(20px) hue-rotate(180deg) saturate(2) brightness(1.5);
-    }
-    60% {
-        transform: rotate(270deg) scale(1.1) translateZ(30px);
-        filter: blur(10px) hue-rotate(270deg) saturate(1.5) brightness(1.2);
-    }
-    80% {
-        transform: rotate(340deg) scale(1.05) translateZ(10px);
-        filter: blur(5px) hue-rotate(340deg) saturate(1.2);
-    }
-    100% {
-        opacity: 1;
-        transform: rotate(360deg) scale(1) translateZ(0);
-        filter: blur(0) hue-rotate(360deg) saturate(1) brightness(1);
-    }
-}
-
-
 .trailer-container.playing .scene-2 .trailer-tag {
-    animation: tag-dna-helix 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: tag-pop 0.6s 5.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .trailer-container.playing .scene-2 .trailer-tag:nth-child(3) {
     animation-delay: 5.8s;
-}
-
-.trailer-container.playing .scene-2 .trailer-tag:nth-child(4) {
-    animation-delay: 6s;
-}
-
-@keyframes tag-dna-helix {
-    0% {
-        opacity: 0;
-        transform: translateX(-200px) translateZ(-300px) 
-                   rotateY(-180deg) scale(0);
-        filter: blur(40px) hue-rotate(-90deg);
-    }
-    25% {
-        transform: translateX(-100px) translateZ(-150px) 
-                   rotateY(-90deg) scale(0.5);
-        filter: blur(25px) hue-rotate(-45deg);
-    }
-    50% {
-        transform: translateX(0) translateZ(50px) 
-                   rotateY(0deg) scale(1.2);
-        filter: blur(10px) hue-rotate(0deg);
-    }
-    75% {
-        transform: translateX(30px) translateZ(20px) 
-                   rotateY(20deg) scale(1.1);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0) translateZ(0) 
-                   rotateY(0deg) scale(1);
-        filter: blur(0) hue-rotate(0deg);
-    }
 }
 
 @keyframes tag-pop {
@@ -2890,61 +2479,29 @@ box-shadow: var(--shadow-md);
 /* ===================== */
 .trailer-container.playing .scene-3 {
     visibility: visible;
-    animation: scene3-quantum-fold 4s 12s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: scene3-matrix 4s 12s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     background: radial-gradient(circle at center,
-        rgba(255, 184, 77, 0.3),
-        rgba(99, 102, 241, 0.15),
+        rgba(255, 184, 77, 0.22),
+        rgba(99, 102, 241, 0.08),
         transparent
     );
 }
 
-@keyframes scene3-quantum-fold {
+@keyframes scene3-matrix {
     0% {
         opacity: 0;
-        transform: perspective(1200px) 
-                   rotateX(-90deg) translateY(50%) 
-                   translateZ(-500px) scale(0.5);
-        transform-origin: top center;
-        filter: blur(80px) brightness(3);
-        clip-path: polygon(
-            0% 0%, 100% 0%,
-            90% 50%, 100% 100%,
-            0% 100%, 10% 50%
-        );
+        transform: translateZ(-300px) scale(0.9);
+        filter: blur(18px);
     }
-    20% {
-        clip-path: polygon(
-            0% 0%, 100% 0%,
-            95% 30%, 100% 100%,
-            0% 100%, 5% 30%
-        );
-        filter: blur(40px) brightness(2);
-    }
-    40% {
-        transform: perspective(1200px) 
-                   rotateX(-45deg) translateY(25%) 
-                   translateZ(-200px) scale(0.8);
-        filter: blur(20px) brightness(1.5);
-    }
-    60% {
+    20%, 80% {
         opacity: 1;
-        transform: perspective(1200px) 
-                   rotateX(0deg) translateY(0) 
-                   translateZ(0) scale(1.05);
-        filter: blur(0) brightness(1);
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    }
-    80% {
-        opacity: 1;
-        transform: perspective(1200px) scale(1);
+        transform: translateZ(0) scale(1);
+        filter: blur(0);
     }
     100% {
         opacity: 0;
-        transform: perspective(1200px) 
-                   rotateX(90deg) translateY(-50%) 
-                   translateZ(-500px) scale(0.3);
-        filter: blur(60px) brightness(0.5);
-        clip-path: circle(0% at 50% 50%);
+        transform: translateZ(300px) scale(1.05);
+        filter: blur(16px);
     }
 }
 
@@ -2953,138 +2510,75 @@ box-shadow: var(--shadow-md);
 /* ===================== */
 .trailer-container.playing .scene-4 {
     visibility: visible;
-    animation: scene4-supernova 4s 16s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: scene4-epic-reveal 4s 15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-@keyframes scene4-supernova {
+@keyframes scene4-epic-reveal {
     0% {
         opacity: 0;
-        transform: perspective(1200px) scale(0.1) rotate(0deg);
-        filter: blur(100px) brightness(10) saturate(5);
-        clip-path: circle(0% at 50% 50%);
+        transform: scale(0.85);
+        filter: blur(40px) brightness(1.5);
     }
-    15% {
-        transform: perspective(1200px) scale(0.3) rotate(180deg);
-        filter: blur(80px) brightness(6) saturate(3);
-        clip-path: circle(20% at 50% 50%);
+    35% {
+        opacity: 1;
+        transform: scale(1.02);
+        filter: blur(4px);
     }
-    30% {
-        transform: perspective(1200px) scale(0.6) rotate(270deg);
-        filter: blur(50px) brightness(3) saturate(2);
-        clip-path: circle(50% at 50% 50%);
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Scene 4 Profile - Dramatic Entry */
+.trailer-container.playing .scene-4 .final-profile {
+    animation: profile-dramatic 2s 15.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes profile-dramatic {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(180deg);
+        filter: brightness(0) blur(30px);
+        box-shadow: 0 0 0 rgba(255, 184, 77, 0);
     }
     50% {
-        opacity: 1;
-        transform: perspective(1200px) scale(1.1) rotate(360deg);
-        filter: blur(10px) brightness(1.5) saturate(1.3);
-        clip-path: circle(80% at 50% 50%);
-    }
-    70% {
-        transform: perspective(1200px) scale(1.05) rotate(370deg);
-        filter: blur(3px) brightness(1.2) saturate(1.1);
+        transform: scale(1.2) rotate(0deg);
+        filter: brightness(1.5) blur(5px);
     }
     100% {
         opacity: 1;
-        transform: perspective(1200px) scale(1) rotate(360deg);
-        filter: blur(0) brightness(1) saturate(1);
-        clip-path: circle(100% at 50% 50%);
-    }
-}
-
-/* Scene 4 Profile - Black Hole Emergence */
-.trailer-container.playing .scene-4 .final-profile {
-    animation: profile-blackhole 2.5s 16.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes profile-blackhole {
-    0% {
-        opacity: 0;
-        transform: scale(0) rotate(0deg) translateZ(-800px);
-        filter: brightness(0) blur(80px) contrast(10);
-        box-shadow: 0 0 0 0 rgba(255, 184, 77, 0),
-                    inset 0 0 100px 50px rgba(0, 0, 0, 1);
-        clip-path: circle(0% at 50% 50%);
-    }
-    20% {
-        transform: scale(0.3) rotate(180deg) translateZ(-400px);
-        filter: brightness(0.3) blur(60px) contrast(5);
-        clip-path: circle(20% at 50% 50%);
-    }
-    40% {
-        transform: scale(0.6) rotate(270deg) translateZ(-100px);
-        filter: brightness(0.7) blur(30px) contrast(2);
-        clip-path: circle(50% at 50% 50%);
-    }
-    60% {
-        opacity: 1;
-        transform: scale(1.3) rotate(350deg) translateZ(50px);
-        filter: brightness(1.5) blur(10px) contrast(1.3);
-        box-shadow: 0 0 100px 50px rgba(255, 184, 77, 0.8),
-                    inset 0 0 50px 20px rgba(255, 184, 77, 0.3);
-        clip-path: circle(80% at 50% 50%);
-    }
-    80% {
-        transform: scale(1.1) rotate(360deg) translateZ(20px);
-        filter: brightness(1.2) blur(3px) contrast(1.1);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) rotate(360deg) translateZ(0);
-        filter: brightness(1) blur(0) contrast(1);
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1) blur(0);
         box-shadow: 0 0 100px rgba(255, 184, 77, 0.8);
-        clip-path: circle(100% at 50% 50%);
     }
 }
 
 /* Scene 4 Name - Letter by Letter */
 .trailer-container.playing .scene-4 .final-name {
-    animation: name-quantum-assembly 2s 17.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: name-assemble 1.5s 16.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes name-quantum-assembly {
+@keyframes name-assemble {
     0% {
         opacity: 0;
-        transform: translateY(100px) scale(0.1) rotateX(90deg);
-        filter: blur(80px) brightness(5);
-        letter-spacing: 200px;
-        clip-path: polygon(
-            20% 20%, 80% 20%,
-            80% 80%, 20% 80%
-        );
-    }
-    20% {
-        transform: translateY(60px) scale(0.5) rotateX(60deg);
-        filter: blur(50px) brightness(3);
-        letter-spacing: 120px;
-        clip-path: polygon(
-            10% 10%, 90% 10%,
-            90% 90%, 10% 90%
-        );
-    }
-    40% {
-        transform: translateY(20px) scale(0.8) rotateX(30deg);
-        filter: blur(25px) brightness(2);
-        letter-spacing: 50px;
+        transform: translateY(50px) scale(0.5);
+        filter: blur(20px);
+        letter-spacing: 30px;
     }
     60% {
-        opacity: 1;
-        transform: translateY(-10px) scale(1.2) rotateX(-10deg);
-        filter: blur(10px) brightness(1.5);
-        letter-spacing: 10px;
-    }
-    80% {
-        transform: translateY(5px) scale(1.05) rotateX(-5deg);
-        filter: blur(3px) brightness(1.2);
-        letter-spacing: 0px;
+        transform: translateY(-10px) scale(1.1);
+        letter-spacing: -1px;
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1) rotateX(0deg);
-        filter: blur(0) brightness(1);
+        transform: translateY(0) scale(1);
+        filter: blur(0);
         letter-spacing: -2px;
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     }
 }
+
 /* Scene 4 Tagline - Fade In */
 .trailer-container.playing .scene-4 .final-tagline {
     animation: tagline-elegant 1.2s 18s ease-out both;
@@ -3114,97 +2608,6 @@ box-shadow: var(--shadow-md);
 
 .trailer-container.playing .scene-4 .trailer-stat-item:nth-child(3) {
     animation-delay: 18.9s;
-}
-
-/* ============================================
-   ADVANCED VFX EFFECTS
-   ============================================ */
-
-/* Chromatic Aberration for Scene 1 & 2 titles */
-.trailer-container.playing .scene-1 .trailer-title,
-.trailer-container.playing .scene-2 .trailer-title {
-    position: relative;
-}
-
-.trailer-container.playing .scene-1 .trailer-title::before,
-.trailer-container.playing .scene-2 .trailer-title::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: cyan;
-    mix-blend-mode: screen;
-    animation: chromatic-r 0.5s ease-in-out infinite;
-    opacity: 0.5;
-    pointer-events: none;
-}
-
-.trailer-container.playing .scene-1 .trailer-title::after,
-.trailer-container.playing .scene-2 .trailer-title::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: #00ffff;
-    mix-blend-mode: screen;
-    animation: chromatic-b 0.5s ease-in-out infinite;
-    opacity: 0.5;
-    pointer-events: none;
-}
-
-@keyframes chromatic-r {
-    0%, 100% { transform: translate(0, 0); }
-    25% { transform: translate(-2px, 2px); }
-    50% { transform: translate(2px, -2px); }
-    75% { transform: translate(-2px, -2px); }
-}
-
-@keyframes chromatic-b {
-    0%, 100% { transform: translate(0, 0); }
-    25% { transform: translate(2px, -2px); }
-    50% { transform: translate(-2px, 2px); }
-    75% { transform: translate(2px, 2px); }
-}
-
-/* Lens Flare System */
-.trailer-scene::after {
-    content: '';
-    position: absolute;
-    width: 300%;
-    height: 300%;
-    top: -100%;
-    left: -100%;
-    background: 
-        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.3) 1%, transparent 2%),
-        radial-gradient(circle at 25% 35%, rgba(99, 102, 241, 0.7) 0%, rgba(99, 102, 241, 0.2) 2%, transparent 3%),
-        radial-gradient(circle at 30% 40%, rgba(236, 72, 153, 0.6) 0%, rgba(236, 72, 153, 0.15) 3%, transparent 4%);
-    opacity: 0;
-    pointer-events: none;
-    animation: lens-flare-sweep 8s ease-in-out infinite;
-    z-index: 100;
-    mix-blend-mode: screen;
-}
-
-@keyframes lens-flare-sweep {
-    0%, 100% {
-        opacity: 0;
-        transform: translate(-150%, -150%) rotate(0deg) scale(0.5);
-    }
-    10% {
-        opacity: 0.9;
-        transform: translate(-100%, -100%) rotate(45deg) scale(0.7);
-    }
-    50% {
-        opacity: 1;
-        transform: translate(50%, 50%) rotate(180deg) scale(1.1);
-    }
-    90% {
-        opacity: 0.7;
-    }
 }
 
 @keyframes stat-count-up {
@@ -5085,1314 +4488,427 @@ body.slideshow-mode .start-overlay {
             </div>
         </section>
         
-        <!-- Portfolio Section - ULTRA COMPLEX VFX -->
+        <!-- Portfolio Section -->
 <section id="portfolio">
     <h2 class="section-title">Featured Work</h2>
     <p class="section-subtitle">A showcase of campaigns, content creation, and strategic marketing</p>
     
-    <!-- Portfolio Filters with Particle Effects -->
-    <div class="portfolio-filters">
-        <button class="filter-btn active" data-filter="all">
-            <span class="filter-text">All Work</span>
-            <span class="filter-glow"></span>
-        </button>
-        <button class="filter-btn" data-filter="social">
-            <span class="filter-text">Social Media</span>
-            <span class="filter-glow"></span>
-        </button>
-        <button class="filter-btn" data-filter="email">
-            <span class="filter-text">Email Marketing</span>
-            <span class="filter-glow"></span>
-        </button>
-        <button class="filter-btn" data-filter="design">
-            <span class="filter-text">Visual Design</span>
-            <span class="filter-glow"></span>
-        </button>
-        <button class="filter-btn" data-filter="seo">
-            <span class="filter-text">SEO & Content</span>
-            <span class="filter-glow"></span>
-        </button>
-        <button class="filter-btn" data-filter="reports">
-            <span class="filter-text">Reports & Performance</span>
-            <span class="filter-glow"></span>
-        </button>
-    </div>
+    <!-- Portfolio Filters -->
+<div class="portfolio-filters">
+    <button class="filter-btn active" data-filter="all">All Work</button>
+    <button class="filter-btn" data-filter="social">Social Media</button>
+    <button class="filter-btn" data-filter="email">Email Marketing</button>
+    <button class="filter-btn" data-filter="design">Visual Design</button>
+    <button class="filter-btn" data-filter="seo">SEO & Content</button>
+    <button class="filter-btn" data-filter="reports">Reports & Performance</button>
+</div>
     
     <div class="portfolio-grid">
         <!-- Social Media - Nail Studio Campaigns -->
         <div class="portfolio-item" data-category="social">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/social media desgin/nailpromotion/nail1.png" alt="Nail Promotion Campaign" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/social media desgin/nailpromotion/nail1.png" alt="Nail Promotion Campaign" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual9.png" alt="Nail Visual Design 9" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual10.png" alt="Nail Visual Design 10" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual11.jpg" alt="Nail Visual Design 11" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual12.png" alt="Nail Visual Design 12" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- SEO & Content - Articles Gallery (GALLERY) -->
-        <div class="portfolio-item article-gallery-trigger" data-category="seo" data-gallery="articles">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/SEO:Copywriting/Article/1.png" alt="SEO Articles Gallery" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                    <div class="portfolio-gallery-badge">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M3 4V1H5V4H8V6H5V9H3V6H0V4H3ZM6 10V7H9V4H16L16.8 5L20 16L17 20L15.5 19.5L14 19.5L12.5 20L11 19.5L9.5 19.5L8 20L5 16L6 10ZM8 10L7 15L8.5 16.5L10 16L11.5 16.5L13 16L14.5 16.5L16 15L13.5 7H9V10H8Z"/>
-                        </svg>
-                        <span>8 Articles</span>
-                    </div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">8 SEO Articles</h3>
-                    <p class="portfolio-category">Click to view all • AI-Powered</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Gallery</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Service Content Strategy - Facebook Posts (GALLERY) -->
-        <div class="portfolio-item facebook-gallery-trigger" data-category="seo" data-gallery="facebook">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/SEO:Copywriting/facebook/image1.png" alt="Service Content Strategy" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                    <div class="portfolio-gallery-badge">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M3 4V1H5V4H8V6H5V9H3V6H0V4H3ZM6 10V7H9V4H16L16.8 5L20 16L17 20L15.5 19.5L14 19.5L12.5 20L11 19.5L9.5 19.5L8 20L5 16L6 10ZM8 10L7 15L8.5 16.5L10 16L11.5 16.5L13 16L14.5 16.5L16 15L13.5 7H9V10H8Z"/>
-                        </svg>
-                        <span>8 Posts</span>
-                    </div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Service Content Strategy</h3>
-                    <p class="portfolio-category">SEO & Content • Click to view all • USP Focus</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Gallery</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Report & Performance - Business -->
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business/1.jpg" alt="Performance Tracking" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Performance Tracking</h3>
-                    <p class="portfolio-category">Analytics • Data-Driven Strategy</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business/2.png" alt="Business Report 2" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Business2 Reports -->
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business2/1.png" alt="Business Report 2-1" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business2/2.png" alt="Business Report 2-2" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Business3 Reports - All 4 -->
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business3/1.png" alt="Business Report 3-1" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business3/2.png" alt="Business Report 3-2" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business3/3.png" alt="Business Report 3-3" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business3/4.png" alt="Business Report 3-4" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Ranktank Report -->
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Ranktank/1.png" alt="Ranktank Report" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
-            <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Ranktank Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Rankings</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section><h3 class="portfolio-title">Nail Studio Combo Promotion</h3>
-                    <p class="portfolio-category">Social Media • Dria Nail Studio</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Studio Combo Promotion</h3>
+                <p class="portfolio-category">Social Media • Dria Nail Studio</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="social">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/social media desgin/nailpromotion/nail2.png" alt="Special Gift Campaign" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/social media desgin/nailpromotion/nail2.png" alt="Special Gift Campaign" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Festival Special Gift Campaign</h3>
-                    <p class="portfolio-category">Social Media • Dria Nail Studio</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Festival Special Gift Campaign</h3>
+                <p class="portfolio-category">Social Media • Dria Nail Studio</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="social">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/social media desgin/nailpromotion/nail5.png" alt="National Day Campaign" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/social media desgin/nailpromotion/nail5.png" alt="National Day Campaign" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Vietnamese National Day Promo</h3>
-                    <p class="portfolio-category">Social Media • Dria Nail Studio</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Vietnamese National Day Promo</h3>
+                <p class="portfolio-category">Social Media • Dria Nail Studio</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="social">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/social media desgin/nailpromotion/nail6.png" alt="Women's Day Campaign" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/social media desgin/nailpromotion/nail6.png" alt="Women's Day Campaign" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Women's Day Special Offer</h3>
-                    <p class="portfolio-category">Social Media • Dria Nail Studio</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Women's Day Special Offer</h3>
+                <p class="portfolio-category">Social Media • Dria Nail Studio</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="social">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/social media desgin/nailpromotion/nail7.png" alt="Navii Beauty Promotion" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/social media desgin/nailpromotion/nail7.png" alt="Navii Beauty Promotion" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Navii Special Deal Campaign</h3>
-                    <p class="portfolio-category">Social Media • Navii Beauty Room</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Navii Special Deal Campaign</h3>
+                <p class="portfolio-category">Social Media • Navii Beauty Room</p>
             </div>
         </div>
         
-        <!-- Email Marketing - New Collection Launch (GALLERY) -->
+        <!-- Email Marketing - New Collection Launch -->
         <div class="portfolio-item email-gallery-trigger" data-category="email" data-gallery="newcollection">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaunch1.png" alt="New Collection Launch" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                    <div class="portfolio-gallery-badge">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M3 4V1H5V4H8V6H5V9H3V6H0V4H3ZM6 10V7H9V4H16L16.8 5L20 16L17 20L15.5 19.5L14 19.5L12.5 20L11 19.5L9.5 19.5L8 20L5 16L6 10ZM8 10L7 15L8.5 16.5L10 16L11.5 16.5L13 16L14.5 16.5L16 15L13.5 7H9V10H8Z"/>
-                        </svg>
-                        <span>3 Images</span>
-                    </div>
-                </div>
-            </div>
+            <img src="images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaunch1.png" alt="New Collection Launch" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">New Collection Launch</h3>
-                    <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Gallery</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">New Collection Launch</h3>
+                <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
             </div>
         </div>
         
-        <!-- Email Marketing - Back in Stock (GALLERY) -->
+        <!-- Email Marketing - Back in Stock -->
         <div class="portfolio-item email-gallery-trigger" data-category="email" data-gallery="backinstock">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/social media desgin/email marketing/backinstock/backinstock1.png" alt="Back in Stock" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                    <div class="portfolio-gallery-badge">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M3 4V1H5V4H8V6H5V9H3V6H0V4H3ZM6 10V7H9V4H16L16.8 5L20 16L17 20L15.5 19.5L14 19.5L12.5 20L11 19.5L9.5 19.5L8 20L5 16L6 10ZM8 10L7 15L8.5 16.5L10 16L11.5 16.5L13 16L14.5 16.5L16 15L13.5 7H9V10H8Z"/>
-                        </svg>
-                        <span>3 Images</span>
-                    </div>
-                </div>
-            </div>
+            <img src="images/social media desgin/email marketing/backinstock/backinstock1.png" alt="Back in Stock" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Back in Stock Campaign</h3>
-                    <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Gallery</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Back in Stock Campaign</h3>
+                <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
             </div>
         </div>
         
-        <!-- Email Marketing - Summer Sale Off (GALLERY) -->
+        <!-- Email Marketing - Summer Sale Off -->
         <div class="portfolio-item email-gallery-trigger" data-category="email" data-gallery="summersale">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/social media desgin/email marketing/summersaleoff/summersaleoff1.png" alt="Summer Sale Off" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                    <div class="portfolio-gallery-badge">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M3 4V1H5V4H8V6H5V9H3V6H0V4H3ZM6 10V7H9V4H16L16.8 5L20 16L17 20L15.5 19.5L14 19.5L12.5 20L11 19.5L9.5 19.5L8 20L5 16L6 10ZM8 10L7 15L8.5 16.5L10 16L11.5 16.5L13 16L14.5 16.5L16 15L13.5 7H9V10H8Z"/>
-                        </svg>
-                        <span>3 Images</span>
-                    </div>
-                </div>
-            </div>
+            <img src="images/social media desgin/email marketing/summersaleoff/summersaleoff1.png" alt="Summer Sale Off" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Summer Sale Off</h3>
-                    <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Gallery</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Summer Sale Off</h3>
+                <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
             </div>
         </div>
+        
         
         <!-- Visual Design - Jewelry -->
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/jewelry/jewelry1.png" alt="Jewelry Photography" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/jewelry/jewelry1.png" alt="Jewelry Photography" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Natural Light Jewelry Photography</h3>
-                    <p class="portfolio-category">Visual Design • Merci Majolie</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Natural Light Jewelry Photography</h3>
+                <p class="portfolio-category">Visual Design • Merci Majolie</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/jewelry/jewelry2.png" alt="Product Styling" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/jewelry/jewelry2.png" alt="Product Styling" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Elegant Product Styling</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Elegant Product Styling</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/jewelry/jewelry3.png" alt="Minimalist Jewelry" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/jewelry/jewelry3.png" alt="Minimalist Jewelry" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Minimalist Jewelry Collection</h3>
-                    <p class="portfolio-category">Visual Design • Merci Majolie</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Minimalist Jewelry Collection</h3>
+                <p class="portfolio-category">Visual Design • Merci Majolie</p>
             </div>
         </div>
         
         <!-- AI Enhanced Products -->
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/aienhanceimage/image1.png" alt="AI Enhanced Products" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/aienhanceimage/image1.png" alt="AI Enhanced Products" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">AI-Enhanced Product Shots</h3>
-                    <p class="portfolio-category">Visual Design • 90% Real Detail</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">AI-Enhanced Product Shots</h3>
+                <p class="portfolio-category">Visual Design • 90% Real Detail</p>
             </div>
         </div>
         
-        <!-- Nail Visuals - All 12 Images -->
+        <!-- Nail Visuals - All Images -->
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual1.png" alt="Nail Visual Design 1" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual1.png" alt="Nail Visual Design 1" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual2.png" alt="Nail Visual Design 2" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual2.png" alt="Nail Visual Design 2" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual3.png" alt="Nail Visual Design 3" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual3.png" alt="Nail Visual Design 3" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual4.png" alt="Nail Visual Design 4" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual4.png" alt="Nail Visual Design 4" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual5.png" alt="Nail Visual Design 5" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual5.png" alt="Nail Visual Design 5" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual6.png" alt="Nail Visual Design 6" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual6.png" alt="Nail Visual Design 6" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual7.png" alt="Nail Visual Design 7" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual7.png" alt="Nail Visual Design 7" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual8.png" alt="Nail Visual Design 8" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual8.png" alt="Nail Visual Design 8" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                        </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
-        <!-- Nail Visual 9 -->
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual9.png" alt="Nail Visual Design 9" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual9.png" alt="Nail Visual Design 9" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
-        <!-- Nail Visual 10 -->
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual10.png" alt="Nail Visual Design 10" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual10.png" alt="Nail Visual Design 10" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
-        <!-- Nail Visual 11 -->
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual11.jpg" alt="Nail Visual Design 11" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual11.jpg" alt="Nail Visual Design 11" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
-        <!-- Nail Visual 12 -->
         <div class="portfolio-item" data-category="design">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Photograph & Edit/nailvisuals/nailvisual12.png" alt="Nail Visual Design 12" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual12.png" alt="Nail Visual Design 12" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Nail Art Visual Design</h3>
-                    <p class="portfolio-category">Visual Design • Product Photography</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Nail Art Visual Design</h3>
+                <p class="portfolio-category">Visual Design • Product Photography</p>
             </div>
         </div>
         
-        <!-- SEO & Content - Articles Gallery (GALLERY WITH BADGE) -->
+        <!-- SEO & Content - Articles Gallery -->
         <div class="portfolio-item article-gallery-trigger" data-category="seo" data-gallery="articles">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/SEO:Copywriting/Article/1.png" alt="SEO Articles Gallery" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                    <div class="portfolio-gallery-badge">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M3 4V1H5V4H8V6H5V9H3V6H0V4H3ZM6 10V7H9V4H16L16.8 5L20 16L17 20L15.5 19.5L14 19.5L12.5 20L11 19.5L9.5 19.5L8 20L5 16L6 10ZM8 10L7 15L8.5 16.5L10 16L11.5 16.5L13 16L14.5 16.5L16 15L13.5 7H9V10H8Z"/>
-                        </svg>
-                        <span>8 Articles</span>
-                    </div>
-                </div>
-            </div>
+            <img src="images/SEO:Copywriting/Article/1.png" alt="SEO Articles Gallery" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">8 SEO Articles</h3>
-                    <p class="portfolio-category">Click to view all • AI-Powered</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Gallery</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title"> 8 SEO Articles</h3>
+                <p class="portfolio-category">Click to view all • AI-Powered</p>
             </div>
         </div>
         
-        <!-- Service Content Strategy - Facebook Posts (GALLERY WITH BADGE) -->
+        <!-- Individual Article Items -->
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/Article/2.png" alt="SEO Article 2" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">SEO Article Sample</h3>
+                <p class="portfolio-category">SEO & Content • Article 2</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/Article/3.png" alt="SEO Article 3" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">SEO Article Sample</h3>
+                <p class="portfolio-category">SEO & Content • Article 3</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/Article/4.png" alt="SEO Article 4" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">SEO Article Sample</h3>
+                <p class="portfolio-category">SEO & Content • Article 4</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/Article/5.png" alt="SEO Article 5" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">SEO Article Sample</h3>
+                <p class="portfolio-category">SEO & Content • Article 5</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/Article/6.png" alt="SEO Article 6" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">SEO Article Sample</h3>
+                <p class="portfolio-category">SEO & Content • Article 6</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/Article/7.png" alt="SEO Article 7" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">SEO Article Sample</h3>
+                <p class="portfolio-category">SEO & Content • Article 7</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/Article/8.png" alt="SEO Article 8" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">SEO Article Sample</h3>
+                <p class="portfolio-category">SEO & Content • Article 8</p>
+            </div>
+        </div>
+        
+        <!-- Service Content Strategy - Facebook Posts -->
         <div class="portfolio-item facebook-gallery-trigger" data-category="seo" data-gallery="facebook">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/SEO:Copywriting/facebook/image1.png" alt="Service Content Strategy" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                    <div class="portfolio-gallery-badge">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M3 4V1H5V4H8V6H5V9H3V6H0V4H3ZM6 10V7H9V4H16L16.8 5L20 16L17 20L15.5 19.5L14 19.5L12.5 20L11 19.5L9.5 19.5L8 20L5 16L6 10ZM8 10L7 15L8.5 16.5L10 16L11.5 16.5L13 16L14.5 16.5L16 15L13.5 7H9V10H8Z"/>
-                        </svg>
-                        <span>8 Posts</span>
-                    </div>
-                </div>
-            </div>
+            <img src="images/SEO:Copywriting/facebook/image1.png" alt="Service Content Strategy" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Service Content Strategy</h3>
-                    <p class="portfolio-category">SEO & Content • Click to view all • USP Focus</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Gallery</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Click to view all • USP Focus</p>
             </div>
         </div>
         
-        <!-- Report & Performance - Business 1 -->
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business/1.jpg" alt="Performance Tracking" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+        <!-- Individual Facebook Posts (hidden, accessible via gallery) -->
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image1.2.png" alt="Facebook Post 1.2" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Performance Tracking</h3>
-                    <p class="portfolio-category">Analytics • Data-Driven Strategy</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
             </div>
         </div>
         
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business/2.png" alt="Business Report 2" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image1.3.png" alt="Facebook Post 1.3" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
             </div>
         </div>
         
-        <!-- Business2 Reports -->
-        <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business2/1.png" alt="Business Report 2-1" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image1.4.png" alt="Facebook Post 1.4" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image3.1.png" alt="Facebook Post 3.1" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image3.2.png" alt="Facebook Post 3.2" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image3.3.png" alt="Facebook Post 3.3" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="seo" style="display: none;">
+            <img src="images/SEO:Copywriting/facebook/image3.4.png" alt="Facebook Post 3.4" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Service Content Strategy</h3>
+                <p class="portfolio-category">SEO & Content • Facebook Post</p>
+            </div>
+        </div>
+        
+        <!-- Report & Performance - Business -->
+        <div class="portfolio-item" data-category="reports">
+            <img src="images/Report & Performance/Business/1.jpg" alt="Performance Tracking" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Performance Tracking</h3>
+                <p class="portfolio-category">Analytics • Data-Driven Strategy</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business2/2.png" alt="Business Report 2-2" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Report & Performance/Business/2.png" alt="Business Report 2" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Business Performance Report</h3>
+                <p class="portfolio-category">Report & Performance • Analytics</p>
             </div>
         </div>
         
-        <!-- Business3 Reports - All 4 -->
+        <!-- Report & Performance - Business2 -->
         <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business3/1.png" alt="Business Report 3-1" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Report & Performance/Business2/1.png" alt="Business Report 2-1" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Business Performance Report</h3>
+                <p class="portfolio-category">Report & Performance • Analytics</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business3/2.png" alt="Business Report 3-2" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Report & Performance/Business2/2.png" alt="Business Report 2-2" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Business Performance Report</h3>
+                <p class="portfolio-category">Report & Performance • Analytics</p>
+            </div>
+        </div>
+        
+        <!-- Report & Performance - Business3 -->
+        <div class="portfolio-item" data-category="reports">
+            <img src="images/Report & Performance/Business3/1.png" alt="Business Report 3-1" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Business Performance Report</h3>
+                <p class="portfolio-category">Report & Performance • Analytics</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business3/3.png" alt="Business Report 3-3" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Report & Performance/Business3/2.png" alt="Business Report 3-2" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Business Performance Report</h3>
+                <p class="portfolio-category">Report & Performance • Analytics</p>
             </div>
         </div>
         
         <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Business3/4.png" alt="Business Report 3-4" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Report & Performance/Business3/3.png" alt="Business Report 3-3" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Business Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Analytics</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Business Performance Report</h3>
+                <p class="portfolio-category">Report & Performance • Analytics</p>
             </div>
         </div>
         
-        <!-- Ranktank Report -->
         <div class="portfolio-item" data-category="reports">
-            <div class="portfolio-3d-wrapper">
-                <div class="portfolio-tilt-inner">
-                    <img src="images/Report & Performance/Ranktank/1.png" alt="Ranktank Report" class="portfolio-image">
-                    <div class="portfolio-glass-overlay"></div>
-                    <div class="portfolio-particles"></div>
-                    <div class="portfolio-light-beam"></div>
-                </div>
-            </div>
+            <img src="images/Report & Performance/Business3/4.png" alt="Business Report 3-4" class="portfolio-image">
             <div class="portfolio-overlay">
-                <div class="portfolio-overlay-bg"></div>
-                <div class="portfolio-content-wrapper">
-                    <h3 class="portfolio-title">Ranktank Performance Report</h3>
-                    <p class="portfolio-category">Report & Performance • Rankings</p>
-                    <div class="portfolio-view-btn">
-                        <span>View Project</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </div>
-                </div>
+                <h3 class="portfolio-title">Business Performance Report</h3>
+                <p class="portfolio-category">Report & Performance • Analytics</p>
+            </div>
+        </div>
+        
+        <!-- Report & Performance - Ranktank -->
+        <div class="portfolio-item" data-category="reports">
+            <img src="images/Report & Performance/Ranktank/1.png" alt="Ranktank Report" class="portfolio-image">
+            <div class="portfolio-overlay">
+                <h3 class="portfolio-title">Ranktank Performance Report</h3>
+                <p class="portfolio-category">Report & Performance • Rankings</p>
             </div>
         </div>
     </div>
@@ -6855,10 +5371,6 @@ if (particlesContainer) {
         // FIX: Wait for DOM to be fully loaded
         // ============================================
         document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.trailer-title').forEach(el => {
-        el.setAttribute('data-text', el.textContent);
-    });
-});
             // ============================================
             // HIDE DEFAULT CURSOR - FIXED VERSION
             // ============================================
@@ -7555,30 +6067,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// ============================================
-// 3D TILT EFFECT FOR PORTFOLIO ITEMS
-// ============================================
-document.querySelectorAll('.portfolio-item').forEach(item => {
-    const wrapper = item.querySelector('.portfolio-3d-wrapper');
-    
-    item.addEventListener('mousemove', (e) => {
-        const rect = item.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        
-        wrapper.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
-    });
-    
-    item.addEventListener('mouseleave', () => {
-        wrapper.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
-    });
-});
+
 
 </script>
 <!-- Liquid Glass SVG Filters -->
