@@ -2103,6 +2103,24 @@ box-shadow: var(--shadow-md);
     animation: pulse-btn 2s ease-in-out infinite;
 }
 
+/* FORCE START BUTTON TO BE VISIBLE */
+.loader {
+    background: #000 !important;
+}
+
+.start-overlay {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 10001 !important;
+}
+
+.start-btn {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 @keyframes pulse-btn {
     0%, 100% {
         transform: scale(1);
@@ -5458,7 +5476,7 @@ footer::before {
 <!-- Cinematic Trailer with Start Button -->
 <div class="loader" style="display: none;">
     <!-- Start Button Overlay -->
-    <div class="start-overlay" id="start-overlay">
+    <div class="start-overlay" id="start-overlay" style="display: flex !important; opacity: 1 !important; visibility: visible !important; z-index: 10001 !important;">
         <button class="start-btn" id="start-btn">
             <span class="btn-icon">🎬</span>
             <span class="btn-text">START EXPERIENCE</span>
@@ -6488,14 +6506,15 @@ window.addEventListener('load', () => {
         
         // Show cinematic loader and start overlay
         if (activeLoader) {
-            activeLoader.style.display = 'block';
-        }
-        const startOverlay = document.getElementById('start-overlay');
-        if (startOverlay) {
-            startOverlay.style.display = 'flex';
-            startOverlay.style.visibility = 'visible';
-            startOverlay.style.opacity = '1';
-        }
+    activeLoader.style.display = 'block';
+}
+const startOverlay = document.getElementById('start-overlay');
+if (startOverlay) {
+    startOverlay.style.display = 'flex';
+    startOverlay.style.visibility = 'visible';
+    startOverlay.style.opacity = '1';
+    startOverlay.style.zIndex = '10001';
+}
     }
     
     // Hide inactive loader
