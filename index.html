@@ -6435,21 +6435,31 @@ const LOADING_CONFIG = {
 window.addEventListener('load', () => {
     // Check if loading is disabled
     if (!LOADING_CONFIG.enabled) {
-        // Remove all loader elements from DOM
+        // Remove all loader elements from DOM IMMEDIATELY
         const cinematicLoader = document.querySelector('.loader');
         const slideshowLoader = document.querySelector('.slideshow-loader');
         
         if (cinematicLoader) {
-            cinematicLoader.style.display = 'none';
             cinematicLoader.remove();
         }
         if (slideshowLoader) {
-            slideshowLoader.style.display = 'none';
             slideshowLoader.remove();
         }
         
+        // Show the main content immediately
         document.body.classList.remove('loading');
         document.body.classList.add('loaded');
+        document.body.style.overflow = 'visible';
+        
+        // Force show all main content
+        const mainContent = document.querySelectorAll('nav, section, footer');
+        mainContent.forEach(el => {
+            el.style.display = 'block';
+            el.style.visibility = 'visible';
+            el.style.opacity = '1';
+        });
+        
+        console.log('🚫 Loading screen DISABLED - showing content immediately');
         return; // EXIT EARLY - Don't run any loader code below
     }
 
