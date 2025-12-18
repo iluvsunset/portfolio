@@ -216,8 +216,6 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
     isolation: isolate;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.4);
 }
 
 /* Liquid Glass Inner Shadow Layer */
@@ -588,7 +586,6 @@ h1, h2, h3, h4, h5, h6 {
 .loader .cursor-follower,
 .slideshow-loader .cursor,
 .slideshow-loader .cursor-follower {
-    display: none !important;
 }
 
 /* KEEP CURSOR VISIBLE IN LIGHTBOX & GALLERY */
@@ -658,6 +655,24 @@ body .cursor-follower {
     backdrop-filter: blur(12px) saturate(180%) brightness(1.05);
     -webkit-backdrop-filter: blur(12px) saturate(180%) brightness(1.05);
     filter: url(#glass-distortion);
+}
+
+/* Hide liquid glass effects during loading */
+body.loading .profile-card::before,
+body.loading .profile-card::after,
+body.loading .testimonial-card::before,
+body.loading .testimonial-card::after,
+body.loading .contact-card::before,
+body.loading .contact-card::after,
+body.loading .stat-card::before,
+body.loading .stat-card::after,
+body.loading .tool-item::before,
+body.loading .tool-item::after,
+body.loading .journey-card::before,
+body.loading .journey-card::after,
+body.loading .filter-btn::before,
+body.loading .filter-btn::after {
+    display: none !important;
 }
 
 .filter-btn,
@@ -1351,9 +1366,6 @@ nav::after {
             backdrop-filter: blur(3px);
         }
         
-        .start-overlay {
-    position: fixed;
-        }
         .portfolio-item:hover .portfolio-overlay {
             opacity: 1;
         }
@@ -2066,20 +2078,19 @@ box-shadow: var(--shadow-md);
 
 /* Start Button Overlay */
 .start-overlay {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    background: rgba(0, 0, 0, 0.95) !important;
-    display: flex !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 1000000 !important;
+    z-index: 100;
     gap: 20px;
-    opacity: 1 !important;
-    visibility: visible !important;
+    transition: all 0.6s ease;
 }
 
 .start-overlay.hidden {
@@ -2105,24 +2116,6 @@ box-shadow: var(--shadow-md);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     font-family: 'Montserrat', sans-serif;
     animation: pulse-btn 2s ease-in-out infinite;
-}
-
-/* FORCE START BUTTON TO BE VISIBLE */
-.loader {
-    background: #000 !important;
-}
-
-.start-overlay {
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    z-index: 10001 !important;
-}
-
-.start-btn {
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
 }
 
 @keyframes pulse-btn {
@@ -2222,7 +2215,7 @@ box-shadow: var(--shadow-md);
 .cinematic-bars {
     position: absolute;
     width: 100%;
-    height: 80px;  /* Made slightly taller */
+    height: 0px;  /* Made slightly taller */
     background: linear-gradient(to bottom, #000 0%, #111 100%);  /* Gradient instead of solid */
     z-index: 10;
     transform: translate3d(0, 0, 0);
@@ -2249,11 +2242,6 @@ box-shadow: var(--shadow-md);
     to { transform: translateY(0); }
 }
 
-
-/* ============================================
-   ULTRA COMPLEX 3D MORPH TRAILER - MAXIMUM VFX
-   ============================================ */
-
 /* 3D Scene Setup */
 .trailer-scene {
     position: absolute;
@@ -2272,27 +2260,31 @@ box-shadow: var(--shadow-md);
     backface-visibility: hidden;
 }
 
-/* Particle System Base */
-.trailer-scene::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(255, 255, 255, 0.1) 0%, 
-                transparent 50%);
-    opacity: 0;
-    animation: particle-ambient 4s ease-in-out infinite;
-    z-index: 1;
+
+/* FIX: Show slideshow slides when active */
+.slideshow-loader.active .slideshow-slide {
+    visibility: visible !important;
 }
 
-@keyframes particle-ambient {
-    0%, 100% { opacity: 0; transform: scale(0.8); }
-    50% { opacity: 0.5; transform: scale(1.2); }
+/* Ensure slideshow slides start visible */
+.slideshow-slide {
+    visibility: visible;
+    opacity: 0;
 }
+
+/* Hide scenes by default - ADD THIS NEW CLASS */
+.trailer-container.paused .trailer-scene {
+    animation: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* ============================================
+   CINEMATIC SCENE ANIMATIONS - HOLLYWOOD STYLE
+   ============================================ */
 
 /* ===================== */
-/* SCENE 1: EMAIL MARKETING - 3D MORPH EXPLOSION */
+/* SCENE 1: EMAIL MARKETING */
 /* ===================== */
 .trailer-container.playing .scene-1 {
     visibility: visible;
@@ -2339,7 +2331,8 @@ box-shadow: var(--shadow-md);
     }
 }
 
-/* Scene 1 Text - Letter Explosion */
+
+/* Scene 1 Text */
 .trailer-container.playing .scene-1 .trailer-title {
     animation: title-letter-explosion 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     transform-style: preserve-3d;
@@ -2368,7 +2361,6 @@ box-shadow: var(--shadow-md);
     }
 }
 
-/* Scene 1 Tags - Liquid Morph */
 .trailer-container.playing .scene-1 .trailer-tag {
     animation: tag-liquid-morph 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
     transform-style: preserve-3d;
@@ -2384,6 +2376,17 @@ box-shadow: var(--shadow-md);
 
 .trailer-container.playing .scene-1 .trailer-tag:nth-child(3) {
     animation-delay: 0.8s;
+}
+
+@keyframes tag-slide {
+    from {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes tag-liquid-morph {
@@ -2411,39 +2414,25 @@ box-shadow: var(--shadow-md);
     }
 }
 
-/* Scene 1 Subtitle - Prism Split */
 .trailer-container.playing .scene-1 .trailer-subtitle {
-    animation: subtitle-prism-split 1s 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: subtitle-fade 0.9s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-@keyframes subtitle-prism-split {
-    0% {
+@keyframes subtitle-fade {
+    from {
         opacity: 0;
-        transform: translateY(80px) scale(0.5);
-        filter: blur(40px) hue-rotate(0deg) brightness(3);
-        letter-spacing: 50px;
+        transform: translateY(24px);
+        letter-spacing: 8px;
     }
-    25% {
-        filter: blur(20px) hue-rotate(90deg) brightness(2);
-        letter-spacing: 30px;
-    }
-    50% {
-        filter: blur(10px) hue-rotate(180deg) brightness(1.5);
-        letter-spacing: 15px;
-    }
-    75% {
-        filter: blur(5px) hue-rotate(270deg) brightness(1.2);
-    }
-    100% {
+    to {
         opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0) hue-rotate(360deg) brightness(1);
-        letter-spacing: 5px;
+        transform: translateY(0);
+        letter-spacing: 4px;
     }
 }
 
 /* ===================== */
-/* SCENE 2: VISUAL DESIGN - HOLOGRAM CUBE MORPH */
+/* SCENE 2: VISUAL DESIGN (APPLE 3D) */
 /* ===================== */
 .trailer-container.playing .scene-2 {
     visibility: visible;
@@ -2504,9 +2493,53 @@ box-shadow: var(--shadow-md);
     }
 }
 
-/* Scene 2 Title - Kaleidoscope */
+
+@keyframes scene2-3d-rotate {
+    0% {
+        opacity: 0;
+        transform: rotateY(65deg) rotateX(20deg) translateZ(-200px) scale(0.92);
+        filter: blur(30px) brightness(0.8);
+    }
+    20% {
+        opacity: 1;
+        transform: rotateY(0deg) rotateX(0deg) translateZ(0) scale(1.02);
+        filter: blur(6px) brightness(1.1);
+    }
+    75% {
+        opacity: 1;
+        transform: rotateY(0) rotateX(0) scale(1);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 0;
+        transform: rotateY(-60deg) rotateX(-15deg) translateZ(-200px) scale(0.95);
+        filter: blur(24px) brightness(0.8);
+    }
+}
+
+/* Scene 2 Text */
 .trailer-container.playing .scene-2 .trailer-title {
     animation: title-kaleidoscope 1.8s 5.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes title-glitch {
+    0%, 8%, 16% {
+        opacity: 0;
+    }
+    10%, 18% {
+        opacity: 1;
+        transform: translateX(-4px);
+        filter: hue-rotate(40deg);
+    }
+    12%, 20% {
+        transform: translateX(4px);
+        filter: hue-rotate(-40deg);
+    }
+    30%, 100% {
+        opacity: 1;
+        transform: none;
+        filter: none;
+    }
 }
 
 @keyframes title-kaleidoscope {
@@ -2538,7 +2571,7 @@ box-shadow: var(--shadow-md);
     }
 }
 
-/* Scene 2 Tags - DNA Helix Morph */
+
 .trailer-container.playing .scene-2 .trailer-tag {
     animation: tag-dna-helix 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -2580,41 +2613,39 @@ box-shadow: var(--shadow-md);
     }
 }
 
-/* Scene 2 Subtitle - Glitch Matrix */
-.trailer-container.playing .scene-2 .trailer-subtitle {
-    animation: subtitle-glitch-matrix 1.2s 6.2s cubic-bezier(0.22, 1, 0.36, 1) both;
-    position: relative;
+@keyframes tag-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    70% {
+        transform: scale(1.05);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-@keyframes subtitle-glitch-matrix {
-    0%, 10%, 20%, 30% {
+.trailer-container.playing .scene-2 .trailer-subtitle {
+    animation: subtitle-fade-2 0.9s 6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes subtitle-fade-2 {
+    from {
         opacity: 0;
-        transform: translateX(-100px) skewX(-20deg);
-        filter: blur(20px);
+        transform: translateY(20px);
+        letter-spacing: 8px;
     }
-    5%, 15%, 25% {
+    to {
         opacity: 1;
-        transform: translateX(-80px) skewX(-15deg);
-        filter: blur(15px) hue-rotate(120deg);
-    }
-    8%, 18%, 28% {
-        transform: translateX(80px) skewX(15deg);
-        filter: blur(15px) hue-rotate(-120deg);
-    }
-    40% {
-        opacity: 1;
-        transform: translateX(0) skewX(0deg);
-        filter: blur(0) hue-rotate(0deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0) skewX(0deg);
-        filter: blur(0);
+        transform: translateY(0);
+        letter-spacing: 4px;
     }
 }
 
 /* ===================== */
-/* SCENE 3: SEO & CONTENT - QUANTUM FOLD */
+/* SCENE 3: SEO & CONTENT */
 /* ===================== */
 .trailer-container.playing .scene-3 {
     visibility: visible;
@@ -2676,84 +2707,12 @@ box-shadow: var(--shadow-md);
     }
 }
 
-/* Scene 3 Title - Particle Disintegration */
-.trailer-container.playing .scene-3 .trailer-title {
-    animation: title-particle-disintegrate 1.5s 12.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes title-particle-disintegrate {
-    0% {
-        opacity: 0;
-        transform: translateY(-100px) scale(2);
-        filter: blur(60px) brightness(4);
-        letter-spacing: 100px;
-    }
-    20% {
-        letter-spacing: 60px;
-        filter: blur(40px) brightness(3);
-    }
-    40% {
-        opacity: 1;
-        transform: translateY(-20px) scale(1.3);
-        filter: blur(20px) brightness(2);
-        letter-spacing: 30px;
-    }
-    70% {
-        transform: translateY(5px) scale(1.05);
-        filter: blur(5px) brightness(1.2);
-        letter-spacing: 5px;
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0) brightness(1);
-        letter-spacing: 3px;
-    }
-}
-
-/* Scene 3 Subtitle - Wave Distortion */
-.trailer-container.playing .scene-3 .trailer-subtitle {
-    animation: subtitle-wave-distort 1.2s 13s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes subtitle-wave-distort {
-    0% {
-        opacity: 0;
-        transform: translateY(100%) skewY(20deg) scale(0.5);
-        filter: blur(40px) hue-rotate(180deg);
-        clip-path: polygon(
-            0% 40%, 20% 0%, 40% 40%, 60% 0%,
-            80% 40%, 100% 0%, 100% 100%, 0% 100%
-        );
-    }
-    30% {
-        clip-path: polygon(
-            0% 20%, 20% 10%, 40% 20%, 60% 10%,
-            80% 20%, 100% 10%, 100% 100%, 0% 100%
-        );
-        filter: blur(20px) hue-rotate(90deg);
-    }
-    60% {
-        transform: translateY(10%) skewY(5deg) scale(1.1);
-        filter: blur(5px) hue-rotate(30deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) skewY(0deg) scale(1);
-        filter: blur(0) hue-rotate(0deg);
-        clip-path: polygon(
-            0% 0%, 100% 0%,
-            100% 100%, 0% 100%
-        );
-    }
-}
-
 /* ===================== */
-/* SCENE 4: FINAL REVEAL - SUPERNOVA EXPLOSION */
+/* SCENE 4: FINAL REVEAL */
 /* ===================== */
 .trailer-container.playing .scene-4 {
     visibility: visible;
-    animation: scene4-supernova 4s 20s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: scene4-supernova 4s 16s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes scene4-supernova {
@@ -2793,7 +2752,7 @@ box-shadow: var(--shadow-md);
 
 /* Scene 4 Profile - Black Hole Emergence */
 .trailer-container.playing .scene-4 .final-profile {
-    animation: profile-blackhole 2.5s 20.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: profile-blackhole 2.5s 16.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes profile-blackhole {
@@ -2836,9 +2795,9 @@ box-shadow: var(--shadow-md);
     }
 }
 
-/* Scene 4 Name - Quantum Assembly */
+/* Scene 4 Name - Letter by Letter */
 .trailer-container.playing .scene-4 .final-name {
-    animation: name-quantum-assembly 2s 21.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: name-quantum-assembly 2s 17.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes name-quantum-assembly {
@@ -2885,528 +2844,9 @@ box-shadow: var(--shadow-md);
         clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     }
 }
-
-/* Scene 4 Tagline - Light Speed */
-.trailer-container.playing .scene-4 .final-tagline {
-    animation: tagline-lightspeed 1.5s 22s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes tagline-lightspeed {
-    0% {
-        opacity: 0;
-        transform: translateX(-100%) scaleX(5) scaleY(0.2);
-        filter: blur(100px) brightness(10);
-        letter-spacing: 100px;
-    }
-    30% {
-        transform: translateX(-20%) scaleX(2) scaleY(0.5);
-        filter: blur(40px) brightness(4);
-        letter-spacing: 50px;
-    }
-    60% {
-        transform: translateX(10%) scaleX(1.2) scaleY(0.9);
-        filter: blur(10px) brightness(2);
-        letter-spacing: 20px;
-    }
-    80% {
-        transform: translateX(0) scaleX(1.05) scaleY(1);
-        filter: blur(3px) brightness(1.3);
-        letter-spacing: 10px;
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0) scaleX(1) scaleY(1);
-        filter: blur(0) brightness(1);
-        letter-spacing: 6px;
-    }
-}
-
-/* Scene 4 Stats - Warp Drive */
-.trailer-container.playing .scene-4 .trailer-stat-item {
-    animation: stat-warp-drive 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.trailer-container.playing .scene-4 .trailer-stat-item:nth-child(1) {
-    animation-delay: 22.5s;
-}
-
-.trailer-container.playing .scene-4 .trailer-stat-item:nth-child(2) {
-    animation-delay: 22.8s;
-}
-
-.trailer-container.playing .scene-4 .trailer-stat-item:nth-child(3) {
-    animation-delay: 23.1s;
-}
-
-@keyframes stat-warp-drive {
-    0% {
-        opacity: 0;
-        transform: translateZ(-1000px) scale(5) rotateY(180deg);
-        filter: blur(100px) brightness(8);
-    }
-    30% {
-        transform: translateZ(-400px) scale(2.5) rotateY(90deg);
-        filter: blur(60px) brightness(4);
-    }
-    60% {
-        opacity: 1;
-        transform: translateZ(-100px) scale(1.3) rotateY(30deg);
-        filter: blur(20px) brightness(2);
-    }
-    80% {
-        transform: translateZ(50px) scale(1.1) rotateY(10deg);
-        filter: blur(5px) brightness(1.3);
-    }
-    100% {
-        opacity: 1;
-        transform: translateZ(0) scale(1) rotateY(0deg);
-        filter: blur(0) brightness(1);
-    }
-}
-
-/* ============================================
-   ADVANCED VFX EFFECTS
-   ============================================ */
-
-/* Chromatic Aberration */
-.trailer-text::before,
-.trailer-text::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    pointer-events: none;
-}
-
-.trailer-container.playing .scene-1 .trailer-title::before,
-.trailer-container.playing .scene-2 .trailer-title::before {
-    animation: chromatic-r 0.5s ease-in-out infinite;
-    color: #ff00ff;
-    mix-blend-mode: screen;
-    opacity: 0.5;
-}
-
-.trailer-container.playing .scene-1 .trailer-title::after,
-.trailer-container.playing .scene-2 .trailer-title::after {
-    animation: chromatic-b 0.5s ease-in-out infinite;
-    color: #00ffff;
-    mix-blend-mode: screen;
-    opacity: 0.5;
-}
-
-@keyframes chromatic-r {
-    0%, 100% { transform: translate(0, 0); }
-    25% { transform: translate(-2px, 2px); }
-    50% { transform: translate(2px, -2px); }
-    75% { transform: translate(-2px, -2px); }
-}
-
-@keyframes chromatic-b {
-    0%, 100% { transform: translate(0, 0); }
-    25% { transform: translate(2px, -2px); }
-    50% { transform: translate(-2px, 2px); }
-    75% { transform: translate(2px, 2px); }
-}
-
-/* ============================================
-   ADVANCED VFX EFFECTS SYSTEM
-   ============================================ */
-
-/* Lens Flare System - Multi-layer Light Refraction */
-.trailer-scene::after {
-    content: '';
-    position: absolute;
-    width: 300%;
-    height: 300%;
-    top: -100%;
-    left: -100%;
-    background: 
-        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.3) 1%, transparent 2%),
-        radial-gradient(circle at 25% 35%, rgba(99, 102, 241, 0.7) 0%, rgba(99, 102, 241, 0.2) 2%, transparent 3%),
-        radial-gradient(circle at 30% 40%, rgba(236, 72, 153, 0.6) 0%, rgba(236, 72, 153, 0.15) 3%, transparent 4%),
-        radial-gradient(circle at 35% 45%, rgba(255, 184, 77, 0.5) 0%, rgba(255, 184, 77, 0.1) 4%, transparent 5%),
-        radial-gradient(circle at 40% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 6%);
-    opacity: 0;
-    pointer-events: none;
-    animation: lens-flare-sweep 8s ease-in-out infinite;
-    z-index: 100;
-    mix-blend-mode: screen;
-    filter: blur(1px);
-}
-
-@keyframes lens-flare-sweep {
-    0%, 100% {
-        opacity: 0;
-        transform: translate(-150%, -150%) rotate(0deg) scale(0.5);
-    }
-    5% {
-        opacity: 0.6;
-    }
-    10% {
-        opacity: 0.9;
-        transform: translate(-100%, -100%) rotate(45deg) scale(0.7);
-    }
-    25% {
-        opacity: 1;
-        transform: translate(-25%, -25%) rotate(90deg) scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: translate(50%, 50%) rotate(180deg) scale(1.1);
-    }
-    75% {
-        opacity: 1;
-        transform: translate(100%, 100%) rotate(270deg) scale(0.9);
-    }
-    90% {
-        opacity: 0.7;
-    }
-    95% {
-        opacity: 0.4;
-    }
-}
-
-/* Enhanced Particle Trail System */
-@keyframes particle-trail {
-    0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(1) rotate(0deg);
-        filter: blur(0) brightness(1.5);
-    }
-    50% {
-        opacity: 0.6;
-        transform: translate(calc(var(--tx) * 0.5), calc(var(--ty) * 0.5)) scale(0.7) rotate(180deg);
-        filter: blur(2px) brightness(1.2);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(var(--tx), var(--ty)) scale(0) rotate(360deg);
-        filter: blur(4px) brightness(0.5);
-    }
-}
-
-/* Plasma Trail Variant */
-@keyframes plasma-trail {
-    0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(1);
-        box-shadow: 
-            0 0 10px currentColor,
-            0 0 20px currentColor,
-            0 0 30px currentColor;
-    }
-    100% {
-        opacity: 0;
-        transform: translate(var(--tx), var(--ty)) scale(0);
-        box-shadow: 
-            0 0 5px currentColor,
-            0 0 10px currentColor;
-    }
-}
-
-/* Energy Rings - Triple Layer System */
-.trailer-container.playing .scene-4::before {
-    content: '';
-    position: absolute;
-    width: 300%;
-    height: 300%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: 
-        /* Inner ring */
-        radial-gradient(circle, transparent 35%, rgba(255, 184, 77, 0.4) 36%, rgba(255, 184, 77, 0.6) 37%, transparent 38%),
-        /* Middle ring */
-        radial-gradient(circle, transparent 55%, rgba(99, 102, 241, 0.3) 56%, rgba(99, 102, 241, 0.5) 57%, transparent 58%),
-        /* Outer ring */
-        radial-gradient(circle, transparent 75%, rgba(236, 72, 153, 0.2) 76%, rgba(236, 72, 153, 0.4) 77%, transparent 78%),
-        /* Ultra outer glow */
-        radial-gradient(circle, transparent 90%, rgba(59, 130, 246, 0.1) 91%, transparent 92%);
-    animation: energy-rings 2.5s ease-out infinite;
-    pointer-events: none;
-    z-index: 1;
-    mix-blend-mode: screen;
-}
-
-@keyframes energy-rings {
-    0% {
-        transform: translate(-50%, -50%) scale(0) rotate(0deg);
-        opacity: 1;
-        filter: brightness(2);
-    }
-    20% {
-        transform: translate(-50%, -50%) scale(0.4) rotate(72deg);
-        opacity: 1;
-        filter: brightness(1.8);
-    }
-    40% {
-        transform: translate(-50%, -50%) scale(0.8) rotate(144deg);
-        opacity: 0.9;
-        filter: brightness(1.5);
-    }
-    60% {
-        transform: translate(-50%, -50%) scale(1.2) rotate(216deg);
-        opacity: 0.6;
-        filter: brightness(1.2);
-    }
-    80% {
-        transform: translate(-50%, -50%) scale(1.6) rotate(288deg);
-        opacity: 0.3;
-        filter: brightness(1);
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(2) rotate(360deg);
-        opacity: 0;
-        filter: brightness(0.8);
-    }
-}
-
-/* Hologram Scanlines - Futuristic Effect */
-.trailer-scene-hologram {
-    position: relative;
-    isolation: isolate;
-}
-
-.trailer-scene-hologram::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        repeating-linear-gradient(
-            0deg,
-            rgba(0, 255, 255, 0.03) 0px,
-            transparent 1px,
-            transparent 2px,
-            rgba(0, 255, 255, 0.03) 3px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            rgba(255, 0, 255, 0.02) 0px,
-            transparent 1px,
-            transparent 4px,
-            rgba(255, 0, 255, 0.02) 5px
-        );
-    pointer-events: none;
-    z-index: 1000;
-    animation: scanline-move 3s linear infinite;
-    mix-blend-mode: screen;
-    opacity: 0.6;
-}
-
-/* Hologram Glitch Effect */
-.trailer-scene-hologram::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        180deg,
-        transparent 0%,
-        rgba(0, 255, 255, 0.1) 50%,
-        transparent 100%
-    );
-    pointer-events: none;
-    z-index: 999;
-    animation: hologram-sweep 2s ease-in-out infinite;
-    mix-blend-mode: overlay;
-}
-
-@keyframes scanline-move {
-    0% {
-        transform: translateY(0);
-        opacity: 0.6;
-    }
-    50% {
-        opacity: 0.8;
-    }
-    100% {
-        transform: translateY(60px);
-        opacity: 0.6;
-    }
-}
-
-@keyframes hologram-sweep {
-    0%, 100% {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.8;
-    }
-    50% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    90% {
-        opacity: 0.8;
-    }
-}
-
-/* Digital Noise Overlay */
-.trailer-container.playing .trailer-scene {
-    position: relative;
-}
-
-.trailer-container.playing .scene-1::before,
-.trailer-container.playing .scene-2::before,
-.trailer-container.playing .scene-3::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    animation: noise-flicker 0.2s steps(2) infinite;
-    pointer-events: none;
-    z-index: 10;
-    mix-blend-mode: overlay;
-}
-
-@keyframes noise-flicker {
-    0%, 100% { opacity: 0.03; }
-    50% { opacity: 0.05; }
-}
-
-/* VHS Distortion Effect */
-.trailer-container.playing .scene-3 {
-    animation: scene3-quantum-fold 4s 12s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-               vhs-distortion 0.3s 13s ease-in-out 3;
-}
-
-@keyframes vhs-distortion {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    20% {
-        transform: translateX(-5px) skewX(2deg);
-    }
-    40% {
-        transform: translateX(5px) skewX(-2deg);
-    }
-    60% {
-        transform: translateX(-3px) skewX(1deg);
-    }
-    80% {
-        transform: translateX(3px) skewX(-1deg);
-    }
-}
-
-/* Quantum Particle Field */
-.trailer-container.playing::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.1) 1px, transparent 1px),
-        radial-gradient(circle at 40% 60%, rgba(255, 184, 77, 0.1) 1px, transparent 1px),
-        radial-gradient(circle at 60% 20%, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-    background-size: 50px 50px, 80px 80px, 60px 60px, 70px 70px;
-    animation: quantum-drift 20s linear infinite;
-    pointer-events: none;
-    z-index: 5;
-    opacity: 0.6;
-}
-
-@keyframes quantum-drift {
-    0% {
-        background-position: 0 0, 0 0, 0 0, 0 0;
-    }
-    100% {
-        background-position: 50px 50px, -80px 80px, 60px -60px, -70px -70px;
-    }
-}
-
-/* ===================== */
-/* SCENE 4: FINAL REVEAL */
-/* ===================== */
-.trailer-container.playing .scene-4 {
-    visibility: visible;
-    animation: scene4-epic-reveal 4s 20s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes scene4-epic-reveal {
-    0% {
-        opacity: 0;
-        transform: scale(0.85);
-        filter: blur(40px) brightness(1.5);
-    }
-    35% {
-        opacity: 1;
-        transform: scale(1.02);
-        filter: blur(4px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0);
-    }
-}
-
-/* Scene 4 Profile - Dramatic Entry */
-.trailer-container.playing .scene-4 .final-profile {
-    animation: profile-dramatic 2s 20.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes profile-dramatic {
-    0% {
-        opacity: 0;
-        transform: scale(0.3) rotate(180deg);
-        filter: brightness(0) blur(30px);
-        box-shadow: 0 0 0 rgba(255, 184, 77, 0);
-    }
-    50% {
-        transform: scale(1.2) rotate(0deg);
-        filter: brightness(1.5) blur(5px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-        filter: brightness(1) blur(0);
-        box-shadow: 0 0 100px rgba(255, 184, 77, 0.8);
-    }
-}
-
-/* Scene 4 Name - Letter by Letter */
-.trailer-container.playing .scene-4 .final-name {
-    animation: name-assemble 1.5s 21.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes name-assemble {
-    0% {
-        opacity: 0;
-        transform: translateY(50px) scale(0.5);
-        filter: blur(20px);
-        letter-spacing: 30px;
-    }
-    60% {
-        transform: translateY(-10px) scale(1.1);
-        letter-spacing: -1px;
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-        letter-spacing: -2px;
-    }
-}
-
 /* Scene 4 Tagline - Fade In */
 .trailer-container.playing .scene-4 .final-tagline {
-    animation: tagline-elegant 1.2s 22s ease-out both;
+    animation: tagline-elegant 1.2s 18s ease-out both;
 }
 
 @keyframes tagline-elegant {
@@ -3424,15 +2864,106 @@ box-shadow: var(--shadow-md);
 
 /* Scene 4 Stats - Counter Effect */
 .trailer-container.playing .scene-4 .trailer-stat-item {
-    animation: stat-count-up 1s 22.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: stat-count-up 1s 18.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .trailer-container.playing .scene-4 .trailer-stat-item:nth-child(2) {
-    animation-delay: 22.7s;
+    animation-delay: 18.7s;
 }
 
 .trailer-container.playing .scene-4 .trailer-stat-item:nth-child(3) {
-    animation-delay: 22.9s;
+    animation-delay: 18.9s;
+}
+
+/* ============================================
+   ADVANCED VFX EFFECTS
+   ============================================ */
+
+/* Chromatic Aberration for Scene 1 & 2 titles */
+.trailer-container.playing .scene-1 .trailer-title,
+.trailer-container.playing .scene-2 .trailer-title {
+    position: relative;
+}
+
+.trailer-container.playing .scene-1 .trailer-title::before,
+.trailer-container.playing .scene-2 .trailer-title::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: cyan;
+    mix-blend-mode: screen;
+    animation: chromatic-r 0.5s ease-in-out infinite;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.trailer-container.playing .scene-1 .trailer-title::after,
+.trailer-container.playing .scene-2 .trailer-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #00ffff;
+    mix-blend-mode: screen;
+    animation: chromatic-b 0.5s ease-in-out infinite;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+@keyframes chromatic-r {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(2px, -2px); }
+    75% { transform: translate(-2px, -2px); }
+}
+
+@keyframes chromatic-b {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(2px, -2px); }
+    50% { transform: translate(-2px, 2px); }
+    75% { transform: translate(2px, 2px); }
+}
+
+/* Lens Flare System */
+.trailer-scene::after {
+    content: '';
+    position: absolute;
+    width: 300%;
+    height: 300%;
+    top: -100%;
+    left: -100%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.3) 1%, transparent 2%),
+        radial-gradient(circle at 25% 35%, rgba(99, 102, 241, 0.7) 0%, rgba(99, 102, 241, 0.2) 2%, transparent 3%),
+        radial-gradient(circle at 30% 40%, rgba(236, 72, 153, 0.6) 0%, rgba(236, 72, 153, 0.15) 3%, transparent 4%);
+    opacity: 0;
+    pointer-events: none;
+    animation: lens-flare-sweep 8s ease-in-out infinite;
+    z-index: 100;
+    mix-blend-mode: screen;
+}
+
+@keyframes lens-flare-sweep {
+    0%, 100% {
+        opacity: 0;
+        transform: translate(-150%, -150%) rotate(0deg) scale(0.5);
+    }
+    10% {
+        opacity: 0.9;
+        transform: translate(-100%, -100%) rotate(45deg) scale(0.7);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(50%, 50%) rotate(180deg) scale(1.1);
+    }
+    90% {
+        opacity: 0.7;
+    }
 }
 
 @keyframes stat-count-up {
@@ -3888,7 +3419,6 @@ body.loading {
 body.loading .particles,
 body.loading .cursor,
 body.loading .cursor-follower {
-    display: none !important;
 }
 
 /* Only enable main animations after loader is gone */
@@ -4258,9 +3788,34 @@ body.loaded::before {
     animation: ripple-water 0.8s 13.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Slide 4: FINAL REVEAL (15.5s - 22s) - FIXED TIMING */
+/* Slide 4: FINAL REVEAL (15.5s - 22s) - STAYS VISIBLE */
 .slideshow-loader.active .slide-4 {
-    animation: kaleidoscope 2s 15.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: kaleidoscope-stay 6.5s 15.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes kaleidoscope-stay {
+    0% {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.3);
+        filter: blur(50px) hue-rotate(0deg) saturate(3);
+    }
+    15% {
+        transform: rotate(90deg) scale(0.6);
+        filter: blur(30px) hue-rotate(90deg) saturate(2);
+    }
+    30% {
+        transform: rotate(180deg) scale(0.9);
+        filter: blur(15px) hue-rotate(180deg) saturate(1.5);
+    }
+    45% {
+        transform: rotate(270deg) scale(1.05);
+        filter: blur(5px) hue-rotate(270deg) saturate(1.2);
+    }
+    60%, 100% {
+        opacity: 1;
+        transform: rotate(360deg) scale(1);
+        filter: blur(0) hue-rotate(360deg) saturate(1);
+    }
 }
 
 .slideshow-loader.active .slide-4 .slide-profile {
@@ -4643,18 +4198,12 @@ body.loaded::before {
 }
 
 /* Hide start overlay in slideshow mode - IMMEDIATE */
-body .start-overlay {
+/* Only hide start overlay in slideshow mode */
+body.slideshow-mode .start-overlay {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
     pointer-events: none !important;
-}
-
-/* Only show start overlay in cinematic mode */
-body.cinematic-mode .start-overlay {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
 }
 
 /* ============================================
@@ -4699,11 +4248,6 @@ body.cinematic-mode .start-overlay {
         filter: blur(30px) brightness(0.5);
         transform: scale(0.8) rotate(-10deg);
     }
-}
-
-@keyframes particle-ambient {
-    0%, 100% { opacity: 0; transform: scale(0.8); }
-    50% { opacity: 0.5; transform: scale(1.2); }
 }
 
 /* PARTICLE EXPLOSION TRANSITION */
@@ -4967,520 +4511,22 @@ body.cinematic-mode .start-overlay {
     margin: 6px 0;
 }
 
-/* ============================================
-   ADVANCED BODY & UI/UX EFFECTS
-   ============================================ */
-
-/* Dynamic 3D Background Morphing */
-body {
-    position: relative;
-    overflow-x: hidden;
-    animation: body-breathe 8s ease-in-out infinite;
-}
-
-@keyframes body-breathe {
-    0%, 100% {
-        background-size: 100% 100%;
-    }
-    50% {
-        background-size: 110% 110%;
-    }
-}
-
-/* Parallax Layers */
-body::after {
-    content: '';
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-        radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 60%);
-    animation: parallax-float 30s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
-    mix-blend-mode: screen;
-}
-
-@keyframes parallax-float {
-    0%, 100% {
-        transform: translate(0, 0) rotate(0deg) scale(1);
-    }
-    25% {
-        transform: translate(5%, -5%) rotate(90deg) scale(1.1);
-    }
-    50% {
-        transform: translate(-5%, 5%) rotate(180deg) scale(0.9);
-    }
-    75% {
-        transform: translate(5%, 5%) rotate(270deg) scale(1.05);
-    }
-}
-
-/* Ambient Light Rays */
-.hero::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: 50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(
-        from 0deg at 50% 50%,
-        transparent 0deg,
-        rgba(99, 102, 241, 0.05) 30deg,
-        transparent 60deg,
-        transparent 120deg,
-        rgba(236, 72, 153, 0.05) 150deg,
-        transparent 180deg,
-        transparent 240deg,
-        rgba(255, 184, 77, 0.05) 270deg,
-        transparent 300deg,
-        transparent 360deg
-    );
-    transform-origin: 50% 50%;
-    animation: light-rays-rotate 40s linear infinite;
-    pointer-events: none;
-    z-index: 0;
-    mix-blend-mode: screen;
-}
-
-@keyframes light-rays-rotate {
-    0% {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-    100% {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-}
-
-/* Section Enter Animations with Magnetic Field */
-section {
-    animation: section-magnetic-field 0.001s linear infinite;
-    transform-style: preserve-3d;
-}
-
-@keyframes section-magnetic-field {
-    0%, 100% {
-        filter: hue-rotate(0deg);
-    }
-}
-
-/* Hero Profile 3D Levitation */
-.hero-profile-wrapper {
-    animation: profile-levitate 6s ease-in-out infinite;
-    filter: drop-shadow(0 20px 40px rgba(99, 102, 241, 0.3));
-}
-
-@keyframes profile-levitate {
-    0%, 100% {
-        transform: translateY(0) rotateY(0deg) rotateX(0deg);
-        filter: drop-shadow(0 20px 40px rgba(99, 102, 241, 0.3)) brightness(1);
-    }
-    25% {
-        transform: translateY(-15px) rotateY(5deg) rotateX(2deg);
-        filter: drop-shadow(0 30px 60px rgba(236, 72, 153, 0.4)) brightness(1.05);
-    }
-    50% {
-        transform: translateY(-25px) rotateY(0deg) rotateX(0deg);
-        filter: drop-shadow(0 40px 80px rgba(99, 102, 241, 0.5)) brightness(1.1);
-    }
-    75% {
-        transform: translateY(-15px) rotateY(-5deg) rotateX(-2deg);
-        filter: drop-shadow(0 30px 60px rgba(255, 184, 77, 0.4)) brightness(1.05);
-    }
-}
-
-/* Hero Title Shimmer Wave */
-.hero-title {
-    position: relative;
-    background: linear-gradient(
-        90deg,
-        #ffb84d 0%,
-        #ffd700 25%,
-        #fff 50%,
-        #ffd700 75%,
-        #ffb84d 100%
-    );
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: title-shimmer-wave 4s linear infinite;
-}
-
-@keyframes title-shimmer-wave {
-    0% {
-        background-position: 0% center;
-    }
-    100% {
-        background-position: 200% center;
-    }
-}
-
-/* Card Hover Magnetic Effect */
-.profile-card,
-.testimonial-card,
-.contact-card,
-.stat-card,
-.tool-item,
-.journey-card {
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
-}
-
-.profile-card:hover,
-.testimonial-card:hover,
-.contact-card:hover,
-.stat-card:hover,
-.tool-item:hover,
-.journey-card:hover {
-    transform: translateY(-15px) scale(1.02) rotateX(5deg);
-    box-shadow: 
-        0 30px 80px rgba(99, 102, 241, 0.25),
-        0 0 0 1px rgba(99, 102, 241, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-/* Portfolio Item 3D Tilt */
-.portfolio-item {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.portfolio-item:hover {
-    transform: translateY(-20px) scale(1.05) rotateX(10deg) rotateY(5deg);
-}
-
-.portfolio-image {
-    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-    backface-visibility: hidden;
-}
-
-.portfolio-item:hover .portfolio-image {
-    transform: scale(1.2) translateZ(30px);
-    filter: brightness(1.1) contrast(1.1) saturate(1.2);
-}
-
-/* Button Ripple Effect */
-.filter-btn,
-.contact-card,
-.social-link {
-    position: relative;
-    overflow: hidden;
-}
-
-.filter-btn::after,
-.contact-card::after,
-.social-link::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-}
-
-.filter-btn:hover::after,
-.contact-card:hover::after,
-.social-link:hover::after {
-    width: 300px;
-    height: 300px;
-}
-
-/* Text Reveal Animation */
-.section-title,
-.hero-title,
-.trailer-title {
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        currentColor 30%,
-        currentColor 70%,
-        transparent 100%
-    );
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    animation: text-reveal 2s ease-out forwards;
-}
-
-@keyframes text-reveal {
-    0% {
-        background-position: -200% 0;
-        opacity: 0;
-    }
-    100% {
-        background-position: 0% 0;
-        opacity: 1;
-    }
-}
-
-/* Smooth Scroll Indicator */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 100vh;
-    background: linear-gradient(
-        180deg,
-        #6366f1 0%,
-        #ec4899 50%,
-        #3b82f6 100%
-    );
-    transform: scaleY(0);
-    transform-origin: top;
-    animation: scroll-indicator-pulse 3s ease-in-out infinite;
-    z-index: 10001;
-    opacity: 0.3;
-}
-
-@keyframes scroll-indicator-pulse {
-    0%, 100% {
-        transform: scaleY(0);
-        opacity: 0;
-    }
-    50% {
-        transform: scaleY(1);
-        opacity: 0.6;
-    }
-}
-
-/* Navigation Blur Morphing */
-nav {
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-nav.scrolled {
-    backdrop-filter: blur(30px) saturate(200%);
-    -webkit-backdrop-filter: blur(30px) saturate(200%);
-    box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.1),
-        0 0 0 1px rgba(99, 102, 241, 0.1);
-}
-
-/* About Stats Counter Animation */
-.stat-number {
-    display: inline-block;
-    animation: counter-bounce 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes counter-bounce {
-    0% {
-        transform: scale(0) translateY(100px) rotate(-180deg);
-        opacity: 0;
-    }
-    60% {
-        transform: scale(1.2) translateY(-10px) rotate(10deg);
-    }
-    100% {
-        transform: scale(1) translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-}
-
-/* Tool Icons Orbital Rotation */
-.tool-icon {
-    animation: tool-orbit 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-@keyframes tool-orbit {
-    0%, 100% {
-        transform: rotate(0deg) scale(1);
-        filter: brightness(1);
-    }
-    25% {
-        transform: rotate(90deg) scale(1.05);
-        filter: brightness(1.2);
-    }
-    50% {
-        transform: rotate(180deg) scale(1);
-        filter: brightness(1);
-    }
-    75% {
-        transform: rotate(270deg) scale(1.05);
-        filter: brightness(1.2);
-    }
-}
-
-.tool-item:hover .tool-icon {
-    animation: tool-orbit 1s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-/* Testimonial Avatar Pulse */
-.author-avatar {
-    position: relative;
-}
-
-.author-avatar::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    border-radius: 50%;
-    border: 2px solid var(--accent);
-    animation: avatar-pulse 3s ease-in-out infinite;
-    opacity: 0;
-}
-
-@keyframes avatar-pulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.15);
-        opacity: 0.6;
-    }
-}
-
-/* Footer Wave Effect */
-footer {
-    position: relative;
-    overflow: hidden;
-}
-
-footer::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    left: -50%;
-    width: 200%;
-    height: 200px;
-    background: linear-gradient(
-        180deg,
-        transparent 0%,
-        rgba(99, 102, 241, 0.05) 50%,
-        var(--secondary-bg) 100%
-    );
-    animation: footer-wave 15s ease-in-out infinite;
-}
-
-@keyframes footer-wave {
-    0%, 100% {
-        transform: translateX(0) translateY(0) rotate(0deg);
-    }
-    50% {
-        transform: translateX(25%) translateY(-20px) rotate(5deg);
-    }
-}
-
-/* Social Links Magnetic Attraction */
-.social-link {
-    transform-style: preserve-3d;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.social-link:hover {
-    transform: translateY(-15px) rotateY(360deg) scale(1.2);
-    box-shadow: 
-        0 20px 60px rgba(99, 102, 241, 0.4),
-        0 0 0 3px rgba(99, 102, 241, 0.2);
-}
-
-/* Lightbox 3D Entrance */
-.lightbox.active .lightbox-img {
-    animation: lightbox-3d-entrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes lightbox-3d-entrance {
-    0% {
-        opacity: 0;
-        transform: perspective(1200px) rotateY(90deg) rotateX(45deg) translateZ(-500px) scale(0.5);
-        filter: blur(40px);
-    }
-    100% {
-        opacity: 1;
-        transform: perspective(1200px) rotateY(0deg) rotateX(0deg) translateZ(0) scale(1);
-        filter: blur(0);
-    }
-}
-
-/* Gallery Modal Cascade */
-.gallery-item {
-    animation: gallery-cascade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.gallery-item:nth-child(1) { animation-delay: 0s; }
-.gallery-item:nth-child(2) { animation-delay: 0.05s; }
-.gallery-item:nth-child(3) { animation-delay: 0.1s; }
-.gallery-item:nth-child(4) { animation-delay: 0.15s; }
-.gallery-item:nth-child(5) { animation-delay: 0.2s; }
-.gallery-item:nth-child(6) { animation-delay: 0.25s; }
-.gallery-item:nth-child(7) { animation-delay: 0.3s; }
-.gallery-item:nth-child(8) { animation-delay: 0.35s; }
-
-@keyframes gallery-cascade {
-    0% {
-        opacity: 0;
-        transform: translateY(100px) rotateX(-90deg) scale(0.5);
-        filter: blur(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0deg) scale(1);
-        filter: blur(0);
-    }
-}
-
-/* Scroll Progress Rainbow */
-.scroll-progress {
-    background: linear-gradient(
-        90deg,
-        #6366f1 0%,
-        #ec4899 25%,
-        #3b82f6 50%,
-        #10b981 75%,
-        #f59e0b 100%
-    );
-    background-size: 200% 100%;
-    animation: progress-rainbow 3s linear infinite;
-}
-
-@keyframes progress-rainbow {
-    0% {
-        background-position: 0% 0%;
-    }
-    100% {
-        background-position: 200% 0%;
-    }
-}
-
-/* GPU Acceleration for All Animations */
-* {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
 </style>
 </head>
 <body>
     <!-- Floating Particles -->
     <div class="particles"></div>
-    
+    <!-- Premium Cursor -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
 <!-- Scroll Progress -->
 <div class="scroll-progress"></div>
 
 <!-- Cinematic Trailer with Start Button -->
-<div class="loader" style="display: none;">
+<div class="loader">
     <!-- Start Button Overlay -->
-    <div class="start-overlay" id="start-overlay" style="display: flex !important; opacity: 1 !important; visibility: visible !important; z-index: 10001 !important;">
+    <div class="start-overlay" id="start-overlay">
         <button class="start-btn" id="start-btn">
             <span class="btn-icon">🎬</span>
             <span class="btn-text">START EXPERIENCE</span>
@@ -5566,7 +4612,7 @@ footer::before {
     </div>
 </div>
 
-<div class="slideshow-loader"  style="display: none;">
+<div class="slideshow-loader">
     <div class="slideshow-container">
         <!-- Slide 1: EMAIL MARKETING -->
         <div class="slideshow-slide slide-1">
@@ -5816,7 +4862,7 @@ footer::before {
     <div class="portfolio-grid">
         <!-- Social Media - Nail Studio Campaigns -->
         <div class="portfolio-item" data-category="social">
-            <img src="images/social%20media%20desgin/nailpromotion/nail1.png" alt="Nail Promotion Campaign" class="portfolio-image">
+            <img src="images/social media desgin/nailpromotion/nail1.png" alt="Nail Promotion Campaign" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Studio Combo Promotion</h3>
                 <p class="portfolio-category">Social Media • Dria Nail Studio</p>
@@ -5824,7 +4870,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="social">
-            <img src="images/social%20media%20desgin/nailpromotion/nail2.png" alt="Special Gift Campaign" class="portfolio-image">
+            <img src="images/social media desgin/nailpromotion/nail2.png" alt="Special Gift Campaign" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Festival Special Gift Campaign</h3>
                 <p class="portfolio-category">Social Media • Dria Nail Studio</p>
@@ -5832,7 +4878,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="social">
-            <img src="images/social%20media%20desgin/nailpromotion/nail5.png" alt="National Day Campaign" class="portfolio-image">
+            <img src="images/social media desgin/nailpromotion/nail5.png" alt="National Day Campaign" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Vietnamese National Day Promo</h3>
                 <p class="portfolio-category">Social Media • Dria Nail Studio</p>
@@ -5840,7 +4886,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="social">
-            <img src="images/social%20media%20desgin/nailpromotion/nail6.png" alt="Women's Day Campaign" class="portfolio-image">
+            <img src="images/social media desgin/nailpromotion/nail6.png" alt="Women's Day Campaign" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Women's Day Special Offer</h3>
                 <p class="portfolio-category">Social Media • Dria Nail Studio</p>
@@ -5848,7 +4894,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="social">
-            <img src="images/social%20media%20desgin/nailpromotion/nail7.png" alt="Navii Beauty Promotion" class="portfolio-image">
+            <img src="images/social media desgin/nailpromotion/nail7.png" alt="Navii Beauty Promotion" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Navii Special Deal Campaign</h3>
                 <p class="portfolio-category">Social Media • Navii Beauty Room</p>
@@ -5857,7 +4903,7 @@ footer::before {
         
         <!-- Email Marketing - New Collection Launch -->
         <div class="portfolio-item email-gallery-trigger" data-category="email" data-gallery="newcollection">
-            <img src="images/social%20media%20desgin/email%20marketing/newcollectionlaunch/newcollectionlaunch1.png" alt="New Collection Launch" class="portfolio-image">
+            <img src="images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaunch1.png" alt="New Collection Launch" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">New Collection Launch</h3>
                 <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
@@ -5866,7 +4912,7 @@ footer::before {
         
         <!-- Email Marketing - Back in Stock -->
         <div class="portfolio-item email-gallery-trigger" data-category="email" data-gallery="backinstock">
-            <img src="images/social%20media%20desgin/email%20marketing/backinstock/backinstock1.png" alt="Back in Stock" class="portfolio-image">
+            <img src="images/social media desgin/email marketing/backinstock/backinstock1.png" alt="Back in Stock" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Back in Stock Campaign</h3>
                 <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
@@ -5875,7 +4921,7 @@ footer::before {
         
         <!-- Email Marketing - Summer Sale Off -->
         <div class="portfolio-item email-gallery-trigger" data-category="email" data-gallery="summersale">
-            <img src="images/social%20media%20desgin/email%20marketing/summersaleoff/summersaleoff1.png" alt="Summer Sale Off" class="portfolio-image">
+            <img src="images/social media desgin/email marketing/summersaleoff/summersaleoff1.png" alt="Summer Sale Off" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Summer Sale Off</h3>
                 <p class="portfolio-category">Email Marketing • Click to view all • Merci Majolie</p>
@@ -5885,7 +4931,7 @@ footer::before {
         
         <!-- Visual Design - Jewelry -->
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/jewelry/jewelry1.png" alt="Jewelry Photography" class="portfolio-image">
+            <img src="images/Photograph & Edit/jewelry/jewelry1.png" alt="Jewelry Photography" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Natural Light Jewelry Photography</h3>
                 <p class="portfolio-category">Visual Design • Merci Majolie</p>
@@ -5893,7 +4939,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/jewelry/jewelry2.png" alt="Product Styling" class="portfolio-image">
+            <img src="images/Photograph & Edit/jewelry/jewelry2.png" alt="Product Styling" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Elegant Product Styling</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5901,7 +4947,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/jewelry/jewelry3.png" alt="Minimalist Jewelry" class="portfolio-image">
+            <img src="images/Photograph & Edit/jewelry/jewelry3.png" alt="Minimalist Jewelry" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Minimalist Jewelry Collection</h3>
                 <p class="portfolio-category">Visual Design • Merci Majolie</p>
@@ -5910,7 +4956,7 @@ footer::before {
         
         <!-- AI Enhanced Products -->
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/aienhanceimage/image1.png" alt="AI Enhanced Products" class="portfolio-image">
+            <img src="images/Photograph & Edit/aienhanceimage/image1.png" alt="AI Enhanced Products" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">AI-Enhanced Product Shots</h3>
                 <p class="portfolio-category">Visual Design • 90% Real Detail</p>
@@ -5919,7 +4965,7 @@ footer::before {
         
         <!-- Nail Visuals - All Images -->
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual1.png" alt="Nail Visual Design 1" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual1.png" alt="Nail Visual Design 1" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5927,7 +4973,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual2.png" alt="Nail Visual Design 2" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual2.png" alt="Nail Visual Design 2" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5935,7 +4981,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual3.png" alt="Nail Visual Design 3" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual3.png" alt="Nail Visual Design 3" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5943,7 +4989,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual4.png" alt="Nail Visual Design 4" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual4.png" alt="Nail Visual Design 4" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5951,7 +4997,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual5.png" alt="Nail Visual Design 5" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual5.png" alt="Nail Visual Design 5" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5959,7 +5005,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual6.png" alt="Nail Visual Design 6" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual6.png" alt="Nail Visual Design 6" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5967,7 +5013,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual7.png" alt="Nail Visual Design 7" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual7.png" alt="Nail Visual Design 7" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5975,7 +5021,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual8.png" alt="Nail Visual Design 8" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual8.png" alt="Nail Visual Design 8" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5983,7 +5029,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual9.png" alt="Nail Visual Design 9" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual9.png" alt="Nail Visual Design 9" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5991,7 +5037,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual10.png" alt="Nail Visual Design 10" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual10.png" alt="Nail Visual Design 10" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -5999,7 +5045,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual11.jpg" alt="Nail Visual Design 11" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual11.jpg" alt="Nail Visual Design 11" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -6007,7 +5053,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="design">
-            <img src="images/Photograph%20%26%20Edit/nailvisuals/nailvisual12.png" alt="Nail Visual Design 12" class="portfolio-image">
+            <img src="images/Photograph & Edit/nailvisuals/nailvisual12.png" alt="Nail Visual Design 12" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Nail Art Visual Design</h3>
                 <p class="portfolio-category">Visual Design • Product Photography</p>
@@ -6016,7 +5062,7 @@ footer::before {
         
         <!-- SEO & Content - Articles Gallery -->
         <div class="portfolio-item article-gallery-trigger" data-category="seo" data-gallery="articles">
-            <img src="images/SEO%3ACopywriting/Article/1.png" alt="SEO Articles Gallery" class="portfolio-image">
+            <img src="images/SEO:Copywriting/Article/1.png" alt="SEO Articles Gallery" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title"> 8 SEO Articles</h3>
                 <p class="portfolio-category">Click to view all • AI-Powered</p>
@@ -6025,7 +5071,7 @@ footer::before {
         
         <!-- Individual Article Items -->
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/Article/2.png" alt="SEO Article 2" class="portfolio-image">
+            <img src="images/SEO:Copywriting/Article/2.png" alt="SEO Article 2" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">SEO Article Sample</h3>
                 <p class="portfolio-category">SEO & Content • Article 2</p>
@@ -6033,7 +5079,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/Article/3.png" alt="SEO Article 3" class="portfolio-image">
+            <img src="images/SEO:Copywriting/Article/3.png" alt="SEO Article 3" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">SEO Article Sample</h3>
                 <p class="portfolio-category">SEO & Content • Article 3</p>
@@ -6041,7 +5087,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/Article/4.png" alt="SEO Article 4" class="portfolio-image">
+            <img src="images/SEO:Copywriting/Article/4.png" alt="SEO Article 4" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">SEO Article Sample</h3>
                 <p class="portfolio-category">SEO & Content • Article 4</p>
@@ -6049,7 +5095,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/Article/5.png" alt="SEO Article 5" class="portfolio-image">
+            <img src="images/SEO:Copywriting/Article/5.png" alt="SEO Article 5" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">SEO Article Sample</h3>
                 <p class="portfolio-category">SEO & Content • Article 5</p>
@@ -6057,7 +5103,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/Article/6.png" alt="SEO Article 6" class="portfolio-image">
+            <img src="images/SEO:Copywriting/Article/6.png" alt="SEO Article 6" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">SEO Article Sample</h3>
                 <p class="portfolio-category">SEO & Content • Article 6</p>
@@ -6065,7 +5111,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/Article/7.png" alt="SEO Article 7" class="portfolio-image">
+            <img src="images/SEO:Copywriting/Article/7.png" alt="SEO Article 7" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">SEO Article Sample</h3>
                 <p class="portfolio-category">SEO & Content • Article 7</p>
@@ -6073,7 +5119,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/Article/8.png" alt="SEO Article 8" class="portfolio-image">
+            <img src="images/SEO:Copywriting/Article/8.png" alt="SEO Article 8" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">SEO Article Sample</h3>
                 <p class="portfolio-category">SEO & Content • Article 8</p>
@@ -6082,7 +5128,7 @@ footer::before {
         
         <!-- Service Content Strategy - Facebook Posts -->
         <div class="portfolio-item facebook-gallery-trigger" data-category="seo" data-gallery="facebook">
-            <img src="images/SEO%3ACopywriting/facebook/image1.png" alt="Service Content Strategy" class="portfolio-image">
+            <img src="images/SEO:Copywriting/facebook/image1.png" alt="Service Content Strategy" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Service Content Strategy</h3>
                 <p class="portfolio-category">SEO & Content • Click to view all • USP Focus</p>
@@ -6091,7 +5137,7 @@ footer::before {
         
         <!-- Individual Facebook Posts (hidden, accessible via gallery) -->
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/facebook/image1.2.png" alt="Facebook Post 1.2" class="portfolio-image">
+            <img src="images/SEO:Copywriting/facebook/image1.2.png" alt="Facebook Post 1.2" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Service Content Strategy</h3>
                 <p class="portfolio-category">SEO & Content • Facebook Post</p>
@@ -6099,7 +5145,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/facebook/image1.3.png" alt="Facebook Post 1.3" class="portfolio-image">
+            <img src="images/SEO:Copywriting/facebook/image1.3.png" alt="Facebook Post 1.3" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Service Content Strategy</h3>
                 <p class="portfolio-category">SEO & Content • Facebook Post</p>
@@ -6107,7 +5153,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/facebook/image1.4.png" alt="Facebook Post 1.4" class="portfolio-image">
+            <img src="images/SEO:Copywriting/facebook/image1.4.png" alt="Facebook Post 1.4" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Service Content Strategy</h3>
                 <p class="portfolio-category">SEO & Content • Facebook Post</p>
@@ -6115,7 +5161,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/facebook/image3.1.png" alt="Facebook Post 3.1" class="portfolio-image">
+            <img src="images/SEO:Copywriting/facebook/image3.1.png" alt="Facebook Post 3.1" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Service Content Strategy</h3>
                 <p class="portfolio-category">SEO & Content • Facebook Post</p>
@@ -6123,7 +5169,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/facebook/image3.2.png" alt="Facebook Post 3.2" class="portfolio-image">
+            <img src="images/SEO:Copywriting/facebook/image3.2.png" alt="Facebook Post 3.2" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Service Content Strategy</h3>
                 <p class="portfolio-category">SEO & Content • Facebook Post</p>
@@ -6131,7 +5177,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/facebook/image3.3.png" alt="Facebook Post 3.3" class="portfolio-image">
+            <img src="images/SEO:Copywriting/facebook/image3.3.png" alt="Facebook Post 3.3" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Service Content Strategy</h3>
                 <p class="portfolio-category">SEO & Content • Facebook Post</p>
@@ -6139,7 +5185,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="seo" style="display: none;">
-            <img src="images/SEO%3ACopywriting/facebook/image3.4.png" alt="Facebook Post 3.4" class="portfolio-image">
+            <img src="images/SEO:Copywriting/facebook/image3.4.png" alt="Facebook Post 3.4" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Service Content Strategy</h3>
                 <p class="portfolio-category">SEO & Content • Facebook Post</p>
@@ -6148,7 +5194,7 @@ footer::before {
         
         <!-- Report & Performance - Business -->
         <div class="portfolio-item" data-category="reports">
-            <img src="images/Report%20%26%20Performance/Business/1.jpg" alt="Performance Tracking" class="portfolio-image">
+            <img src="images/Report & Performance/Business/1.jpg" alt="Performance Tracking" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Performance Tracking</h3>
                 <p class="portfolio-category">Analytics • Data-Driven Strategy</p>
@@ -6156,7 +5202,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="reports">
-            <img src="images/Report%20%26%20Performance/Business/2.png" alt="Business Report 2" class="portfolio-image">
+            <img src="images/Report & Performance/Business/2.png" alt="Business Report 2" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Business Performance Report</h3>
                 <p class="portfolio-category">Report & Performance • Analytics</p>
@@ -6165,7 +5211,7 @@ footer::before {
         
         <!-- Report & Performance - Business2 -->
         <div class="portfolio-item" data-category="reports">
-            <img src="images/Report%20%26%20Performance/Business2/1.png" alt="Business Report 2-1" class="portfolio-image">
+            <img src="images/Report & Performance/Business2/1.png" alt="Business Report 2-1" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Business Performance Report</h3>
                 <p class="portfolio-category">Report & Performance • Analytics</p>
@@ -6173,7 +5219,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="reports">
-            <img src="images/Report%20%26%20Performance/Business2/2.png" alt="Business Report 2-2" class="portfolio-image">
+            <img src="images/Report & Performance/Business2/2.png" alt="Business Report 2-2" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Business Performance Report</h3>
                 <p class="portfolio-category">Report & Performance • Analytics</p>
@@ -6182,7 +5228,7 @@ footer::before {
         
         <!-- Report & Performance - Business3 -->
         <div class="portfolio-item" data-category="reports">
-            <img src="images/Report%20%26%20Performance/Business3/1.png" alt="Business Report 3-1" class="portfolio-image">
+            <img src="images/Report & Performance/Business3/1.png" alt="Business Report 3-1" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Business Performance Report</h3>
                 <p class="portfolio-category">Report & Performance • Analytics</p>
@@ -6190,7 +5236,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="reports">
-            <img src="images/Report%20%26%20Performance/Business3/2.png" alt="Business Report 3-2" class="portfolio-image">
+            <img src="images/Report & Performance/Business3/2.png" alt="Business Report 3-2" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Business Performance Report</h3>
                 <p class="portfolio-category">Report & Performance • Analytics</p>
@@ -6198,7 +5244,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="reports">
-            <img src="images/Report%20%26%20Performance/Business3/3.png" alt="Business Report 3-3" class="portfolio-image">
+            <img src="images/Report & Performance/Business3/3.png" alt="Business Report 3-3" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Business Performance Report</h3>
                 <p class="portfolio-category">Report & Performance • Analytics</p>
@@ -6206,7 +5252,7 @@ footer::before {
         </div>
         
         <div class="portfolio-item" data-category="reports">
-            <img src="images/Report%20%26%20Performance/Business3/4.png" alt="Business Report 3-4" class="portfolio-image">
+            <img src="images/Report & Performance/Business3/4.png" alt="Business Report 3-4" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Business Performance Report</h3>
                 <p class="portfolio-category">Report & Performance • Analytics</p>
@@ -6215,7 +5261,7 @@ footer::before {
         
         <!-- Report & Performance - Ranktank -->
         <div class="portfolio-item" data-category="reports">
-            <img src="images/Report%20%26%20Performance/Ranktank/1.png" alt="Ranktank Report" class="portfolio-image">
+            <img src="images/Report & Performance/Ranktank/1.png" alt="Ranktank Report" class="portfolio-image">
             <div class="portfolio-overlay">
                 <h3 class="portfolio-title">Ranktank Performance Report</h3>
                 <p class="portfolio-category">Report & Performance • Rankings</p>
@@ -6441,29 +5487,15 @@ footer::before {
 </footer>
 
 <script>
-  const loader = document.querySelector('.loader');
-if (loader) {
-    loader.remove();
-}
 // ============================================
 // LOADING SCREEN CONFIGURATION
 // ============================================
 const LOADING_CONFIG = {
-    enabled: false,             // Disabled
+    enabled: true,             // Disabled
     mode: 'cinematic',
     skipButton: true,
     autoSkipAfter: null
 };
-
-// Disable all loader-related event listeners
-if (!LOADING_CONFIG.enabled) {
-    document.addEventListener('DOMContentLoaded', () => {
-        const loader = document.querySelector('.loader');
-        if (loader) {
-            loader.remove(); // Completely remove the loader from DOM
-        }
-    });
-}
 
 // ============================================
 // LOADING SCREEN MASTER CONTROLLER
@@ -6471,32 +5503,9 @@ if (!LOADING_CONFIG.enabled) {
 window.addEventListener('load', () => {
     // Check if loading is disabled
     if (!LOADING_CONFIG.enabled) {
-        // Remove all loader elements from DOM IMMEDIATELY
-        const cinematicLoader = document.querySelector('.loader');
-        const slideshowLoader = document.querySelector('.slideshow-loader');
-        
-        if (cinematicLoader) {
-            cinematicLoader.remove();
-        }
-        if (slideshowLoader) {
-            slideshowLoader.remove();
-        }
-        
-        // Show the main content immediately
         document.body.classList.remove('loading');
         document.body.classList.add('loaded');
-        document.body.style.overflow = 'visible';
-        
-        // Force show all main content
-        const mainContent = document.querySelectorAll('nav, section, footer');
-        mainContent.forEach(el => {
-            el.style.display = 'block';
-            el.style.visibility = 'visible';
-            el.style.opacity = '1';
-        });
-        
-        console.log('🚫 Loading screen DISABLED - showing content immediately');
-        return; // EXIT EARLY - Don't run any loader code below
+        return;
     }
 
     // Select which loader to show
@@ -6522,17 +5531,13 @@ window.addEventListener('load', () => {
         inactiveLoader = slideshowLoader;
         loaderDuration = 24000;
         
-        // Show cinematic loader and start overlay
-        if (activeLoader) {
-    activeLoader.style.display = 'block';
-}
-const startOverlay = document.getElementById('start-overlay');
-if (startOverlay) {
-    startOverlay.style.display = 'flex';
-    startOverlay.style.visibility = 'visible';
-    startOverlay.style.opacity = '1';
-    startOverlay.style.zIndex = '10001';
-}
+        // Show start overlay for cinematic
+        const startOverlay = document.getElementById('start-overlay');
+        if (startOverlay) {
+            startOverlay.style.display = 'flex';
+            startOverlay.style.visibility = 'visible';
+            startOverlay.style.opacity = '1';
+        }
     }
     
     // Hide inactive loader
@@ -6697,113 +5702,6 @@ if (startOverlay) {
     console.log(`🎬 Loading Screen Active: ${LOADING_CONFIG.mode.toUpperCase()} mode`);
 });
 
-// Create particle trails on mouse move during trailer
-const trailerContainer = document.getElementById('trailer-container');
-if (trailerContainer) {
-    let particleCount = 0;
-    const maxParticles = 50;
-    
-    document.addEventListener('mousemove', (e) => {
-        if (trailerContainer.classList.contains('playing') && particleCount < maxParticles) {
-            createParticleTrail(e.clientX, e.clientY);
-            particleCount++;
-        }
-    });
-    
-    function createParticleTrail(x, y) {
-        const particle = document.createElement('div');
-        const colors = ['#6366f1', '#ec4899', '#3b82f6', '#ffb84d'];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        
-        particle.style.cssText = `
-            position: fixed;
-            width: ${Math.random() * 8 + 4}px;
-            height: ${Math.random() * 8 + 4}px;
-            background: ${randomColor};
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            left: ${x}px;
-            top: ${y}px;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px ${randomColor};
-            --tx: ${(Math.random() - 0.5) * 200}px;
-            --ty: ${(Math.random() - 0.5) * 200}px;
-            animation: particle-trail 1s ease-out forwards;
-        `;
-        
-        document.body.appendChild(particle);
-        
-        setTimeout(() => {
-            particle.remove();
-            particleCount--;
-        }, 1000);
-    }
-}
-
-// Add hologram effect to scene 2
-const scene2 = document.querySelector('.scene-2');
-if (scene2) {
-    scene2.classList.add('trailer-scene-hologram');
-}
-
-// Create energy pulse on scene transitions
-function createEnergyPulse(x, y) {
-    const pulse = document.createElement('div');
-    pulse.style.cssText = `
-        position: fixed;
-        width: 100px;
-        height: 100px;
-        border: 3px solid rgba(99, 102, 241, 0.8);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9998;
-        left: ${x}px;
-        top: ${y}px;
-        transform: translate(-50%, -50%);
-        animation: pulse-expand 1.5s ease-out forwards;
-    `;
-    
-    document.body.appendChild(pulse);
-    setTimeout(() => pulse.remove(), 1500);
-}
-
-// Trigger energy pulses at key moments
-if (trailerContainer) {
-    const pulseTimings = [1000, 5000, 12000, 20000]; // Scene transitions
-    
-    pulseTimings.forEach(timing => {
-        setTimeout(() => {
-            if (trailerContainer.classList.contains('playing')) {
-                createEnergyPulse(window.innerWidth / 2, window.innerHeight / 2);
-            }
-        }, timing);
-    });
-}
-
-// Add pulse animation if not exists
-if (!document.querySelector('#pulse-expand-style')) {
-    const style = document.createElement('style');
-    style.id = 'pulse-expand-style';
-    style.textContent = `
-        @keyframes pulse-expand {
-            0% {
-                width: 100px;
-                height: 100px;
-                opacity: 1;
-                border-width: 3px;
-            }
-            100% {
-                width: 400px;
-                height: 400px;
-                opacity: 0;
-                border-width: 0px;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-}
-
 // ============================================
 // REST OF YOUR CODE (Particles, Cursor, etc.)
 // ============================================
@@ -6822,220 +5720,220 @@ if (particlesContainer) {
 // ============================================
 // PREMIUM CURSOR
 // ============================================
-
-// FIX: Wait for DOM to be fully loaded
 // ============================================
-document.addEventListener('DOMContentLoaded', () => {
+// PREMIUM CURSOR
+// ============================================
+ // ============================================
+        // FIX: Wait for DOM to be fully loaded
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.trailer-title').forEach(el => {
         el.setAttribute('data-text', el.textContent);
     });
-    // ============================================
-    // HIDE DEFAULT CURSOR - FIXED VERSION
-    // ============================================
-    const hideDefaultCursor = () => {
-        if (document.body) {
-            document.body.style.cursor = 'none';
-            document.querySelectorAll('*').forEach(el => {
-                if (el && el.style) {
-                    el.style.cursor = 'none';
-                }
-            });
-        }
-    };
-
-    // Run immediately after DOM is ready
-    hideDefaultCursor();
-
-    // Re-run when new elements are added
-    const cursorObserver = new MutationObserver(hideDefaultCursor);
-    cursorObserver.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-
-    // ============================================
-    // PREMIUM CURSOR
-    // ============================================
-    const cursor = document.querySelector('.cursor');
-    const cursorFollower = document.querySelector('.cursor-follower');
-
-    if (cursor && cursorFollower) {
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
-        let followerX = 0, followerY = 0;
-        let isClicking = false;
-        let isHovering = false;
-        
-        // Force cursor visible
-        function ensureCursorVisible() {
-            cursor.style.display = 'flex';
-            cursor.style.visibility = 'visible';
-            cursor.style.opacity = '1';
-            cursorFollower.style.display = 'block';
-            cursorFollower.style.visibility = 'visible';
-            cursorFollower.style.opacity = '1';
-        }
-        
-        ensureCursorVisible();
-        setInterval(ensureCursorVisible, 100);
-        
-        // Track mouse movement
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            ensureCursorVisible();
-            
-            // Add ripple effect on move
-            if (Math.random() > 0.95) {
-                createRipple(mouseX, mouseY);
-            }
-        });
-        
-        // Smooth cursor animation
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.25;
-            cursorY += (mouseY - cursorY) * 0.25;
-            
-            followerX += (mouseX - followerX) * 0.12;
-            followerY += (mouseY - followerY) * 0.12;
-            
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            cursor.style.opacity = '1';
-            
-            cursorFollower.style.left = followerX + 'px';
-            cursorFollower.style.top = followerY + 'px';
-            cursorFollower.style.opacity = '1';
-            
-            requestAnimationFrame(animateCursor);
-        }
-        
-        animateCursor();
-        
-        // Click effect
-document.addEventListener('mousedown', (e) => {
-    // Don't run click effects if clicking on the loader
-    if (document.querySelector('.loader') && document.querySelector('.loader').style.display !== 'none') {
-        return;
-    }
-    
-    isClicking = true;
-    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-    cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
-    createClickWave(mouseX, mouseY);
 });
-        
-        document.addEventListener('mouseup', () => {
-            isClicking = false;
-            if (!isHovering) {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-            }
-        });
-        
-        // Enhanced hover effects
-        const interactiveElements = {
-            'a, button': 'pointer',
-            '.contact-card': 'view',
-            '.profile-card': 'info',
-            '.social-link': 'external',
-            'input, textarea': 'text'
-        };
-        
-        Object.entries(interactiveElements).forEach(([selector, mode]) => {
-            document.querySelectorAll(selector).forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    isHovering = true;
-                    cursor.classList.add('hover', `hover-${mode}`);
-                    cursorFollower.style.opacity = '0.5';
+            // ============================================
+            // HIDE DEFAULT CURSOR - FIXED VERSION
+            // ============================================
+            const hideDefaultCursor = () => {
+                if (document.body) {
+                    document.body.style.cursor = 'none';
+                    document.querySelectorAll('*').forEach(el => {
+                        if (el && el.style) {
+                            el.style.cursor = 'none';
+                        }
+                    });
+                }
+            };
+
+            // Run immediately after DOM is ready
+            hideDefaultCursor();
+
+            // Re-run when new elements are added
+            const cursorObserver = new MutationObserver(hideDefaultCursor);
+            cursorObserver.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+
+            // ============================================
+            // PREMIUM CURSOR
+            // ============================================
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
+
+            if (cursor && cursorFollower) {
+                let mouseX = 0, mouseY = 0;
+                let cursorX = 0, cursorY = 0;
+                let followerX = 0, followerY = 0;
+                let isClicking = false;
+                let isHovering = false;
+                
+                // Force cursor visible
+                function ensureCursorVisible() {
+                    cursor.style.display = 'flex';
+                    cursor.style.visibility = 'visible';
+                    cursor.style.opacity = '1';
+                    cursorFollower.style.display = 'block';
+                    cursorFollower.style.visibility = 'visible';
+                    cursorFollower.style.opacity = '1';
+                }
+                
+                ensureCursorVisible();
+                setInterval(ensureCursorVisible, 100);
+                
+                // Track mouse movement
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
                     ensureCursorVisible();
                     
-                    switch(mode) {
-                        case 'pointer':
-                            cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                            break;
-                        case 'view':
-                            cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-                            cursor.innerHTML = '<span style="font-size: 16px;">👁️</span>';
-                            break;
-                        case 'info':
-                            cursor.innerHTML = '<span style="font-size: 14px;">ℹ️</span>';
-                            break;
-                        case 'external':
-                            cursor.innerHTML = '<span style="font-size: 14px;">↗</span>';
-                            break;
-                        case 'text':
-                            cursor.innerHTML = '<span style="font-size: 18px;">|</span>';
-                            cursor.style.transform = 'translate(-50%, -50%) scale(1) scaleX(0.3)';
-                            break;
+                    // Add ripple effect on move
+                    if (Math.random() > 0.95) {
+                        createRipple(mouseX, mouseY);
                     }
                 });
                 
-                el.addEventListener('mouseleave', () => {
-                    isHovering = false;
-                    cursor.classList.remove('hover', `hover-${mode}`);
-                    cursor.innerHTML = '';
+                // Smooth cursor animation
+                function animateCursor() {
+                    cursorX += (mouseX - cursorX) * 0.25;
+                    cursorY += (mouseY - cursorY) * 0.25;
+                    
+                    followerX += (mouseX - followerX) * 0.12;
+                    followerY += (mouseY - followerY) * 0.12;
+                    
+                    cursor.style.left = cursorX + 'px';
+                    cursor.style.top = cursorY + 'px';
+                    cursor.style.opacity = '1';
+                    
+                    cursorFollower.style.left = followerX + 'px';
+                    cursorFollower.style.top = followerY + 'px';
                     cursorFollower.style.opacity = '1';
-                    if (!isClicking) {
+                    
+                    requestAnimationFrame(animateCursor);
+                }
+                
+                animateCursor();
+                
+                // Click effect
+                document.addEventListener('mousedown', () => {
+                    isClicking = true;
+                    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
+                    createClickWave(mouseX, mouseY);
+                });
+                
+                document.addEventListener('mouseup', () => {
+                    isClicking = false;
+                    if (!isHovering) {
                         cursor.style.transform = 'translate(-50%, -50%) scale(1)';
                         cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
                     }
                 });
-            });
-        });
-        
-        // Create ripple effect
-        function createRipple(x, y) {
-            const ripple = document.createElement('div');
-            ripple.style.cssText = `
-                position: fixed;
-                width: 20px;
-                height: 20px;
-                border-radius: 50%;
-                border: 1px solid rgba(99, 102, 241, 0.4);
-                background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
-                pointer-events: none;
-                z-index: 9998;
-                left: ${x}px;
-                top: ${y}px;
-                transform: translate(-50%, -50%);
-                animation: ripple-expand 0.8s ease-out forwards;
-            `;
-            document.body.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 1000);
-        }
-        
-        // Create click wave effect
-        function createClickWave(x, y) {
-            const wave = document.createElement('div');
-            wave.style.cssText = `
-                position: fixed;
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(99, 102, 241, 0.4), rgba(99, 102, 241, 0.1) 50%, transparent 70%);
-                border: 1px solid rgba(99, 102, 241, 0.3);
-                pointer-events: none;
-                z-index: 9998;
-                left: ${x}px;
-                top: ${y}px;
-                transform: translate(-50%, -50%);
-                animation: click-wave-expand 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            `;
-            document.body.appendChild(wave);
-            setTimeout(() => wave.remove(), 600);
-        }
-        
-        // Force hide default cursor on all events
-        document.addEventListener('mouseover', (e) => {
-            if (e.target) e.target.style.cursor = 'none';
-        }, true);
+                
+                // Enhanced hover effects
+                const interactiveElements = {
+                    'a, button': 'pointer',
+                    '.contact-card': 'view',
+                    '.profile-card': 'info',
+                    '.social-link': 'external',
+                    'input, textarea': 'text'
+                };
+                
+                Object.entries(interactiveElements).forEach(([selector, mode]) => {
+                    document.querySelectorAll(selector).forEach(el => {
+                        el.addEventListener('mouseenter', () => {
+                            isHovering = true;
+                            cursor.classList.add('hover', `hover-${mode}`);
+                            cursorFollower.style.opacity = '0.5';
+                            ensureCursorVisible();
+                            
+                            switch(mode) {
+                                case 'pointer':
+                                    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                                    break;
+                                case 'view':
+                                    cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                                    cursor.innerHTML = '<span style="font-size: 16px;">👁️</span>';
+                                    break;
+                                case 'info':
+                                    cursor.innerHTML = '<span style="font-size: 14px;">ℹ️</span>';
+                                    break;
+                                case 'external':
+                                    cursor.innerHTML = '<span style="font-size: 14px;">↗</span>';
+                                    break;
+                                case 'text':
+                                    cursor.innerHTML = '<span style="font-size: 18px;">|</span>';
+                                    cursor.style.transform = 'translate(-50%, -50%) scale(1) scaleX(0.3)';
+                                    break;
+                            }
+                        });
+                        
+                        el.addEventListener('mouseleave', () => {
+                            isHovering = false;
+                            cursor.classList.remove('hover', `hover-${mode}`);
+                            cursor.innerHTML = '';
+                            cursorFollower.style.opacity = '1';
+                            if (!isClicking) {
+                                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                            }
+                        });
+                    });
+                });
+                
+                // Create ripple effect
+                function createRipple(x, y) {
+                    const ripple = document.createElement('div');
+                    ripple.style.cssText = `
+                        position: fixed;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        border: 1px solid rgba(99, 102, 241, 0.4);
+                        background: radial-gradient(circle, rgba(99, 102, 241, 0.1), transparent 70%);
+                        pointer-events: none;
+                        z-index: 9998;
+                        left: ${x}px;
+                        top: ${y}px;
+                        transform: translate(-50%, -50%);
+                        animation: ripple-expand 0.8s ease-out forwards;
+                    `;
+                    document.body.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 1000);
+                }
+                
+                // Create click wave effect
+                function createClickWave(x, y) {
+                    const wave = document.createElement('div');
+                    wave.style.cssText = `
+                        position: fixed;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background: radial-gradient(circle, rgba(99, 102, 241, 0.4), rgba(99, 102, 241, 0.1) 50%, transparent 70%);
+                        border: 1px solid rgba(99, 102, 241, 0.3);
+                        pointer-events: none;
+                        z-index: 9998;
+                        left: ${x}px;
+                        top: ${y}px;
+                        transform: translate(-50%, -50%);
+                        animation: click-wave-expand 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+                    `;
+                    document.body.appendChild(wave);
+                    setTimeout(() => wave.remove(), 600);
+                }
+                
+                // Force hide default cursor on all events
+                document.addEventListener('mouseover', (e) => {
+                    if (e.target) e.target.style.cursor = 'none';
+                }, true);
 
-        document.addEventListener('mouseleave', () => {
-            ensureCursorVisible();
-        });
-    }
-});
+                document.addEventListener('mouseleave', () => {
+                    ensureCursorVisible();
+                });
+            } // <-- CLOSING BRACKET FOR if (cursor && cursorFollower)
+}); // <-- This closes DOMContentLoaded
+
 
 // ============================================
 // SCROLL PROGRESS BAR
@@ -7052,16 +5950,17 @@ window.addEventListener('scroll', () => {
 // ============================================
 // NAVIGATION SCROLL EFFECT
 // ============================================
-const nav = document.getElementById('nav');
-if (nav) {
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-}
+            const nav = document.getElementById('nav');
+            if (nav) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        nav.classList.add('scrolled');
+                    } else {
+                        nav.classList.remove('scrolled');
+                    }
+                });
+            }
+
 
 // ============================================
 // INTERSECTION OBSERVER FOR ANIMATIONS
@@ -7126,51 +6025,51 @@ const galleryData = {
     newcollection: {
         title: 'New Collection Launch - Email Marketing',
         images: [
-            { src: 'images/social%20media%20desgin/email%20marketing/newcollectionlaunch/newcollectionlaunch1.png', alt: 'New Collection Launch 1' },
-            { src: 'images/social%20media%20desgin/email%20marketing/newcollectionlaunch/newcollectionlaunch2.png', alt: 'New Collection Launch 2' },
-            { src: 'images/social%20media%20desgin/email%20marketing/newcollectionlaunch/newcollectionlaucn3.png', alt: 'New Collection Launch 3' }
+            { src: 'images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaunch1.png', alt: 'New Collection Launch 1' },
+            { src: 'images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaunch2.png', alt: 'New Collection Launch 2' },
+            { src: 'images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaucn3.png', alt: 'New Collection Launch 3' }
         ]
     },
     backinstock: {
         title: 'Back in Stock Campaign - Email Marketing',
         images: [
-            { src: 'images/social%20media%20desgin/email%20marketing/backinstock/backinstock1.png', alt: 'Back in Stock 1' },
-            { src: 'images/social%20media%20desgin/email%20marketing/backinstock/backinstock2.png', alt: 'Back in Stock 2' },
-            { src: 'images/social%20media%20desgin/email%20marketing/backinstock/backinstock3.png', alt: 'Back in Stock 3' }
+            { src: 'images/social media desgin/email marketing/backinstock/backinstock1.png', alt: 'Back in Stock 1' },
+            { src: 'images/social media desgin/email marketing/backinstock/backinstock2.png', alt: 'Back in Stock 2' },
+            { src: 'images/social media desgin/email marketing/backinstock/backinstock3.png', alt: 'Back in Stock 3' }
         ]
     },
     summersale: {
         title: 'Summer Sale Off - Email Marketing',
         images: [
-            { src: 'images/social%20media%20desgin/email%20marketing/summersaleoff/summersaleoff1.png', alt: 'Summer Sale 1' },
-            { src: 'images/social%20media%20desgin/email%20marketing/summersaleoff/summersaleoff2.png', alt: 'Summer Sale 2' },
-            { src: 'images/social%20media%20desgin/email%20marketing/summersaleoff/summersaleoff3.png', alt: 'Summer Sale 3' }
+            { src: 'images/social media desgin/email marketing/summersaleoff/summersaleoff1.png', alt: 'Summer Sale 1' },
+            { src: 'images/social media desgin/email marketing/summersaleoff/summersaleoff2.png', alt: 'Summer Sale 2' },
+            { src: 'images/social media desgin/email marketing/summersaleoff/summersaleoff3.png', alt: 'Summer Sale 3' }
         ]
     },
     articles: {
         title: 'SEO Articles Collection',
         images: [
-            { src: 'images/SEO%3ACopywriting/Article/1.png', alt: 'SEO Article 1' },
-            { src: 'images/SEO%3ACopywriting/Article/2.png', alt: 'SEO Article 2' },
-            { src: 'images/SEO%3ACopywriting/Article/3.png', alt: 'SEO Article 3' },
-            { src: 'images/SEO%3ACopywriting/Article/4.png', alt: 'SEO Article 4' },
-            { src: 'images/SEO%3ACopywriting/Article/5.png', alt: 'SEO Article 5' },
-            { src: 'images/SEO%3ACopywriting/Article/6.png', alt: 'SEO Article 6' },
-            { src: 'images/SEO%3ACopywriting/Article/7.png', alt: 'SEO Article 7' },
-            { src: 'images/SEO%3ACopywriting/Article/8.png', alt: 'SEO Article 8' }
+            { src: 'images/SEO:Copywriting/Article/1.png', alt: 'SEO Article 1' },
+            { src: 'images/SEO:Copywriting/Article/2.png', alt: 'SEO Article 2' },
+            { src: 'images/SEO:Copywriting/Article/3.png', alt: 'SEO Article 3' },
+            { src: 'images/SEO:Copywriting/Article/4.png', alt: 'SEO Article 4' },
+            { src: 'images/SEO:Copywriting/Article/5.png', alt: 'SEO Article 5' },
+            { src: 'images/SEO:Copywriting/Article/6.png', alt: 'SEO Article 6' },
+            { src: 'images/SEO:Copywriting/Article/7.png', alt: 'SEO Article 7' },
+            { src: 'images/SEO:Copywriting/Article/8.png', alt: 'SEO Article 8' }
         ]
     },
     facebook: {
         title: 'Service Content Strategy - Facebook Posts',
         images: [
-            { src: 'images/SEO%3ACopywriting/facebook/image1.png', alt: 'Facebook Post 1' },
-            { src: 'images/SEO%3ACopywriting/facebook/image1.2.png', alt: 'Facebook Post 1.2' },
-            { src: 'images/SEO%3ACopywriting/facebook/image1.3.png', alt: 'Facebook Post 1.3' },
-            { src: 'images/SEO%3ACopywriting/facebook/image1.4.png', alt: 'Facebook Post 1.4' },
-            { src: 'images/SEO%3ACopywriting/facebook/image3.1.png', alt: 'Facebook Post 3.1' },
-            { src: 'images/SEO%3ACopywriting/facebook/image3.2.png', alt: 'Facebook Post 3.2' },
-            { src: 'images/SEO%3ACopywriting/facebook/image3.3.png', alt: 'Facebook Post 3.3' },
-            { src: 'images/SEO%3ACopywriting/facebook/image3.4.png', alt: 'Facebook Post 3.4' }
+            { src: 'images/SEO:Copywriting/facebook/image1.png', alt: 'Facebook Post 1' },
+            { src: 'images/SEO:Copywriting/facebook/image1.2.png', alt: 'Facebook Post 1.2' },
+            { src: 'images/SEO:Copywriting/facebook/image1.3.png', alt: 'Facebook Post 1.3' },
+            { src: 'images/SEO:Copywriting/facebook/image1.4.png', alt: 'Facebook Post 1.4' },
+            { src: 'images/SEO:Copywriting/facebook/image3.1.png', alt: 'Facebook Post 3.1' },
+            { src: 'images/SEO:Copywriting/facebook/image3.2.png', alt: 'Facebook Post 3.2' },
+            { src: 'images/SEO:Copywriting/facebook/image3.3.png', alt: 'Facebook Post 3.3' },
+            { src: 'images/SEO:Copywriting/facebook/image3.4.png', alt: 'Facebook Post 3.4' }
         ]
     }
 };
@@ -7275,256 +6174,263 @@ if (closeLightbox) {
 }
 
 if (lightbox) {
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) {
-                    lightbox.classList.remove('active');
-                }
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.classList.remove('active');
+        }
+    });
+}
+
+// Escape key to close modals
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        if (lightbox) lightbox.classList.remove('active');
+        if (galleryModal) galleryModal.classList.remove('active');
+    }
+});
+
+// ============================================
+// STAGGERED ANIMATIONS
+// ============================================
+const testimonialCards = document.querySelectorAll('.testimonial-card');
+testimonialCards.forEach((card, index) => {
+    card.style.transitionDelay = `${index * 0.2}s`;
+});
+
+portfolioItems.forEach((item, index) => {
+    item.style.transitionDelay = `${index * 0.08}s`;
+});
+
+// ============================================
+// SMOOTH SCROLL
+// ============================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
         }
+    });
+});
 
-        // Escape key to close modals
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (lightbox) lightbox.classList.remove('active');
-                if (galleryModal) galleryModal.classList.remove('active');
-            }
-        });
 
-        // ============================================
-        // STAGGERED ANIMATIONS
-        // ============================================
-        const testimonialCards = document.querySelectorAll('.testimonial-card');
-        testimonialCards.forEach((card, index) => {
-            card.style.transitionDelay = `${index * 0.2}s`;
-        });
+// ============================================
+// PARALLAX EFFECT ON HERO
+// ============================================
+let ticking = false;
 
-        portfolioItems.forEach((item, index) => {
-            item.style.transitionDelay = `${index * 0.08}s`;
-        });
-
-        // ============================================
-        // SMOOTH SCROLL
-        // ============================================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // ============================================
-        // PARALLAX EFFECT ON HERO
-        // ============================================
-        let ticking = false;
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const scrolled = window.scrollY;
-                    const heroContent = document.querySelector('.hero-content');
-                    const heroProfile = document.querySelector('.hero-profile');
-                    
-                    if (heroContent) {
-                        heroContent.style.transform = `translateY(${scrolled * 0.4}px)`;
-                        heroContent.style.opacity = Math.max(0, 1 - (scrolled / 600));
-                    }
-                    
-                    if (heroProfile) {
-                        heroProfile.style.transform = `translateY(${scrolled * 0.25}px) scale(${1 + scrolled * 0.0003})`;
-                    }
-                    
-                    ticking = false;
-                });
-                
-                ticking = true;
-            }
-        });
-
-        // ============================================
-        // MAGNETIC EFFECT ON BUTTONS
-        // ============================================
-        const magneticElements = document.querySelectorAll('.filter-btn, .contact-card, .social-link');
-
-        magneticElements.forEach(el => {
-            el.addEventListener('mousemove', (e) => {
-                const rect = el.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-            });
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            const scrolled = window.scrollY;
+            const heroContent = document.querySelector('.hero-content');
+            const heroProfile = document.querySelector('.hero-profile');
             
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = '';
-            });
-        });
-
-        // ============================================
-        // REVEAL ELEMENTS ON SCROLL
-        // ============================================
-        const revealElements = document.querySelectorAll('.tool-item, .stat-card, .journey-card');
-
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, index * 100);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        revealElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(50px)';
-            el.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-            revealObserver.observe(el);
-        });
-
-        // ============================================
-        // NOISE TEXTURE EFFECT
-        // ============================================
-        const createNoiseTexture = () => {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = 200;
-            canvas.height = 200;
-            
-            for (let x = 0; x < canvas.width; x++) {
-                for (let y = 0; y < canvas.height; y++) {
-                    const value = Math.random() * 255;
-                    ctx.fillStyle = `rgba(${value}, ${value}, ${value}, 0.02)`;
-                    ctx.fillRect(x, y, 1, 1);
-                }
+            if (heroContent) {
+                heroContent.style.transform = `translateY(${scrolled * 0.4}px)`;
+                heroContent.style.opacity = Math.max(0, 1 - (scrolled / 600));
             }
             
-            document.body.style.backgroundImage = `url(${canvas.toDataURL()}), ${document.body.style.backgroundImage}`;
-        };
-
-        createNoiseTexture();
-
-        // ============================================
-        // LAZY LOAD IMAGES
-        // ============================================
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        if (img.dataset.src) {
-                            img.src = img.dataset.src;
-                            img.removeAttribute('data-src');
-                        }
-                        imageObserver.unobserve(img);
-                    }
-                });
-            });
+            if (heroProfile) {
+                heroProfile.style.transform = `translateY(${scrolled * 0.25}px) scale(${1 + scrolled * 0.0003})`;
+            }
             
-            document.querySelectorAll('img[data-src]').forEach(img => {
-                imageObserver.observe(img);
-            });
+            ticking = false;
+        });
+        
+        ticking = true;
+    }
+});
+
+// ============================================
+// MAGNETIC EFFECT ON BUTTONS
+// ============================================
+const magneticElements = document.querySelectorAll('.filter-btn, .contact-card, .social-link');
+
+magneticElements.forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+    });
+    
+    el.addEventListener('mouseleave', () => {
+        el.style.transform = '';
+    });
+});
+
+// ============================================
+// REVEAL ELEMENTS ON SCROLL
+// ============================================
+const revealElements = document.querySelectorAll('.tool-item, .stat-card, .journey-card');
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }, index * 100);
         }
+    });
+}, { threshold: 0.1 });
 
-        // ============================================
-        // CUSTOM RIGHT-CLICK CONTEXT MENU
-        // ============================================
-        const customContextMenu = document.createElement('div');
-        customContextMenu.className = 'custom-context-menu';
-        customContextMenu.innerHTML = `
-            <div class="context-menu-item" data-action="back">
-                <span class="context-menu-icon">←</span>
-                <span>Back</span>
-            </div>
-            <div class="context-menu-item" data-action="forward">
-                <span class="context-menu-icon">→</span>
-                <span>Forward</span>
-            </div>
-            <div class="context-menu-item" data-action="reload">
-                <span class="context-menu-icon">⟳</span>
-                <span>Reload</span>
-            </div>
-            <div class="context-menu-divider"></div>
-            <div class="context-menu-item" data-action="print">
-                <span class="context-menu-icon">🖨️</span>
-                <span>Print</span>
-            </div>
-            <div class="context-menu-item" data-action="top">
-                <span class="context-menu-icon">↑</span>
-                <span>Back to Top</span>
-            </div>
-        `;
-        document.body.appendChild(customContextMenu);
+revealElements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(50px)';
+    el.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+    revealObserver.observe(el);
+});
 
-        // Prevent default context menu
-        document.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-            
-            // Position custom menu
-            const menuWidth = 220;
-            const menuHeight = 240;
-            let x = e.clientX;
-            let y = e.clientY;
-            
-            // Adjust if menu goes off screen
-            if (x + menuWidth > window.innerWidth) {
-                x = window.innerWidth - menuWidth - 10;
-            }
-            if (y + menuHeight > window.innerHeight) {
-                y = window.innerHeight - menuHeight - 10;
-            }
-            
-            customContextMenu.style.left = x + 'px';
-            customContextMenu.style.top = y + 'px';
-            customContextMenu.classList.add('active');
-        });
+// ============================================
+// NOISE TEXTURE EFFECT
+// ============================================
+const createNoiseTexture = () => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 200;
+    canvas.height = 200;
+    
+    for (let x = 0; x < canvas.width; x++) {
+        for (let y = 0; y < canvas.height; y++) {
+            const value = Math.random() * 255;
+            ctx.fillStyle = `rgba(${value}, ${value}, ${value}, 0.02)`;
+            ctx.fillRect(x, y, 1, 1);
+        }
+    }
+    
+    document.body.style.backgroundImage = `url(${canvas.toDataURL()}), ${document.body.style.backgroundImage}`;
+};
 
-        // Close menu on click outside
-        document.addEventListener('click', () => {
-            customContextMenu.classList.remove('active');
-        });
+createNoiseTexture();
 
-        // Handle menu actions
-        customContextMenu.addEventListener('click', (e) => {
-            const item = e.target.closest('.context-menu-item');
-            if (!item) return;
-            
-            const action = item.getAttribute('data-action');
-            
-            switch(action) {
-                case 'back':
-                    window.history.back();
-                    break;
-                case 'forward':
-                    window.history.forward();
-                    break;
-                case 'reload':
-                    window.location.reload();
-                    break;
-                case 'print':
-                    window.print();
-                    break;
-                case 'top':
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    break;
-            }
-            
-            customContextMenu.classList.remove('active');
-        });
-
-        // Close menu on Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                customContextMenu.classList.remove('active');
+// ============================================
+// LAZY LOAD IMAGES
+// ============================================
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                imageObserver.unobserve(img);
             }
         });
-    </script>
+    });
+    
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// ============================================
+// CUSTOM RIGHT-CLICK CONTEXT MENU
+// ============================================
+const customContextMenu = document.createElement('div');
+customContextMenu.className = 'custom-context-menu';
+customContextMenu.innerHTML = `
+    <div class="context-menu-item" data-action="back">
+        <span class="context-menu-icon">←</span>
+        <span>Back</span>
+    </div>
+    <div class="context-menu-item" data-action="forward">
+        <span class="context-menu-icon">→</span>
+        <span>Forward</span>
+    </div>
+    <div class="context-menu-item" data-action="reload">
+        <span class="context-menu-icon">⟳</span>
+        <span>Reload</span>
+    </div>
+    <div class="context-menu-divider"></div>
+    <div class="context-menu-item" data-action="print">
+        <span class="context-menu-icon">🖨️</span>
+        <span>Print</span>
+    </div>
+    <div class="context-menu-item" data-action="top">
+        <span class="context-menu-icon">↑</span>
+        <span>Back to Top</span>
+    </div>
+`;
+document.body.appendChild(customContextMenu);
+
+// Prevent default context menu
+document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    
+    // Position custom menu
+    const menuWidth = 220;
+    const menuHeight = 240;
+    let x = e.clientX;
+    let y = e.clientY;
+    
+    // Adjust if menu goes off screen
+    if (x + menuWidth > window.innerWidth) {
+        x = window.innerWidth - menuWidth - 10;
+    }
+    if (y + menuHeight > window.innerHeight) {
+        y = window.innerHeight - menuHeight - 10;
+    }
+    
+    customContextMenu.style.left = x + 'px';
+    customContextMenu.style.top = y + 'px';
+    customContextMenu.classList.add('active');
+});
+
+// Close menu on click outside
+document.addEventListener('click', () => {
+    customContextMenu.classList.remove('active');
+});
+
+// Handle menu actions
+customContextMenu.addEventListener('click', (e) => {
+    const item = e.target.closest('.context-menu-item');
+    if (!item) return;
+    
+    const action = item.getAttribute('data-action');
+    
+    switch(action) {
+        case 'back':
+            window.history.back();
+            break;
+        case 'forward':
+            window.history.forward();
+            break;
+        case 'reload':
+            window.location.reload();
+            break;
+        case 'print':
+            window.print();
+            break;
+        case 'top':
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            break;
+    }
+    
+    customContextMenu.classList.remove('active');
+});
+
+
+
+// Close menu on Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        customContextMenu.classList.remove('active');
+    }
+});
+
+
+
+</script>
+<!-- Liquid Glass SVG Filters -->
 <!-- Liquid Glass SVG Filters -->
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute; overflow:hidden">
     <defs>
@@ -7543,8 +6449,5 @@ if (lightbox) {
         </filter>
     </defs>
 </svg>
-    <!-- Premium Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
 </body>
-</html>q
+</html>
