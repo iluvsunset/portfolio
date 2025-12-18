@@ -6441,6 +6441,10 @@ footer::before {
 </footer>
 
 <script>
+  const loader = document.querySelector('.loader');
+if (loader) {
+    loader.remove();
+}
 // ============================================
 // LOADING SCREEN CONFIGURATION
 // ============================================
@@ -6450,6 +6454,16 @@ const LOADING_CONFIG = {
     skipButton: true,
     autoSkipAfter: null
 };
+
+// Disable all loader-related event listeners
+if (!LOADING_CONFIG.enabled) {
+    document.addEventListener('DOMContentLoaded', () => {
+        const loader = document.querySelector('.loader');
+        if (loader) {
+            loader.remove(); // Completely remove the loader from DOM
+        }
+    });
+}
 
 // ============================================
 // LOADING SCREEN MASTER CONTROLLER
@@ -6899,12 +6913,17 @@ document.addEventListener('DOMContentLoaded', () => {
         animateCursor();
         
         // Click effect
-        document.addEventListener('mousedown', () => {
-            isClicking = true;
-            cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-            cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
-            createClickWave(mouseX, mouseY);
-        });
+document.addEventListener('mousedown', (e) => {
+    // Don't run click effects if clicking on the loader
+    if (document.querySelector('.loader') && document.querySelector('.loader').style.display !== 'none') {
+        return;
+    }
+    
+    isClicking = true;
+    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.6)';
+    createClickWave(mouseX, mouseY);
+});
         
         document.addEventListener('mouseup', () => {
             isClicking = false;
