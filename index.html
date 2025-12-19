@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#050505">
-    <meta name="description" content="Nguyen Tu Anh - Creative Strategist Portfolio | High-End Digital Experience">
+    <meta name="description" content="Nguyen Tu Anh - Creative Strategist Portfolio | Award-Winning Digital Experience">
     
-    <title>Nguyen Tu Anh | The Creative Strategist</title>
+    <title>Nguyen Tu Anh | Creative Strategist</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,33 +16,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollToPlugin.min.js"></script>
-    <script src="https://unpkg.com/split-type"></script> <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script> <style>
-        /* =========================================================================
-           1.0 CORE VARIABLES & PHYSICS ENGINE
-           ========================================================================= */
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <style>
         :root {
-            /* --- COLOR PALETTE: CHROMATIC DARK MODE --- */
             --c-black: #050505;
             --c-charcoal: #0a0a0a;
             --c-void: #000000;
             --c-white: #ffffff;
             --c-off-white: #f0f0f0;
             
-            /* --- ACCENT PHYSICS (HSL for programmatic manipulation) --- */
-            --hue-primary: 245;  /* Indigo */
-            --hue-secondary: 280; /* Purple */
-            --hue-tertiary: 330;  /* Pink */
+            --hue-primary: 245;
+            --hue-secondary: 280;
+            --hue-tertiary: 330;
             
             --c-accent-main: hsl(var(--hue-primary), 80%, 65%);
             --c-accent-glow: hsla(var(--hue-primary), 80%, 65%, 0.4);
             --c-accent-dim: hsla(var(--hue-primary), 60%, 15%, 1);
             
-            /* --- GRADIENTS --- */
             --g-primary: linear-gradient(135deg, hsl(var(--hue-primary), 80%, 65%) 0%, hsl(var(--hue-secondary), 80%, 60%) 100%);
             --g-holographic: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
-            --g-glass-surface: linear-gradient(120deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            --g-mesh: radial-gradient(at 40% 20%, hsla(var(--hue-primary),80%,65%,0.3) 0px, transparent 50%),
+                      radial-gradient(at 80% 0%, hsla(var(--hue-secondary),80%,60%,0.3) 0px, transparent 50%),
+                      radial-gradient(at 0% 50%, hsla(var(--hue-tertiary),80%,60%,0.3) 0px, transparent 50%);
             
-            /* --- TYPOGRAPHY SCALE (Fluid Type) --- */
             --font-sans: 'Inter', sans-serif;
             --font-display: 'Montserrat', sans-serif;
             --font-serif: 'Playfair Display', serif;
@@ -52,50 +49,23 @@
             --fs-display-lg: clamp(3rem, 8vw, 6rem);
             --fs-h1: clamp(2.5rem, 5vw, 4rem);
             --fs-h2: clamp(2rem, 4vw, 3rem);
-            --fs-h3: clamp(1.5rem, 3vw, 2.5rem);
-            --fs-body-lg: clamp(1.1rem, 2vw, 1.4rem);
-            --fs-body: 1rem;
-            --fs-sm: 0.875rem;
-            --fs-xs: 0.75rem;
-
-            /* --- LAYOUT GRID --- */
-            --container-width: 1720px;
-            --gutter: clamp(20px, 4vw, 60px);
-            --grid-gap: 20px;
             
-            /* --- ANIMATION PHYSICS --- */
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
             --ease-elastic: cubic-bezier(0.68, -0.6, 0.32, 1.6);
-            --duration-fast: 0.3s;
-            --duration-normal: 0.6s;
-            --duration-slow: 1.2s;
-            
-            /* --- GLASSMORPHISM ENGINE --- */
-            --glass-blur: 20px;
-            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-            --glass-shadow: 0 40px 80px rgba(0,0,0,0.5);
-            --glass-highlight: inset 0 1px 0 0 rgba(255,255,255,0.1);
         }
 
-        /* =========================================================================
-           2.0 GLOBAL RESET & BASE STYLES
-           ========================================================================= */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            outline: none;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            cursor: none; /* Hiding default cursor for custom implementation */
         }
 
         html {
             font-size: 16px;
             background-color: var(--c-black);
             overflow-x: hidden;
-            scroll-behavior: auto; /* Handled by Lenis */
         }
 
         body {
@@ -103,71 +73,45 @@
             color: var(--c-white);
             line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
             min-height: 100vh;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            cursor: none;
+            background: var(--c-black);
         }
 
-        /* =========================================================================
-           3.0 ADVANCED TYPOGRAPHY SYSTEM
-           ========================================================================= */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-display);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            color: var(--c-white);
+        /* Enhanced animated mesh background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--g-mesh);
+            opacity: 0.5;
+            z-index: 0;
+            pointer-events: none;
+            animation: mesh-float 20s ease-in-out infinite;
         }
 
-        .display-xl { font-size: var(--fs-display-xl); text-transform: uppercase; line-height: 0.9; }
-        .display-lg { font-size: var(--fs-display-lg); text-transform: uppercase; }
-        
-        .text-gradient {
-            background: var(--g-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
+        @keyframes mesh-float {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            33% { transform: translate(30px, -30px) scale(1.1) rotate(5deg); }
+            66% { transform: translate(-20px, 20px) scale(0.9) rotate(-5deg); }
         }
 
-        .text-outline {
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-            transition: all var(--duration-normal) var(--ease-out-expo);
-        }
-        
-        .text-reveal-mask {
-            overflow: hidden;
-            display: block;
-        }
-        
-        .text-reveal-mask span {
-            display: block;
-            transform: translateY(100%);
-            transition: transform var(--duration-slow) var(--ease-out-expo);
-        }
-        
-        .is-visible .text-reveal-mask span {
-            transform: translateY(0);
-        }
-
-        a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
-        ul { list-style: none; }
-        img { max-width: 100%; height: auto; display: block; }
-
-        /* =========================================================================
-           4.0 GLOBAL VFX: NOISE, CURSOR, & SCROLLBAR
-           ========================================================================= */
-        
-        /* 4.1 CINEMATIC GRAIN */
+        /* Enhanced grain effect */
         .vfx-grain {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            animation: grain-shift 8s steps(10) infinite;
+            opacity: 0.08;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            animation: grain-shift 4s steps(10) infinite;
+            mix-blend-mode: overlay;
         }
 
         @keyframes grain-shift {
@@ -183,274 +127,249 @@
             90% { transform: translate(-10%, 10%); }
         }
 
-        /* 4.2 LIQUID CURSOR SYSTEM */
+        /* Enhanced cursor */
         .cursor-wrapper {
-            position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100000;
-            mix-blend-mode: difference;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 100000;
         }
         
         .cursor-dot {
-            width: 8px; height: 8px; background: white; border-radius: 50%;
-            position: absolute; top: 0; left: 0; transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: var(--c-accent-main);
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 30px var(--c-accent-glow);
+            animation: cursor-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes cursor-pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.3); }
         }
         
         .cursor-circle {
-            width: 40px; height: 40px; border: 1px solid white; border-radius: 50%;
-            position: absolute; top: 0; left: 0; transform: translate(-50%, -50%);
-            transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), background-color 0.3s;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--c-accent-main);
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s var(--ease-out-expo);
+            box-shadow: 0 0 30px var(--c-accent-glow);
         }
 
-        /* Hover States for Cursor */
         body.is-hovering .cursor-circle {
-            width: 80px; height: 80px;
-            background-color: rgba(255,255,255,0.1);
-            border-color: transparent;
-            backdrop-filter: blur(2px);
-        }
-        
-        body.is-hovering-text .cursor-circle {
-            width: 100px; height: 100px;
-            mix-blend-mode: difference;
-            background-color: white;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(99, 102, 241, 0.15);
+            border-width: 3px;
+            backdrop-filter: blur(4px);
         }
 
-        /* 4.3 CUSTOM SCROLLBAR */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--c-black); }
-        ::-webkit-scrollbar-thumb { 
-            background: #333; 
-            border-radius: 4px; 
+        /* Enhanced scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track {
+            background: var(--c-black);
+            border-left: 1px solid rgba(255,255,255,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--c-accent-main), var(--c-accent-dim));
+            border-radius: 10px;
             border: 2px solid var(--c-black);
         }
-        ::-webkit-scrollbar-thumb:hover { background: var(--c-accent-main); }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--c-accent-main);
+            box-shadow: 0 0 15px var(--c-accent-glow);
+        }
 
-        /* =========================================================================
-           5.0 UTILITY CLASSES & LAYOUT ENGINE
-           ========================================================================= */
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .display-xl {
+            font-size: var(--fs-display-xl);
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        .text-gradient {
+            background: var(--g-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradient-shift 5s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255,255,255,0.3);
+        }
+
+        /* Container */
         .container {
             width: 100%;
-            max-width: var(--container-width);
+            max-width: 1720px;
             margin: 0 auto;
-            padding: 0 var(--gutter);
-        }
-
-        .grid-12 {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: var(--grid-gap);
-        }
-
-        /* Spacing Utilities */
-        .py-section { padding-top: 15vh; padding-bottom: 15vh; }
-        .mb-sm { margin-bottom: 1rem; }
-        .mb-md { margin-bottom: 2rem; }
-        .mb-lg { margin-bottom: 4rem; }
-        .mb-xl { margin-bottom: 8rem; }
-
-        /* Flex Utilities */
-        .flex-center { display: flex; justify-content: center; align-items: center; }
-        .flex-between { display: flex; justify-content: space-between; align-items: center; }
-        .flex-col { display: flex; flex-direction: column; }
-
-        /* =========================================================================
-           6.0 ADVANCED COMPONENT: MAGNETIC BUTTONS
-           ========================================================================= */
-        .btn-magnetic {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 40px;
-            border: var(--glass-border);
-            border-radius: 100px;
+            padding: 0 clamp(20px, 4vw, 60px);
             position: relative;
-            overflow: hidden;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            color: var(--c-white);
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(10px);
-            transition: transform 0.5s var(--ease-elastic);
+            z-index: 10;
         }
 
-        .btn-magnetic::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--c-white);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.5s var(--ease-out-expo);
-            z-index: -1;
-        }
-
-        .btn-magnetic:hover::before {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        .btn-magnetic:hover {
-            color: var(--c-black);
-            border-color: transparent;
-        }
-
-        .btn-magnetic span {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* =========================================================================
-           7.0 ADVANCED COMPONENT: GLASS CARDS
-           ========================================================================= */
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.4);
-            border: var(--glass-border);
-            border-top: 1px solid rgba(255,255,255,0.15);
-            border-left: 1px solid rgba(255,255,255,0.15);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
-            box-shadow: var(--glass-shadow);
-            border-radius: 30px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Inner Glow Effect */
-        .glass-panel::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.08), transparent 50%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        .glass-panel:hover::after {
-            opacity: 1;
-        }
-        /* =========================================================================
-           8.0 THE CINEMATIC ENGINE: LOADER ARCHITECTURE
-           ========================================================================= */
+        /* ENHANCED LOADER */
         .loader-stage {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--c-black);
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--c-black) 0%, var(--c-charcoal) 100%);
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            perspective: 2000px; /* Enhanced depth for 3D fly-throughs */
-            transform-style: preserve-3d;
         }
 
-        /* 8.1 CINEMATIC BARS (Letterbox Effect) */
+        #start-overlay {
+            position: absolute;
+            z-index: 10001;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        #start-overlay::before {
+            content: 'NTA';
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            background: var(--g-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logo-float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px var(--c-accent-glow));
+        }
+
+        @keyframes logo-float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
         .cine-bar {
             position: absolute;
             left: 0;
             width: 100%;
-            height: 15vh;
+            height: 12vh;
             background: var(--c-black);
-            z-index: 100;
-            transform: scaleY(1);
-            transform-origin: center;
-            will-change: transform;
-            transition: transform 1.5s var(--ease-out-expo);
+            z-index: 10000;
+            border: 2px solid rgba(99, 102, 241, 0.3);
         }
-        .cine-bar.top { top: 0; transform-origin: top; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .cine-bar.bottom { bottom: 0; transform-origin: bottom; border-top: 1px solid rgba(255,255,255,0.05); }
-        
-        body.is-loaded .cine-bar { transform: scaleY(0); }
+        .cine-bar.top { top: 0; }
+        .cine-bar.bottom { bottom: 0; }
 
-        /* 8.2 SCENE CONTAINER PHYSICS */
         .scene-container {
             position: relative;
             width: 100%;
             height: 100%;
-            display: grid;
-            place-items: center;
-            transform-style: preserve-3d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .scene {
             position: absolute;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             opacity: 0;
             visibility: hidden;
-            will-change: transform, opacity, filter;
-            pointer-events: none;
+            text-align: center;
+            gap: 20px;
+            padding: 0 20px;
         }
 
-        /* 8.3 ADVANCED TYPOGRAPHY ANIMATIONS (Per Scene) */
-        
-        /* Scene 1: Email Marketing (The "Glitch" Impact) */
+        .scene-sub {
+            font-family: var(--font-mono);
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: var(--c-accent-main);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* Scene 1: Enhanced Glitch */
         .scene-1 .display-xl {
             font-size: clamp(3rem, 10vw, 8rem);
             color: transparent;
             -webkit-text-stroke: 2px var(--c-white);
             position: relative;
+            text-shadow: 0 0 30px var(--c-accent-glow);
         }
-        
+
         .scene-1 .display-xl::before,
         .scene-1 .display-xl::after {
             content: attr(data-text);
             position: absolute;
-            top: 0; left: 0;
-            opacity: 0.8;
+            top: 0;
+            left: 0;
+            width: 100%;
         }
-        
+
         .scene-1 .display-xl::before {
             color: var(--c-accent-main);
             z-index: -1;
             clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+            animation: glitch-1 3s infinite;
         }
-        
+
         .scene-1 .display-xl::after {
             color: #00D4FF;
             z-index: -2;
             clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+            animation: glitch-2 2.5s infinite;
         }
 
-        @keyframes glitch-anim-1 {
+        @keyframes glitch-1 {
             0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
+            20% { transform: translate(-5px, 5px); }
+            40% { transform: translate(-5px, -5px); }
+            60% { transform: translate(5px, 5px); }
+            80% { transform: translate(5px, -5px); }
             100% { transform: translate(0); }
         }
 
-        @keyframes glitch-anim-2 {
+        @keyframes glitch-2 {
             0% { transform: translate(0); }
-            20% { transform: translate(2px, -2px); }
-            40% { transform: translate(2px, 2px); }
-            60% { transform: translate(-2px, -2px); }
-            80% { transform: translate(-2px, 2px); }
+            20% { transform: translate(5px, -5px); }
+            40% { transform: translate(5px, 5px); }
+            60% { transform: translate(-5px, -5px); }
+            80% { transform: translate(-5px, 5px); }
             100% { transform: translate(0); }
         }
 
-        /* Scene 2: Visual Design (The "Liquid" Reveal) */
-        .scene-2 .display-xl {
-            background: linear-gradient(180deg, #fff, #666);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: blur(0px);
-            transform: scale(1);
-            transition: filter 0.5s, transform 0.5s;
-        }
-        
-        /* Scene 3: The Black Hole (Final Reveal) */
+        /* Scene 3: Black Hole */
         .black-hole-container {
             position: relative;
-            width: 400px;
-            height: 400px;
+            width: min(400px, 80vw);
+            height: min(400px, 80vw);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -458,13 +377,26 @@
 
         .singularity {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 15px;
+            height: 15px;
             background: #000;
             border-radius: 50%;
-            box-shadow: 0 0 100px 50px rgba(99, 102, 241, 0.8);
+            box-shadow: 0 0 100px 50px rgba(99, 102, 241, 0.9),
+                        0 0 150px 80px rgba(99, 102, 241, 0.6),
+                        inset 0 0 30px rgba(99, 102, 241, 1);
             z-index: 2;
             animation: singularity-pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes singularity-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 100px 50px rgba(99, 102, 241, 0.8);
+            }
+            50% {
+                transform: scale(2);
+                box-shadow: 0 0 180px 100px rgba(99, 102, 241, 1);
+            }
         }
 
         .accretion-disk {
@@ -472,53 +404,40 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: conic-gradient(from 0deg, transparent 0%, var(--c-accent-main) 50%, transparent 100%);
-            animation: accretion-spin 1s linear infinite;
-            filter: blur(20px);
-            opacity: 0; /* Animated via GSAP */
+            background: conic-gradient(
+                from 0deg,
+                transparent 0%,
+                var(--c-accent-main) 25%,
+                #00D4FF 50%,
+                var(--c-accent-main) 75%,
+                transparent 100%
+            );
+            animation: accretion-spin 2s linear infinite;
+            filter: blur(30px);
+            opacity: 0;
         }
 
         @keyframes accretion-spin {
             0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(360deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1.2); }
         }
 
-        @keyframes singularity-pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 100px 50px rgba(99, 102, 241, 0.5); }
-            50% { transform: scale(1.5); box-shadow: 0 0 150px 80px rgba(99, 102, 241, 0.8); }
+        .final-profile-reveal {
+            position: absolute;
+            opacity: 0;
         }
 
-        /* 8.4 STARFIELD GENERATOR (Pure CSS Implementation) */
-        .starfield {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            perspective: 500px;
-            overflow: hidden;
-            z-index: -1;
-        }
-        
-        .star {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 2px;
-            height: 2px;
-            background: #fff;
+        .final-profile-reveal img {
+            width: min(280px, 60vw);
+            height: min(280px, 60vw);
             border-radius: 50%;
-            transform: translate3d(var(--x), var(--y), var(--z));
-            animation: warp-speed 2s linear infinite;
+            object-fit: cover;
+            border: 5px solid var(--c-accent-main);
+            box-shadow: 0 0 80px var(--c-accent-glow),
+                        0 30px 80px rgba(0,0,0,0.9);
         }
 
-        @keyframes warp-speed {
-            0% { opacity: 0; transform: translate3d(var(--x), var(--y), -1000px); }
-            50% { opacity: 1; }
-            100% { opacity: 0; transform: translate3d(var(--x), var(--y), 1000px); }
-        }
-
-        /* =========================================================================
-           9.0 NAVIGATION SYSTEMS (Glassmorphism & Magnetism)
-           ========================================================================= */
+        /* Navigation */
         .nav-fixed {
             position: fixed;
             top: 40px;
@@ -532,23 +451,20 @@
             align-items: center;
             padding: 20px 40px;
             border-radius: 100px;
-            background: rgba(10, 10, 10, 0.6);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(30px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 
-                0 20px 40px rgba(0,0,0,0.2), 
-                inset 0 1px 0 rgba(255,255,255,0.1);
-            transition: all 0.5s var(--ease-out-expo);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+            transition: all 0.6s var(--ease-out-expo);
         }
 
-        /* Dynamic Nav State on Scroll */
         body.is-scrolled .nav-fixed {
             top: 20px;
             padding: 15px 30px;
-            background: rgba(5, 5, 5, 0.85);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: rgba(5, 5, 5, 0.9);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6),
+                        0 0 60px rgba(99, 102, 241, 0.3);
         }
 
         .nav-logo {
@@ -556,27 +472,7 @@
             font-weight: 900;
             font-size: 1.5rem;
             letter-spacing: -0.05em;
-            color: var(--c-white);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-logo span {
-            display: inline-block;
-            transition: transform 0.3s var(--ease-elastic);
-        }
-
-        .nav-logo:hover span {
-            transform: translateY(-100%);
-        }
-        
-        /* Clone logic for hover roll effect */
-        .nav-logo span::after {
-            content: attr(data-char);
-            position: absolute;
-            top: 100%;
-            left: 0;
-            color: var(--c-accent-main);
+            cursor: none;
         }
 
         .nav-menu {
@@ -585,116 +481,99 @@
         }
 
         .nav-link {
-            position: relative;
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-family: var(--font-mono);
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: rgba(255, 255, 255, 0.7);
             border-radius: 50px;
-            transition: color 0.3s ease;
-            overflow: hidden;
+            transition: color 0.4s ease;
+            cursor: none;
+            position: relative;
         }
 
-        /* Magnetic Hover Fill */
         .nav-link::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--c-white);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--g-primary);
             transform: translateY(100%);
-            transition: transform 0.4s var(--ease-out-expo);
+            transition: transform 0.5s var(--ease-out-expo);
             z-index: -1;
             border-radius: 50px;
         }
 
         .nav-link:hover {
-            color: var(--c-black);
+            color: var(--c-white);
         }
 
         .nav-link:hover::before {
             transform: translateY(0);
         }
 
-        .nav-link.active {
-            color: var(--c-white);
-            background: rgba(255,255,255,0.1);
+        /* Button */
+        .btn-magnetic {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 40px;
             border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* Mobile Menu Trigger (Hamburger) */
-        .menu-toggle {
-            display: none;
-            width: 40px;
-            height: 40px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
+            border-radius: 100px;
             position: relative;
-            z-index: 1001;
+            overflow: hidden;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            color: var(--c-white);
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(10px);
+            cursor: none;
+            transition: all 0.4s ease;
         }
 
-        .menu-line {
+        .btn-magnetic::before {
+            content: '';
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 24px;
-            height: 2px;
-            background: var(--c-white);
-            transition: all 0.3s var(--ease-out-expo);
-        }
-        .menu-line:nth-child(1) { top: 14px; }
-        .menu-line:nth-child(2) { top: 24px; }
-
-        /* Mobile Responsive Nav */
-        @media (max-width: 768px) {
-            .nav-fixed {
-                top: 20px;
-                padding: 15px 20px;
-                width: 95%;
-            }
-            .nav-menu {
-                position: fixed;
-                top: 0; left: 0; width: 100vw; height: 100vh;
-                background: var(--c-black);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 40px;
-                transform: translateY(-100%);
-                transition: transform 0.6s var(--ease-out-expo);
-                z-index: -1; /* Behind nav bar */
-            }
-            .nav-menu.is-open {
-                transform: translateY(0);
-            }
-            .menu-toggle { display: block; }
-            
-            /* Animate Burger to X */
-            body.menu-open .menu-line:nth-child(1) { top: 19px; transform: translateX(-50%) rotate(45deg); }
-            body.menu-open .menu-line:nth-child(2) { top: 19px; transform: translateX(-50%) rotate(-45deg); }
-            
-            .nav-link { font-size: 1.5rem; }
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--g-primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.6s var(--ease-out-expo);
+            z-index: -1;
         }
 
-        /* =========================================================================
-           10.0 HERO SECTION ARCHITECTURE
-           ========================================================================= */
+        .btn-magnetic:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .btn-magnetic:hover {
+            border-color: transparent;
+            box-shadow: 0 20px 60px var(--c-accent-glow);
+        }
+
+        /* Hero */
         .hero-section {
             position: relative;
-            height: 100vh;
-            width: 100%;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding-top: 100px;
             overflow: hidden;
-            padding-top: 100px; /* Offset for Nav */
         }
 
         .hero-bg-text {
             position: absolute;
-            font-size: 25vw;
+            font-size: clamp(15vw, 25vw, 25vw);
             font-family: var(--font-display);
             font-weight: 900;
             color: rgba(255,255,255,0.02);
@@ -704,27 +583,20 @@
             transform: translate(-50%, -50%);
             pointer-events: none;
             user-select: none;
-        }
-
-        .hero-container {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            perspective: 1000px;
+            z-index: 1;
         }
 
         .hero-profile-wrapper {
             position: relative;
-            width: 300px;
-            height: 400px;
+            width: min(300px, 80vw);
+            height: min(400px, 100vw);
             margin: 0 auto 40px;
-            transform-style: preserve-3d;
             animation: hero-float 6s ease-in-out infinite;
         }
 
         @keyframes hero-float {
-            0%, 100% { transform: translateY(0) rotateX(0); }
-            50% { transform: translateY(-20px) rotateX(2deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         .hero-img-mask {
@@ -732,169 +604,372 @@
             height: 100%;
             border-radius: 120px;
             overflow: hidden;
-            position: relative;
-            /* Advanced border gradient */
             padding: 4px;
             background: var(--g-primary);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            -webkit-mask-composite: xor;
+            background-size: 200% 200%;
+            animation: gradient-rotate 10s linear infinite;
         }
-        
+
+        @keyframes gradient-rotate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .hero-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 116px; /* Inner radius */
+            border-radius: 116px;
             filter: grayscale(20%) contrast(110%);
-            transition: filter 0.5s ease;
+            transition: all 0.6s ease;
         }
-        
+
         .hero-profile-wrapper:hover .hero-img {
             filter: grayscale(0%) contrast(100%);
+            transform: scale(1.05);
         }
 
         .hero-status-pill {
             position: absolute;
             bottom: 20px;
-            right: -40px;
+            right: -20px;
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.2);
-            padding: 10px 25px;
+            padding: 12px 28px;
             border-radius: 50px;
             display: flex;
             align-items: center;
             gap: 10px;
-            transform: translateZ(50px); /* 3D pop */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
         .status-dot {
-            width: 8px; height: 8px;
+            width: 8px;
+            height: 8px;
             background: #00ff88;
             border-radius: 50%;
-            box-shadow: 0 0 10px #00ff88;
+            box-shadow: 0 0 15px #00ff88;
             animation: blink 2s infinite;
         }
 
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-        .hero-h1 {
-            mix-blend-mode: exclusion;
-            position: relative;
-            z-index: 20;
-            margin-top: -80px; /* Overlap image */
-        }
-        /* =========================================================================
-           11.0 BENTO GRID ENGINE (The "Apple" Style Layout)
-           ========================================================================= */
-        .bento-section {
-            position: relative;
-            z-index: 20;
-            padding-bottom: 100px;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-auto-rows: minmax(180px, auto);
-            gap: 24px;
-            width: 100%;
-            perspective: 2000px; /* For 3D card tilts */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+            color: var(--c-accent-main);
         }
 
-        /* Responsive Spans */
-        .col-span-12 { grid-column: span 12; }
-        .col-span-8  { grid-column: span 8; }
-        .col-span-6  { grid-column: span 6; }
-        .col-span-4  { grid-column: span 4; }
-        .col-span-3  { grid-column: span 3; }
-        
-        .row-span-2 { grid-row: span 2; }
-
-        /* Mobile Collapsing Logic */
-        @media (max-width: 1024px) {
-            .col-span-8, .col-span-6, .col-span-4, .col-span-3 {
-                grid-column: span 12; /* Stack everything on tablet/mobile */
-            }
-            .bento-grid { gap: 16px; }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-15px); }
         }
 
-        /* =========================================================================
-           12.0 LIQUID GLASS CARD PHYSICS (The "Expensive" Look)
-           ========================================================================= */
-        .glass-card {
-            position: relative;
+        /* Glass Panel */
+        .glass-panel {
             background: rgba(20, 20, 20, 0.4);
             border-radius: 32px;
             padding: 40px;
-            overflow: hidden;
-            /* The "Frosted" Effect */
             backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
-            /* The "Thin" Border */
-            box-shadow: 
-                inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-                0 20px 50px rgba(0, 0, 0, 0.5);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            transform-style: preserve-3d;
-            will-change: transform, box-shadow;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+                        0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.6s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* 12.1 The "Shine" Interaction (Mouse Tracking) */
-        .glass-card::before {
+        .glass-panel::before {
             content: "";
             position: absolute;
             inset: 0;
             border-radius: 32px;
-            padding: 2px; /* Border width */
-            background: linear-gradient(
-                135deg, 
-                rgba(255, 255, 255, 0.4), 
-                rgba(255, 255, 255, 0) 40%, 
-                rgba(255, 255, 255, 0) 60%, 
-                rgba(255, 255, 255, 0.1)
-            ); 
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
+            padding: 2px;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.5),
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                          linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
             opacity: 0.5;
-            transition: opacity 0.5s ease;
         }
 
-        /* 12.2 The "Liquid" Noise Texture */
-        .glass-card::after {
-            content: '';
+        .glass-panel:hover {
+            transform: translateY(-10px);
+            box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.4),
+                        0 40px 100px rgba(0, 0, 0, 0.7),
+                        0 0 60px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Work Card */
+        .work-card {
+            position: relative;
+            aspect-ratio: 4/5;
+            border-radius: 24px;
+            cursor: none;
+        }
+
+        .work-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .work-img-wrapper {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-            opacity: 0.4;
-            mix-blend-mode: overlay;
+            inset: 0;
+            background: var(--c-charcoal);
+        }
+
+        .work-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.05);
+            filter: grayscale(100%) brightness(0.8);
+            transition: transform 1.2s var(--ease-out-expo),
+                        filter 0.6s ease;
+        }
+
+        .work-card:hover .work-card-inner {
+            transform: translateY(-12px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6),
+                        0 0 0 1px rgba(99, 102, 241, 0.3);
+        }
+
+        .work-card:hover .work-img {
+            transform: scale(1.2);
+            filter: grayscale(0%) brightness(1);
+        }
+
+        .work-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top,
+                rgba(0,0,0,0.95) 0%,
+                rgba(0,0,0,0.7) 50%,
+                transparent 100%);
             pointer-events: none;
-            z-index: 1;
         }
 
-        /* Hover State: Lift & Glow */
-        .glass-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 
-                inset 0 0 0 1px rgba(99, 102, 241, 0.3), /* Accent border on hover */
-                0 40px 80px rgba(0, 0, 0, 0.6);
-            z-index: 10;
+        .work-cat {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--c-accent-main);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s var(--ease-out-expo);
         }
 
-        .glass-card:hover::before {
-            opacity: 1; /* Brighter border */
+.work-title {
+            font-size: 1.75rem;
+            line-height: 1.1;
+            color: var(--c-white);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s var(--ease-out-expo) 0.1s;
         }
 
-        /* =========================================================================
-           13.0 CONTENT STYLING WITHIN CARDS
-           ========================================================================= */
+        .work-card:hover .work-cat,
+        .work-card:hover .work-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .work-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(99, 102, 241, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            transform: scale(0);
+            transition: all 0.5s var(--ease-elastic);
+            z-index: 20;
+        }
+
+        .work-card:hover .work-badge {
+            transform: scale(1);
+        }
+
+        .work-badge svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--c-white);
+            transform: rotate(-45deg);
+            transition: transform 0.5s ease;
+        }
+
+        .work-card:hover .work-badge svg {
+            transform: rotate(0deg);
+        }
+
+        /* Grid Layouts */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+            margin-bottom: 100px;
+        }
+
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-6 { grid-column: span 6; }
+        .col-span-4 { grid-column: span 4; }
+        .row-span-2 { grid-row: span 2; }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        /* Filter Pills */
+        .filter-sticky-wrapper {
+            position: sticky;
+            top: 140px;
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+            margin-bottom: 60px;
+        }
+
+        .filter-pill {
+            display: inline-flex;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 100px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .filter-pill:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.4s ease;
+        }
+
+        .filter-btn-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--g-primary);
+            border-radius: 50px;
+            z-index: -1;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.5s var(--ease-elastic);
+        }
+
+        .filter-btn.active {
+            color: var(--c-white);
+            font-weight: 700;
+        }
+
+        .filter-btn.active .filter-btn-bg {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .filter-btn:hover:not(.active) {
+            color: var(--c-white);
+        }
+
+        .filter-btn:hover:not(.active) .filter-btn-bg {
+            transform: scale(0.95);
+            opacity: 0.2;
+        }
+
+        /* Stats & Cards */
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.5) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .stat-value::after {
+            content: attr(data-value);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--c-accent-main);
+            filter: blur(40px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.6);
+        }
+
         .card-label {
             font-family: var(--font-mono);
             font-size: 0.75rem;
@@ -909,16 +984,22 @@
 
         .card-label::before {
             content: '';
-            width: 6px; height: 6px;
+            width: 6px;
+            height: 6px;
             background: var(--c-accent-main);
             border-radius: 50%;
             box-shadow: 0 0 10px var(--c-accent-main);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.4); }
         }
 
         .card-h2 {
             font-size: clamp(1.5rem, 3vw, 2.5rem);
             margin-bottom: 24px;
-            font-weight: 700;
             line-height: 1.1;
         }
 
@@ -928,339 +1009,81 @@
             line-height: 1.7;
         }
 
-        .card-p strong {
-            color: var(--c-white);
-            font-weight: 600;
-        }
-
-        /* =========================================================================
-           14.0 SPECIALIZED CARD: STATS (The "Counter" Cards)
-           ========================================================================= */
-        .stat-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-        }
-
-        .stat-value {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 900;
-            line-height: 1;
-            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.5) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-            position: relative;
-        }
-        
-        /* The "Glow" behind the number */
-        .stat-value::after {
-            content: attr(data-value);
-            position: absolute;
-            left: 0; top: 0; width: 100%;
-            color: var(--c-accent-main);
-            filter: blur(40px);
-            opacity: 0.3;
-            z-index: -1;
-        }
-
-        .stat-label {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: rgba(255,255,255,0.6);
-        }
-
-        /* =========================================================================
-           15.0 SPECIALIZED CARD: JOURNEY (Timeline)
-           ========================================================================= */
+        /* Journey Timeline */
         .journey-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
             margin-top: 20px;
         }
 
         .journey-item {
             display: flex;
             gap: 20px;
-            padding-bottom: 20px;
+            padding-bottom: 24px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
         }
-        .journey-item:last-child { border-bottom: none; }
+
+        .journey-item:hover {
+            padding-left: 10px;
+            border-bottom-color: rgba(99, 102, 241, 0.3);
+        }
 
         .journey-year {
             font-family: var(--font-mono);
             color: var(--c-accent-main);
             font-weight: 700;
-            min-width: 60px;
+            min-width: 70px;
         }
 
         .journey-detail h4 {
             font-size: 1.1rem;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
-        
+
         .journey-detail p {
             font-size: 0.9rem;
             color: rgba(255,255,255,0.5);
         }
-        /* =========================================================================
-           16.0 ADVANCED FILTERING SYSTEM (Magnetic Glass Pill)
-           ========================================================================= */
-        .filter-sticky-wrapper {
-            position: sticky;
-            top: 120px; /* Below Nav */
-            z-index: 50;
-            display: flex;
-            justify-content: center;
-            padding: 20px 0;
-            margin-bottom: 60px;
-            pointer-events: none; /* Let clicks pass through around the pill */
-        }
 
-        .filter-pill {
-            pointer-events: auto;
-            display: inline-flex;
-            gap: 8px;
-            padding: 8px;
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 100px;
-            box-shadow: 
-                0 20px 40px rgba(0,0,0,0.3),
-                inset 0 1px 0 rgba(255,255,255,0.1);
-            transform: translateY(0);
-            transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
-        }
-
-        .filter-pill:hover {
-            transform: translateY(-2px);
-            box-shadow: 
-                0 30px 60px rgba(0,0,0,0.4),
-                inset 0 1px 0 rgba(255,255,255,0.2);
-        }
-
-        .filter-btn {
-            position: relative;
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.6);
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        /* The "Active" Blob Background */
-        .filter-btn-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--c-white);
-            border-radius: 50px;
-            z-index: -1;
-            transform: scale(0.8);
-            opacity: 0;
-            transition: transform 0.4s var(--ease-elastic), opacity 0.3s;
-        }
-
-        .filter-btn.active { color: var(--c-black); font-weight: 700; }
-        .filter-btn.active .filter-btn-bg { transform: scale(1); opacity: 1; }
-        
-        .filter-btn:hover:not(.active) { color: var(--c-white); }
-        .filter-btn:hover:not(.active) .filter-btn-bg { transform: scale(0.9); opacity: 0.1; }
-
-        /* =========================================================================
-           17.0 PORTFOLIO GRID ENGINE (Masonry Simulation)
-           ========================================================================= */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-            gap: 40px;
-            width: 100%;
-            perspective: 1000px;
-        }
-
-        @media (max-width: 768px) {
-            .portfolio-grid { grid-template-columns: 1fr; gap: 20px; }
-        }
-
-        /* 17.1 THE 3D CARD CHASSIS */
-        .work-card {
-            position: relative;
-            aspect-ratio: 4/5;
-            border-radius: 24px;
-            perspective: 1000px;
-            cursor: none;
-            opacity: 0; /* Handled by GSAP Stagger */
-            transform: translateY(50px);
-        }
-        
-        /* 17.2 The Inner Rotator */
-        .work-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            border-radius: 24px;
-            overflow: hidden;
-            /* Performance Hint */
-            will-change: transform;
-        }
-
-        /* 17.3 Image Processing Layer */
-        .work-img-wrapper {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: var(--c-charcoal);
-        }
-
-        .work-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: scale(1.05); /* Slight zoom for parallax room */
-            filter: grayscale(100%) brightness(0.8);
-            transition: 
-                transform 1.2s var(--ease-out-expo),
-                filter 0.6s ease;
-        }
-
-        /* 17.4 Hover Interactions */
-        .work-card:hover .work-card-inner {
-            transform: translateY(-10px);
-            box-shadow: 
-                0 30px 60px rgba(0,0,0,0.5),
-                0 0 0 1px rgba(255,255,255,0.1); /* Subtle rim light */
-        }
-
-        .work-card:hover .work-img {
-            transform: scale(1.15);
-            filter: grayscale(0%) brightness(1);
-        }
-
-        /* =========================================================================
-           18.0 WORK CONTENT OVERLAY (Staggered Reveals)
-           ========================================================================= */
-        .work-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 40px;
-            z-index: 10;
-            background: linear-gradient(
-                to top,
-                rgba(0,0,0,0.9) 0%,
-                rgba(0,0,0,0.6) 50%,
-                transparent 100%
-            );
-            transform: translateZ(20px); /* 3D Separation */
-            pointer-events: none;
-        }
-
-        .work-cat {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--c-accent-main);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 12px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s var(--ease-out-expo);
-            transition-delay: 0s;
-        }
-
-        .work-title {
-            font-size: 1.75rem;
-            line-height: 1.1;
-            margin-bottom: 0;
-            color: var(--c-white);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s var(--ease-out-expo);
-            transition-delay: 0.1s;
-        }
-
-        /* Reveal on Hover */
-        .work-card:hover .work-cat,
-        .work-card:hover .work-title {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 18.1 Floating Badge (Top Right) */
-        .work-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255,255,255,0.2);
-            transform: translateZ(30px) scale(0);
-            transition: transform 0.4s var(--ease-elastic);
-            z-index: 20;
-        }
-        
-        .work-card:hover .work-badge {
-            transform: translateZ(30px) scale(1);
-        }
-
-        .work-badge svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--c-white);
-            transform: rotate(-45deg);
-            transition: transform 0.4s ease;
-        }
-
-        .work-card:hover .work-badge svg {
-            transform: rotate(0deg);
-        }
-
-        /* =========================================================================
-           19.0 TESTIMONIAL ENGINE (Infinite Marquee)
-           ========================================================================= */
+        /* Testimonials Marquee */
         .marquee-section {
-            padding: 120px 0;
-            background: var(--c-black);
+            padding: 140px 0;
             overflow: hidden;
             border-top: 1px solid rgba(255,255,255,0.05);
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        .marquee-section::before,
+        .marquee-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .marquee-section::before {
+            left: 0;
+            background: linear-gradient(90deg, var(--c-black), transparent);
+        }
+
+        .marquee-section::after {
+            right: 0;
+            background: linear-gradient(270deg, var(--c-black), transparent);
         }
 
         .marquee-track {
             display: flex;
             width: max-content;
             gap: 40px;
-            animation: marquee-scroll 60s linear infinite;
+            animation: marquee-scroll 80s linear infinite;
         }
-        
+
         .marquee-track:hover {
             animation-play-state: paused;
         }
@@ -1274,35 +1097,26 @@
             width: 450px;
             background: rgba(20,20,20,0.6);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 40px;
             flex-shrink: 0;
-            transition: background 0.3s;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(20px);
         }
 
         .test-card:hover {
             background: rgba(30,30,30,0.8);
-            border-color: rgba(255,255,255,0.2);
-        }
-        /* =========================================================================
-           20.0 FOOTER ARCHITECTURE (The "Grand Finale")
-           ========================================================================= */
-        .footer-section {
-            position: relative;
-            padding: 15vh 5%;
-            background: var(--c-black);
-            overflow: hidden;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            text-align: center;
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
         }
 
-        /* 20.1 The Massive CTA */
-        .footer-cta-wrapper {
-            position: relative;
-            z-index: 10;
-            display: inline-block;
-            margin: 4vh 0;
-            perspective: 1000px;
+        /* Footer */
+        .footer-section {
+            padding: 15vh 5%;
+            background: var(--c-black);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
         }
 
         .footer-cta {
@@ -1312,63 +1126,67 @@
             font-weight: 900;
             line-height: 0.9;
             color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            -webkit-text-stroke: 2px rgba(255,255,255,0.3);
             text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.5s var(--ease-out-expo);
+            cursor: pointer;
             position: relative;
+            margin: 4vh 0;
         }
 
-        /* The "Fill" Animation */
         .footer-cta::before {
             content: attr(data-text);
             position: absolute;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             color: var(--c-white);
             width: 0%;
             overflow: hidden;
-            transition: width 0.5s var(--ease-out-expo);
+            transition: width 0.8s var(--ease-out-expo);
             white-space: nowrap;
             border-right: 4px solid var(--c-accent-main);
-        }
-
-        .footer-cta:hover {
-            transform: scale(1.05) rotateX(10deg);
-            text-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
         }
 
         .footer-cta:hover::before {
             width: 100%;
         }
 
-        /* 20.2 Social Links & Copy */
         .footer-socials {
             display: flex;
             justify-content: center;
             gap: 40px;
             margin-top: 60px;
+            flex-wrap: wrap;
         }
 
         .social-link {
             font-family: var(--font-mono);
             font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
             color: rgba(255,255,255,0.5);
             position: relative;
             padding-bottom: 5px;
+            cursor: pointer;
+            transition: color 0.4s ease;
         }
 
         .social-link::after {
             content: '';
             position: absolute;
-            bottom: 0; left: 0; width: 0%; height: 1px;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
             background: var(--c-accent-main);
-            transition: width 0.3s ease;
+            transition: width 0.4s ease;
         }
 
-        .social-link:hover { color: var(--c-white); }
-        .social-link:hover::after { width: 100%; }
+        .social-link:hover {
+            color: var(--c-white);
+        }
+
+        .social-link:hover::after {
+            width: 100%;
+        }
 
         .footer-copy {
             margin-top: 100px;
@@ -1379,72 +1197,147 @@
             letter-spacing: 0.2em;
         }
 
-        /* =========================================================================
-           21.0 UTILITY CLASSES & ANIMATION HELPERS
-           ========================================================================= */
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .menu-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 2px;
+            background: var(--c-white);
+            transition: all 0.4s var(--ease-out-expo);
+            border-radius: 2px;
+        }
+
+        .menu-line:nth-child(1) { top: 14px; }
+        .menu-line:nth-child(2) { top: 24px; }
+
+        body.menu-open .menu-line:nth-child(1) {
+            top: 19px;
+            transform: translateX(-50%) rotate(45deg);
+        }
+
+        body.menu-open .menu-line:nth-child(2) {
+            top: 19px;
+            transform: translateX(-50%) rotate(-45deg);
+        }
+
+        /* Utility Classes */
+        .py-section { padding: 15vh 0; }
+        .mb-sm { margin-bottom: 1rem; }
+        .mb-md { margin-bottom: 2rem; }
+        .mb-lg { margin-bottom: 4rem; }
+        .mb-xl { margin-bottom: 8rem; }
         .u-overflow-hidden { overflow: hidden; }
-        .u-relative { position: relative; }
-        .u-z-10 { z-index: 10; }
-        
-        /* 21.1 Split Text Animation Helpers (Used by JS) */
-        .char { display: inline-block; transform-origin: center bottom; }
-        .word { display: inline-block; overflow: hidden; vertical-align: bottom; }
-        
-        /* 21.2 Focus States for Accessibility */
-        :focus-visible {
-            outline: 2px solid var(--c-accent-main);
-            outline-offset: 4px;
+        .d-block { display: block; }
+        .flex-center { display: flex; justify-content: center; align-items: center; }
+        .text-center { text-align: center; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .col-span-8, .col-span-6, .col-span-4 {
+                grid-column: span 12;
+            }
         }
 
-        /* 21.3 Mobile Adjustments */
         @media (max-width: 768px) {
-            .container { padding: 0 20px; }
-            .section-padding { padding: 80px 0; }
-            .display-xl { font-size: 15vw; }
+            body { cursor: auto; }
+            .cursor-wrapper { display: none; }
+
+            .nav-fixed {
+                top: 20px;
+                padding: 15px 20px;
+                width: 95%;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(5, 5, 5, 0.98);
+                backdrop-filter: blur(40px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transform: translateY(-100%);
+                transition: transform 0.6s var(--ease-out-expo);
+                z-index: 999;
+            }
+
+            .nav-menu.is-open {
+                transform: translateY(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-link {
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .filter-pill {
+                flex-wrap: wrap;
+                max-width: 90%;
+            }
+
+            .filter-btn {
+                cursor: pointer;
+            }
+
+            .btn-magnetic,
+            .work-card,
+            .nav-link,
+            .social-link,
+            .footer-cta {
+                cursor: pointer;
+            }
+
+            .hero-section {
+                padding-top: 120px;
+            }
+
+            .hero-status-pill {
+                right: 10px;
+                bottom: 10px;
+            }
         }
 
-    </style> </head>
+        body.loading #main-content {
+            opacity: 0;
+        }
+    </style>
+</head>
 <body class="loading">
-
     <div class="vfx-grain"></div>
 
-    <svg style="display: none;">
-        <defs>
-            <filter id="liquid-distortion">
-                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="3" seed="2" result="noise"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="30" xChannelSelector="R" yChannelSelector="G"/>
-            </filter>
-            
-            <filter id="chromatic">
-                <feOffset in="SourceGraphic" dx="2" dy="0" result="red"/>
-                <feOffset in="SourceGraphic" dx="-2" dy="0" result="blue"/>
-                <feBlend in="red" in2="blue" mode="screen"/>
-            </filter>
-        </defs>
-    </svg>
-
+    <!-- Custom Cursor -->
     <div class="cursor-wrapper">
         <div class="cursor-dot"></div>
         <div class="cursor-circle"></div>
     </div>
 
-    <div class="audio-controller" style="display:none;">
-        <audio id="whoosh" preload="auto">
-            <source src="sounds/whoosh.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="impact" preload="auto">
-            <source src="sounds/impact.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="reveal" preload="auto">
-            <source src="sounds/reveal.mp3" type="audio/mpeg">
-        </audio>
-        <audio id="ambient" loop preload="auto">
-            <source src="sounds/final.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-
+    <!-- Cinematic Loader -->
     <div class="loader-stage">
-        
         <div id="start-overlay">
             <button class="btn-magnetic" id="start-btn">
                 <span>Initialize System</span>
@@ -1455,7 +1348,6 @@
         <div class="cine-bar bottom"></div>
 
         <div class="scene-container">
-
             <div class="scene scene-1">
                 <h1 class="display-xl" data-text="EMAIL">EMAIL</h1>
                 <h1 class="display-xl" data-text="MARKETING">MARKETING</h1>
@@ -1463,293 +1355,161 @@
             </div>
 
             <div class="scene scene-2">
-               <h1 class="display-xl">VISUAL</h1>
+                <h1 class="display-xl">VISUAL</h1>
                 <h1 class="display-xl text-gradient">DESIGN</h1>
                 <div class="scene-sub">90% Real World Detail</div>
             </div>
 
             <div class="scene scene-3">
-                <h1 class="display-xl" style="font-family: var(--font-mono);">SEO &</h1>
-                <h1 class="display-xl">CONTENT</h1>
-                <div class="scene-sub">Data Driven Growth</div>
-            </div>
-
-            <div class="scene scene-final">
                 <div class="black-hole-container">
                     <div class="singularity"></div>
                     <div class="accretion-disk"></div>
                 </div>
-                <div class="final-profile-reveal" style="position: absolute; opacity: 0;">
-                    <img src="images/profile/profile.jpg" alt="Profile" style="width: 250px; height: 250px; border-radius: 50%; object-fit: cover; border: 4px solid var(--c-accent-main);">
+                <div class="final-profile-reveal">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop" alt="Profile">
                 </div>
             </div>
         </div>
     </div>
-    <nav class="nav-fixed">
-        
-        <a href="#" class="nav-logo" aria-label="Home">
-            <span style="display:inline-flex;">
-                <span class="char" data-char="N">N</span>
-                <span class="char" data-char="T">T</span>
-                <span class="char" data-char="A">A</span>
-                <span class="char" style="color:var(--c-accent-main)" data-char=".">.</span>
-            </span>
-        </a>
 
-        <div class="nav-menu desktop-only">
-            <a href="#about" class="nav-link">
-                <span data-text="About">About</span>
-            </a>
-            <a href="#work" class="nav-link">
-                <span data-text="Work">Work</span>
-            </a>
-            <a href="#testimonials" class="nav-link">
-                <span data-text="Reviews">Reviews</span>
-            </a>
-            <a href="#contact" class="nav-link">
-                <span data-text="Contact">Contact</span>
-            </a>
+    <!-- Navigation -->
+    <nav class="nav-fixed">
+        <div class="nav-logo">NTA.</div>
+
+        <div class="nav-menu">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#work" class="nav-link">Work</a>
+            <a href="#contact" class="nav-link">Contact</a>
         </div>
 
-        <button class="menu-toggle" aria-label="Toggle Menu">
+        <button class="menu-toggle">
             <div class="menu-line"></div>
             <div class="menu-line"></div>
         </button>
     </nav>
 
-    <main id="main-content" class="u-overflow-hidden">
-        
-        <section class="hero-section" data-scroll-section>
-            
-            <div class="hero-bg-text" data-scroll data-scroll-speed="-2">
-                PORTFOLIO 2025
-            </div>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero -->
+        <section class="hero-section">
+            <div class="hero-bg-text">PORTFOLIO 2025</div>
 
-            <div class="container hero-container">
-                
+            <div class="container">
                 <div class="hero-profile-wrapper">
                     <div class="hero-img-mask">
-                        <img src="images/profile/profile.jpg" 
-                             alt="Nguyen Tu Anh - Creative Strategist" 
-                             class="hero-img"
-                             data-scroll 
-                             data-scroll-speed="0.5">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop" alt="Profile" class="hero-img">
                     </div>
-
                     <div class="hero-status-pill">
                         <div class="status-dot"></div>
-                        <span style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
-                            Open for Work
-                        </span>
+                        <span>Open for Work</span>
                     </div>
                 </div>
 
-                <h1 class="hero-h1">
+                <div style="text-align: center;">
                     <div class="u-overflow-hidden">
-                        <span class="display-xl d-block" data-animate="slide-up">CREATIVE</span>
+                        <h1 class="display-xl d-block">CREATIVE</h1>
                     </div>
                     <div class="u-overflow-hidden">
-                        <span class="display-xl d-block text-gradient" data-animate="slide-up" style="font-family: var(--font-serif); font-style: italic;">
-                            IMPACT
-                        </span>
+                        <h1 class="display-xl d-block text-gradient" style="font-family: var(--font-serif); font-style: italic;">IMPACT</h1>
                     </div>
-                </h1>
 
-                <div class="hero-footer flex-center flex-col" style="margin-top: 40px; opacity: 0;" id="hero-fade-in">
-                    <p class="mb-md" style="max-width: 500px; color: var(--c-accent-main); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem;">
-                        Strategist • Visual Designer • Content Creator
-                    </p>
-                    
-                    <div style="display: flex; gap: 20px;">
-                        <a href="#work" class="btn-magnetic">
-                            <span>View Selected Work</span>
-                        </a>
-                        <a href="#contact" class="btn-magnetic" style="background: transparent; border: 1px solid rgba(255,255,255,0.2);">
-                            <span>Let's Talk</span>
-                        </a>
+                    <div style="margin-top: 40px;">
+                        <p class="mb-md" style="color: var(--c-accent-main); letter-spacing: 2px; text-transform: uppercase;">
+                            Strategist • Designer • Creator
+                        </p>
+                        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                            <a href="#work" class="btn-magnetic">View Work</a>
+                            <a href="#contact" class="btn-magnetic">Let's Talk</a>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-            </div> <div class="scroll-indicator" style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); opacity: 0.5; animation: bounce 2s infinite;">
+            <div class="scroll-indicator">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
                 </svg>
             </div>
-
         </section>
 
-        <section id="about" class="bento-section py-section" data-scroll-section>
+        <!-- About Section -->
+        <section id="about" class="py-section">
             <div class="container">
-                
                 <div class="mb-xl text-center">
-                    <h2 class="display-lg mb-sm" data-scroll data-scroll-speed="0.5">THE ARCHITECT</h2>
-                    <p class="text-muted" style="max-width: 600px; margin: 0 auto;">
-                        A fusion of data-driven strategy and high-fidelity visual design.
-                    </p>
+                    <h2 style="font-size: var(--fs-display-lg);" class="mb-sm">THE ARCHITECT</h2>
+                    <p style="color: rgba(255,255,255,0.6);">Data-driven strategy meets high-fidelity design.</p>
                 </div>
 
                 <div class="bento-grid">
-                  <div class="glass-panel col-span-8 row-span-2" 
-                     data-scroll 
-                     data-scroll-speed="0.2">
-                    
-                    <div class="card-label">
-                        <span>Core Philosophy</span>
+                    <div class="glass-panel col-span-8 row-span-2">
+                        <div class="card-label">Core Philosophy</div>
+                        <h3 class="card-h2 text-outline">
+                            CREATIVITY IS<br>
+                            <span class="text-gradient">INTELLIGENCE</span><br>
+                            HAVING FUN.
+                        </h3>
+                        <p class="card-p mb-md">
+                            True creative strategy is the rigorous application of <strong>market data</strong>, <strong>psychological triggers</strong>, and <strong>aesthetic precision</strong>.
+                        </p>
+                        <p class="card-p">
+                            I don't just make things "look good"—I make them <strong>perform</strong>.
+                        </p>
                     </div>
-                    
-                    <h3 class="card-h2 text-outline">
-                        CREATIVITY IS <br>
-                        <span class="text-gradient">INTELLIGENCE</span> <br>
-                        HAVING FUN.
-                    </h3>
-                    
-                    <p class="card-p mb-md">
-                        True creative strategy isn't about waiting for a muse. It is the rigorous application of <strong>market data</strong>, <strong>psychological triggers</strong>, and <strong>aesthetic precision</strong>.
-                    </p>
-                    
-                    <p class="card-p">
-                        Whether it's Email Marketing, Social Media, or Visual Design, I focus on the fusion of knowledge and experience. I don't just make things "look good"—I make them <strong>perform</strong>.
-                    </p>
 
-                    <div style="position: absolute; right: -50px; bottom: -50px; opacity: 0.1;">
-                        <svg width="300" height="300" viewBox="0 0 100 100" fill="none" stroke="currentColor">
-                            <circle cx="50" cy="50" r="40" stroke-width="0.5"/>
-                            <circle cx="50" cy="50" r="30" stroke-width="0.5"/>
-                            <circle cx="50" cy="50" r="20" stroke-width="0.5"/>
-                        </svg>
-                    </div>
-                </div>
-
-                <div class="glass-panel col-span-4 flex-center flex-col" 
-                     data-scroll 
-                     data-scroll-speed="0.4">
-                    
-                    <div class="stat-card">
-                        <div class="stat-value" data-value="3.7">3.7</div>
-                        <div class="stat-label">GPA / 4.0 (Class I)</div>
-                        <div style="margin-top: 10px; font-size: 0.7rem; color: var(--c-accent-main);">
-                            University of Greenwich
+                    <div class="glass-panel col-span-4">
+                        <div class="stat-card">
+                            <div class="stat-value" data-value="3.7">3.7</div>
+                            <div class="stat-label">GPA / 4.0 (Class I)</div>
                         </div>
                     </div>
-                </div>
 
-                <div class="glass-panel col-span-4 flex-center flex-col" 
-                     data-scroll 
-                     data-scroll-speed="0.3">
-                    
-                    <div class="stat-card">
-                        <div class="stat-value" data-value="90%">90%</div>
-                        <div class="stat-label">Visual Fidelity</div>
-                        <div style="margin-top: 10px; font-size: 0.7rem; opacity: 0.6;">
-                            Real-World Detail Retention
+                    <div class="glass-panel col-span-4">
+                        <div class="stat-card">
+                            <div class="stat-value" data-value="90%">90%</div>
+                            <div class="stat-label">Visual Fidelity</div>
                         </div>
                     </div>
-                </div>
 
-                <div class="glass-panel col-span-6" 
-                     data-scroll 
-                     data-scroll-speed="0.1">
-                    
-                    <div class="card-label">
-                        <span>The Journey</span>
-                    </div>
-
-                    <div class="journey-list">
-                        <div class="journey-item">
-                            <div class="journey-year">2021-24</div>
-                            <div class="journey-detail">
-                                <h4 style="color: var(--c-white);">University of Greenwich</h4>
-                                <p>Bachelor of Arts in Marketing Management.</p>
-                                <ul style="margin-top: 10px; font-size: 0.85rem; color: rgba(255,255,255,0.4); padding-left: 15px;">
-                                    <li>• Organized University Events</li>
-                                    <li>• Marketing Proposal Development</li>
-                                    <li>• Booth Promotion Competition</li>
-                                </ul>
+                    <div class="glass-panel col-span-6">
+                        <div class="card-label">The Journey</div>
+                        <div class="journey-list">
+                            <div class="journey-item">
+                                <div class="journey-year">2021-24</div>
+                                <div class="journey-detail">
+                                    <h4>University of Greenwich</h4>
+                                    <p>Bachelor of Arts in Marketing Management</p>
+                                </div>
+                            </div>
+                            <div class="journey-item">
+                                <div class="journey-year">2018-21</div>
+                                <div class="journey-detail">
+                                    <h4>High School</h4>
+                                    <p>Social Media Manager</p>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="journey-item">
-                            <div class="journey-year">2018-21</div>
-                            <div class="journey-detail">
-                                <h4 style="color: var(--c-white);">Nguyen Huu Cau High School</h4>
-                                <p>Social Media Manager.</p>
-                                <ul style="margin-top: 10px; font-size: 0.85rem; color: rgba(255,255,255,0.4); padding-left: 15px;">
-                                    <li>• Managed FB & Instagram Pages</li>
-                                    <li>• Developed Content Pillars</li>
-                                    <li>• Analyzed Engagement Metrics</li>
-                                </ul>
-                            </div>
+                    <div class="glass-panel col-span-6">
+                        <div class="card-label">Arsenal</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center;">
+                            <div><div style="font-size: 2.5rem;">🎨</div><div style="font-size: 0.8rem;">Canva</div></div>
+                            <div><div style="font-size: 2.5rem;">🌐</div><div style="font-size: 0.8rem;">WordPress</div></div>
+                            <div><div style="font-size: 2.5rem;">📸</div><div style="font-size: 0.8rem;">Lightroom</div></div>
+                            <div><div style="font-size: 2.5rem;">🤖</div><div style="font-size: 0.8rem;">ChatGPT</div></div>
+                            <div><div style="font-size: 2.5rem;">📊</div><div style="font-size: 0.8rem;">HubSpot</div></div>
+                            <div><div style="font-size: 2.5rem;">🎬</div><div style="font-size: 0.8rem;">CapCut</div></div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="glass-panel col-span-6" 
-                     data-scroll 
-                     data-scroll-speed="0.15">
-                     
-                    <div class="card-label">
-                        <span>Arsenal</span>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center;">
-                        
-                        <div class="tool-item">
-                            <div class="tool-icon flex-center" style="margin: 0 auto 10px;">
-                                <span>🎨</span>
-                            </div>
-                            <div style="font-size: 0.8rem; font-weight: 600;">Canva</div>
-                        </div>
-
-                        <div class="tool-item">
-                            <div class="tool-icon flex-center" style="margin: 0 auto 10px;">
-                                <span>🌐</span>
-                            </div>
-                            <div style="font-size: 0.8rem; font-weight: 600;">WordPress</div>
-                        </div>
-
-                        <div class="tool-item">
-                            <div class="tool-icon flex-center" style="margin: 0 auto 10px;">
-                                <span>📸</span>
-                            </div>
-                            <div style="font-size: 0.8rem; font-weight: 600;">Lightroom</div>
-                        </div>
-
-                        <div class="tool-item">
-                            <div class="tool-icon flex-center" style="margin: 0 auto 10px;">
-                                <span>🤖</span>
-                            </div>
-                            <div style="font-size: 0.8rem; font-weight: 600;">ChatGPT</div>
-                        </div>
-
-                        <div class="tool-item">
-                            <div class="tool-icon flex-center" style="margin: 0 auto 10px;">
-                                <span>📊</span>
-                            </div>
-                            <div style="font-size: 0.8rem; font-weight: 600;">HubSpot</div>
-                        </div>
-
-                        <div class="tool-item">
-                            <div class="tool-icon flex-center" style="margin: 0 auto 10px;">
-                                <span>🎬</span>
-                            </div>
-                            <div style="font-size: 0.8rem; font-weight: 600;">CapCut</div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div> </section>
-
-        <section id="work" class="section-padding u-relative" data-scroll-section>
-            
+        <!-- Portfolio Section -->
+        <section id="work" class="py-section">
             <div class="container">
                 <div class="mb-lg text-center">
-                    <div style="overflow: hidden;">
-                        <h2 class="display-lg" data-animate="slide-up">SELECTED</h2>
-                    </div>
-                    <div style="overflow: hidden;">
-                        <h2 class="display-lg text-outline" data-animate="slide-up" data-delay="0.1">WORKS_2025</h2>
-                    </div>
+                    <h2 style="font-size: var(--fs-display-lg);">SELECTED WORKS_2025</h2>
                 </div>
 
                 <div class="filter-sticky-wrapper">
@@ -1758,1183 +1518,341 @@
                             <div class="filter-btn-bg"></div>
                             <span>All Work</span>
                         </button>
-                        
                         <button class="filter-btn" data-filter="Social">
                             <div class="filter-btn-bg"></div>
                             <span>Social</span>
                         </button>
-                        
                         <button class="filter-btn" data-filter="Design">
                             <div class="filter-btn-bg"></div>
                             <span>Visuals</span>
                         </button>
-                        
                         <button class="filter-btn" data-filter="Email">
                             <div class="filter-btn-bg"></div>
                             <span>Email</span>
                         </button>
-
-                        <button class="filter-btn" data-filter="SEO">
-                            <div class="filter-btn-bg"></div>
-                            <span>SEO</span>
-                        </button>
-
-                        <button class="filter-btn" data-filter="Reports">
-                            <div class="filter-btn-bg"></div>
-                            <span>Reports</span>
-                        </button>
                     </div>
                 </div>
+
                 <div class="portfolio-grid" id="work-grid">
-
-                    <div class="work-card mix Social" data-category="Social">
+                    <!-- Work Card 1 -->
+                    <div class="work-card" data-category="Social">
                         <div class="work-card-inner">
-                            
                             <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2"/></svg>
                             </div>
-
                             <div class="work-img-wrapper">
-                                <img src="images/social media desgin/nailpromotion/nail1.png" 
-                                     alt="Nail Studio Promotion Campaign" 
-                                     class="work-img" 
-                                     loading="lazy"
-                                     width="600" height="750">
+                                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&h=1000&fit=crop" alt="Social Campaign" class="work-img">
                             </div>
-
                             <div class="work-content">
                                 <span class="work-cat">Social Media</span>
-                                <h3 class="work-title">Nail Studio Promo</h3>
+                                <h3 class="work-title">Brand Campaign</h3>
                             </div>
                         </div>
                     </div>
 
-                    <div class="work-card mix Design" data-category="Design">
+                    <!-- Work Card 2 -->
+                    <div class="work-card" data-category="Design">
                         <div class="work-card-inner">
                             <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2"/></svg>
                             </div>
                             <div class="work-img-wrapper">
-                                <img src="images/Photograph & Edit/jewelry/jewelry1.png" 
-                                     alt="Luxury Jewelry Photography Edit" 
-                                     class="work-img" 
-                                     loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=1000&fit=crop" alt="Visual Design" class="work-img">
                             </div>
                             <div class="work-content">
                                 <span class="work-cat">Visual Design</span>
-                                <h3 class="work-title">Luxury Jewelry</h3>
+                                <h3 class="work-title">Luxury Collection</h3>
                             </div>
                         </div>
                     </div>
 
-                    <div class="work-card mix Email" data-category="Email">
+                    <!-- Work Card 3 -->
+                    <div class="work-card" data-category="Email">
                         <div class="work-card-inner">
                             <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2"/></svg>
                             </div>
                             <div class="work-img-wrapper">
-                                <img src="images/social media desgin/email marketing/newcollectionlaunch/newcollectionlaunch1.png" 
-                                     alt="New Collection Email Campaign" 
-                                     class="work-img" 
-                                     loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1557838923-2985c318be48?w=800&h=1000&fit=crop" alt="Email Campaign" class="work-img">
                             </div>
                             <div class="work-content">
                                 <span class="work-cat">Email Marketing</span>
-                                <h3 class="work-title">Collection Launch</h3>
+                                <h3 class="work-title">Launch Campaign</h3>
                             </div>
                         </div>
                     </div>
-
-                    <div class="work-card mix Design" data-category="Design">
-                        <div class="work-card-inner">
-                            <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </div>
-                            <div class="work-img-wrapper">
-                                <img src="images/Photograph & Edit/aienhanceimage/image1.png" 
-                                     alt="AI Image Enhancement" 
-                                     class="work-img" 
-                                     loading="lazy">
-                            </div>
-                            <div class="work-content">
-                                <span class="work-cat">Visual Design</span>
-                                <h3 class="work-title">AI Enhancement</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="work-card mix Reports" data-category="Reports">
-                        <div class="work-card-inner">
-                            <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </div>
-                            <div class="work-img-wrapper">
-                                <img src="images/Report & Performance/Business/1.jpg" 
-                                     alt="Business Performance Report" 
-                                     class="work-img" 
-                                     loading="lazy">
-                            </div>
-                            <div class="work-content">
-                                <span class="work-cat">Data & Reports</span>
-                                <h3 class="work-title">Business Analytics</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="work-card mix SEO" data-category="SEO">
-                        <div class="work-card-inner">
-                            <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </div>
-                            <div class="work-img-wrapper">
-                                <img src="images/SEO:Copywriting/Article/1.png" 
-                                     alt="SEO Copywriting Article" 
-                                     class="work-img" 
-                                     loading="lazy">
-                            </div>
-                            <div class="work-content">
-                                <span class="work-cat">SEO & Content</span>
-                                <h3 class="work-title">SEO Article Writing</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="work-card mix Email" data-category="Email">
-                        <div class="work-card-inner">
-                            <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </div>
-                            <div class="work-img-wrapper">
-                                <img src="images/social media desgin/email marketing/summersaleoff/summersaleoff1.png" 
-                                     alt="Summer Sale Campaign" 
-                                     class="work-img" 
-                                     loading="lazy">
-                            </div>
-                            <div class="work-content">
-                                <span class="work-cat">Email Marketing</span>
-                                <h3 class="work-title">Summer Sale</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="work-card mix SEO" data-category="SEO">
-                        <div class="work-card-inner">
-                            <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </div>
-                            <div class="work-img-wrapper">
-                                <img src="images/SEO:Copywriting/facebook/image1.png" 
-                                     alt="Facebook Content Strategy" 
-                                     class="work-img" 
-                                     loading="lazy">
-                            </div>
-                            <div class="work-content">
-                                <span class="work-cat">Social Strategy</span>
-                                <h3 class="work-title">Facebook Growth</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="work-card mix Design" data-category="Design">
-                        <div class="work-card-inner">
-                            <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </div>
-                            <div class="work-img-wrapper">
-                                <img src="images/Photograph & Edit/nailvisuals/nailvisual1.png" 
-                                     alt="Nail Art Photography" 
-                                     class="work-img" 
-                                     loading="lazy">
-                            </div>
-                            <div class="work-content">
-                                <span class="work-cat">Visual Design</span>
-                                <h3 class="work-title">Art Direction</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="work-card mix Reports" data-category="Reports">
-                        <div class="work-card-inner">
-                            <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </div>
-                            <div class="work-img-wrapper">
-                                <img src="images/Report & Performance/Ranktank/1.png" 
-                                     alt="RankTank SEO Report" 
-                                     class="work-img" 
-                                     loading="lazy">
-                            </div>
-                            <div class="work-content">
-                                <span class="work-cat">Data Analytics</span>
-                                <h3 class="work-title">RankTank SEO Audit</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="work-card mix SEO" data-category="SEO">
-                        <div class="work-card-inner">
-                            <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </div>
-                            <div class="work-img-wrapper">
-                                <img src="images/SEO:Copywriting/Article/2.png" 
-                                     alt="SEO Article Writing" 
-                                     class="work-img" 
-                                     loading="lazy">
-                            </div>
-                            <div class="work-content">
-                                <span class="work-cat">Content Writing</span>
-                                <h3 class="work-title">SEO Optimization</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="work-card mix Email" data-category="Email">
-                        <div class="work-card-inner">
-                            <div class="work-badge">
-                                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </div>
-                            <div class="work-img-wrapper">
-                                <img src="images/social media desgin/email marketing/backinstock/backinstockfinal.png" 
-                                     alt="Back in Stock Campaign" 
-                                     class="work-img" 
-                                     loading="lazy">
-                            </div>
-                            <div class="work-content">
-                                <span class="work-cat">Email Automation</span>
-                                <h3 class="work-title">Retention Strategy</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                </div> <div class="text-center" style="margin-top: 80px;">
-                    <button class="btn-magnetic" id="load-more-btn">
-                        <span>Load Archives (20+)</span>
-                    </button>
                 </div>
-
-            </div> </section>
-
-        <section id="testimonials" class="marquee-section" data-scroll-section>
-            
-            <div class="container mb-lg text-center">
-                <h2 class="display-lg">ENDORSEMENTS</h2>
-                <div class="scene-sub" style="opacity: 0.6; margin-top: 10px;">TRUSTED BY INDUSTRY LEADERS</div>
-            </div>
-
-            <div class="marquee-track">
-                
-                <div class="test-card">
-                    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
-                        <div style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 1px solid var(--c-accent-main);">
-                            <img src="images/Leader/founderNaviiBeautyRoom.png" alt="Navii Founder" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div>
-                            <h4 style="font-size: 1rem; color: var(--c-white);">Ms. Cao Thái Nguyệt Nga</h4>
-                            <div style="font-size: 0.75rem; color: var(--c-accent-main); text-transform: uppercase;">Founder, Navii Beauty Room</div>
-                        </div>
-                    </div>
-                    <p class="card-p" style="font-size: 1rem;">
-                        "She creates engaging content that captures the beauty of our services. Her posts always bring in new customers."
-                    </p>
-                </div>
-
-                <div class="test-card">
-                    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
-                        <div style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 1px solid var(--c-accent-main);">
-                            <img src="images/Leader/FounderofDriaNailStudio.png" alt="Dria Founder" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div>
-                            <h4 style="font-size: 1rem; color: var(--c-white);">Ms. Quỳnh</h4>
-                            <div style="font-size: 0.75rem; color: var(--c-accent-main); text-transform: uppercase;">Founder, Dria Nail Studio</div>
-                        </div>
-                    </div>
-                    <p class="card-p" style="font-size: 1rem;">
-                        "Her creativity and eye for detail make our nail designs stand out online. Professional campaigns with great results."
-                    </p>
-                </div>
-
-                <div class="test-card">
-                    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
-                        <div style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 1px solid var(--c-accent-main);">
-                            <img src="images/Leader/FounderofMerciMajolie.png" alt="Merci Founder" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div>
-                            <h4 style="font-size: 1rem; color: var(--c-white);">Mr. Louis Haag</h4>
-                            <div style="font-size: 0.75rem; color: var(--c-accent-main); text-transform: uppercase;">Founder, Merci Majolie</div>
-                        </div>
-                    </div>
-                    <p class="card-p" style="font-size: 1rem;">
-                        "Reliable with a strong ability to optimize website performance. I love how she combines colors in videos and images."
-                    </p>
-                </div>
-
-                <div class="test-card">
-                    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
-                        <div style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 1px solid var(--c-accent-main);">
-                            <img src="images/Leader/ceoCrossTechnologyandCommunicationAgency.png" alt="Cross Tech CEO" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div>
-                            <h4 style="font-size: 1rem; color: var(--c-white);">Mr. Huu Nghia</h4>
-                            <div style="font-size: 0.75rem; color: var(--c-accent-main); text-transform: uppercase;">CEO, Cross Tech Agency</div>
-                        </div>
-                    </div>
-                    <p class="card-p" style="font-size: 1rem;">
-                        "A proactive person who quickly adapts. She not only produced engaging content but backed it up with performance tracking."
-                    </p>
-                </div>
-
-                <div class="test-card">
-                    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
-                        <div style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 1px solid var(--c-accent-main);">
-                            <img src="images/Leader/founderNaviiBeautyRoom.png" alt="Navii Founder" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div>
-                            <h4 style="font-size: 1rem; color: var(--c-white);">Ms. Cao Thái Nguyệt Nga</h4>
-                            <div style="font-size: 0.75rem; color: var(--c-accent-main); text-transform: uppercase;">Founder, Navii Beauty Room</div>
-                        </div>
-                    </div>
-                    <p class="card-p" style="font-size: 1rem;">
-                        "She creates engaging content that captures the beauty of our services. Her posts always bring in new customers."
-                    </p>
-                </div>
-
             </div>
         </section>
 
-        <footer id="contact" class="footer-section" data-scroll-section>
-            <div class="container">
-                
-                <div class="mb-lg">
-                    <div style="font-family: var(--font-mono); color: var(--c-accent-main); letter-spacing: 2px;">
-                        04. CONTACT
-                    </div>
-                    <h2 style="font-size: 2rem; margin-top: 20px; color: var(--c-white);">READY TO CREATE?</h2>
-                </div>
-
-                <div class="footer-cta-wrapper">
-                    <a href="mailto:tuanhwork1206@gmail.com" class="footer-cta" data-text="LET'S TALK">
-                        LET'S TALK
-                    </a>
-                </div>
-
-                <div class="footer-socials">
-                    <a href="https://linkedin.com" target="_blank" class="social-link">LinkedIn</a>
-                    <a href="https://instagram.com" target="_blank" class="social-link">Instagram</a>
-                    <a href="https://behance.net" target="_blank" class="social-link">Behance</a>
-                    <a href="#" class="social-link">Resume</a>
-                </div>
-
-                <div class="footer-copy">
-                    &copy; 2025 Nguyen Tu Anh. <span style="color: var(--c-accent-main);">Creative Strategist</span>. All Rights Reserved.
-                    <br>Coded with ❤️ and ☕.
-                </div>
+        <!-- Testimonials -->
+        <section class="marquee-section">
+            <div class="container mb-lg text-center">
+                <h2 style="font-size: var(--fs-display-lg);">ENDORSEMENTS</h2>
             </div>
-        </footer>
 
-    </main> 
-    <script>
-        /**
-         * -------------------------------------------------------------------------
-         * NGUYEN TU ANH - PORTFOLIO ENGINE v3.0 (PRO)
-         * Architecture: Object-Oriented (Class Based)
-         * Rendering: GSAP + Lenis + Canvas API
-         * -------------------------------------------------------------------------
-         */
+            <div class="marquee-track">
+                <div class="test-card">
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--c-accent-main);"></div>
+                        <div>
+                            <h4>Ms. Cao Thái Nguyệt Nga</h4>
+                            <div style="font-size: 0.75rem; color: var(--c-accent-main);">Founder, Navii Beauty</div>
+                        </div>
+                    </div>
+                    <p class="card-p">"She creates engaging content that captures beauty. Her posts always bring in new customers."</p>
+                </div>
 
-        // 31.1 GLOBAL CONFIGURATION (The Control Center)
-        const CONFIG = {
-            debug: false,
-            // Physics Constants
-            cursorLag: 0.15,
-            scrollDamping: 1.2,
-            // Timing Constants (ms)
-            loaderDuration: 8000, 
-            sceneInterval: 2500,
-            // Feature Flags
-            enableAudio: true,
-            enableGrain: true,
-            enableDistortion: true
-        };
-
-        // 31.2 UTILITY: Math Helpers
-        const MathUtils = {
-            lerp: (a, b, n) => (1 - n) * a + n * b,
-            clamp: (num, min, max) => Math.min(Math.max(num, min), max),
-            map: (x, a, b, c, d) => (x - a) * (d - c) / (b - a) + c
-        };
-
-        // 31.3 THE MASTER CLASS
-        class PortfolioApp {
-            constructor() {
-                // Core State
-                this.isLoaded = false;
-                this.isScrolling = false;
-                this.currentScroll = 0;
-                
-                // Audio Context
-                this.audio = {
-                    whoosh: document.getElementById('whoosh'),
-                    impact: document.getElementById('impact'),
-                    reveal: document.getElementById('reveal'),
-                    ambient: document.getElementById('ambient')
-                };
-
-                // Initialize Sub-Systems
-                this.initSmoothScroll();
-                this.initCursor();
-                this.initLoader(); // The Cinematic Intro
-                
-                // Bind Global Events
-                window.addEventListener('resize', this.onResize.bind(this));
-            }
-
-            // =================================================================
-            // SYSTEM A: SMOOTH SCROLLING (Lenis Implementation)
-            // =================================================================
-            initSmoothScroll() {
-                // Initialize Lenis for that "Butter Smooth" feel
-                this.lenis = new Lenis({
-                    duration: 1.2,
-                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                    direction: 'vertical',
-                    gestureDirection: 'vertical',
-                    smooth: true,
-                    mouseMultiplier: 1,
-                    smoothTouch: false,
-                    touchMultiplier: 2,
-                });
-
-                // Sync Lenis with GSAP ScrollTrigger
-                this.lenis.on('scroll', ScrollTrigger.update);
-
-                gsap.ticker.add((time) => {
-                    this.lenis.raf(time * 1000);
-                });
-
-                gsap.ticker.lagSmoothing(0);
-                
-                // Global Scroll Listener for Nav State
-                this.lenis.on('scroll', ({ scroll }) => {
-                    this.currentScroll = scroll;
-                    if (scroll > 50) {
-                        document.body.classList.add('is-scrolled');
-                    } else {
-                        document.body.classList.remove('is-scrolled');
-                    }
-                });
-            }
-
-            // =================================================================
-            // SYSTEM B: LIQUID CURSOR PHYSICS (High Performance)
-            // =================================================================
-            initCursor() {
-                const cursor = document.querySelector('.cursor-dot');
-                const follower = document.querySelector('.cursor-circle');
-                const liquidFilter = document.querySelector('#liquid-distortion feTurbulence');
-
-                // USE GSAP QUICKSETTER (Bypasses DOM parsing for speed)
-                this.cursorX = gsap.quickSetter(cursor, "x", "px");
-                this.cursorY = gsap.quickSetter(cursor, "y", "px");
-                this.followerX = gsap.quickSetter(follower, "x", "px");
-                this.followerY = gsap.quickSetter(follower, "y", "px");
-
-                // Mouse State
-                this.mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-                this.pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-
-                // Event Listener
-                window.addEventListener("mousemove", e => {
-                    this.mouse.x = e.clientX;
-                    this.mouse.y = e.clientY;
-                    
-                    // Instant update for the dot
-                    this.cursorX(this.mouse.x);
-                    this.cursorY(this.mouse.y);
-
-                    // Interactive State Check
-                    const target = e.target;
-                    const isHoverable = target.closest('a') || 
-                                      target.closest('button') || 
-                                      target.closest('.work-card') ||
-                                      target.closest('.hero-img-mask');
-
-                    if (isHoverable) {
-                        document.body.classList.add('is-hovering');
-                        // Ramp up turbulence on hover
-                        if(CONFIG.enableDistortion) {
-                            gsap.to(liquidFilter, { attr: { baseFrequency: '0.02 0.05' }, duration: 0.5 });
-                        }
-                    } else {
-                        document.body.classList.remove('is-hovering');
-                        if(CONFIG.enableDistortion) {
-                            gsap.to(liquidFilter, { attr: { baseFrequency: '0.01 0.01' }, duration: 0.5 });
-                        }
-                    }
-                });
-
-                // Physics Loop (The "Lag" Effect)
-                gsap.ticker.add(() => {
-                    const dt = 1.0 - Math.pow(1.0 - CONFIG.cursorLag, gsap.ticker.deltaRatio());
-                    
-                    this.pos.x += (this.mouse.x - this.pos.x) * dt;
-                    this.pos.y += (this.mouse.y - this.pos.y) * dt;
-                    
-                    this.followerX(this.pos.x);
-                    this.followerY(this.pos.y);
-                });
-            }
-
-            // =================================================================
-            // SYSTEM C: CINEMATIC LOADER (The Movie Director)
-            // =================================================================
-            initLoader() {
-                const timeline = gsap.timeline({
-                    onComplete: () => this.introComplete()
-                });
-
-                const els = {
-                    scenes: document.querySelectorAll('.scene'),
-                    overlay: document.getElementById('start-overlay'),
-                    btn: document.getElementById('start-btn'),
-                    bars: document.querySelectorAll('.cine-bar'),
-                    loader: document.querySelector('.loader-stage'),
-                    main: document.getElementById('main-content')
-                };
-
-                // STEP 1: Wait for User Interaction (Browser Audio Policy)
-                els.btn.addEventListener('click', () => {
-                    // Play Sound
-                    if(CONFIG.enableAudio) {
-                        this.audio.whoosh.play();
-                        // Fade in ambient after a bit
-                        setTimeout(() => {
-                            this.audio.ambient.volume = 0.2;
-                            this.audio.ambient.play();
-                        }, 2000);
-                    }
-
-                    // Remove Start Button
-                    gsap.to(els.overlay, { 
-                        opacity: 0, 
-                        duration: 0.8, 
-                        pointerEvents: "none",
-                        ease: "power2.inOut" 
-                    });
-
-                    // Start The Show
-                    this.runCinematicSequence(timeline, els);
-                });
-            }
-
-            runCinematicSequence(tl, els) {
-                // SCENE 1: EMAIL MARKETING
-                tl.to('.scene-1', { autoAlpha: 1, duration: 1 })
-                  .from('.scene-1 .display-xl', { 
-                      y: 100, 
-                      skewY: 10, 
-                      stagger: 0.1, 
-                      duration: 1.5, 
-                      ease: "power4.out" 
-                  }, "<")
-                  .to('.scene-1', { 
-                      autoAlpha: 0, 
-                      filter: "blur(20px)", 
-                      scale: 1.1, 
-                      duration: 0.8 
-                  }, "+=1.5");
-
-                // SCENE 2: VISUAL DESIGN
-                tl.call(() => this.audio.impact.play())
-                  .to('.scene-2', { autoAlpha: 1, duration: 0.1 })
-                  .from('.scene-2 .display-xl', { 
-                      scale: 3, 
-                      opacity: 0, 
-                      filter: "blur(50px)", 
-                      duration: 1.2, 
-                      ease: "expo.out" 
-                  })
-                  .to('.scene-2', { 
-                      autoAlpha: 0, 
-                      scale: 0.8, 
-                      opacity: 0, 
-                      duration: 0.8 
-                  }, "+=1.5");
-
-                // SCENE 3: SEO
-                tl.to('.scene-3', { autoAlpha: 1, duration: 0.5 })
-                  .from('.scene-3 .display-xl', { 
-                      letterSpacing: "50px", 
-                      opacity: 0, 
-                      duration: 2, 
-                      ease: "power2.out" 
-                  })
-                  .to('.scene-3', { autoAlpha: 0, duration: 0.5 }, "+=1");
-
-                // SCENE 4: FINAL REVEAL (The Black Hole)
-                tl.call(() => this.audio.reveal.play())
-                  .to('.scene-final', { autoAlpha: 1, duration: 1 })
-                  .to('.accretion-disk', { opacity: 1, duration: 2 }, "<")
-                  .to('.final-profile-reveal', { 
-                      opacity: 1, 
-                      scale: 1, 
-                      duration: 2, 
-                      ease: "expo.out" 
-                  }, "-=1")
-                  .to('.loader-stage', { 
-                      backgroundColor: "transparent", 
-                      duration: 1 
-                  })
-                  
-                  // EXIT SEQUENCE
-                  .to(els.bars, { height: 0, duration: 1.2, ease: "expo.inOut" }, "+=0.5")
-                  .to(els.loader, { 
-                      opacity: 0, 
-                      pointerEvents: "none", 
-                      duration: 1 
-                  }, "-=0.8")
-                  .to(els.main, { opacity: 1, duration: 1.5 }, "-=1");
-            }
-
-            introComplete() {
-                this.isLoaded = true;
-                document.body.classList.remove('loading');
-                document.body.classList.add('is-loaded');
-                
-                // Initialize the rest of the site logic
-                this.initHeroAnimations();
-                this.initBentoGrid();
-                this.initPortfolio();
-                this.initMagneticButtons();
-                
-                console.log("🚀 SYSTEM READY: Welcome to 2025.");
-            }
-
-            onResize() {
-                // Handle resize logic if necessary (Lenis handles most automatically)
-            }
-            // =================================================================
-            // SYSTEM D: HERO SECTION PHYSICS (3D Tilt & Parallax)
-            // =================================================================
-            initHeroAnimations() {
-                const heroSection = document.querySelector('.hero-section');
-                const profile = document.querySelector('.hero-profile-wrapper');
-                const statusPill = document.querySelector('.hero-status-pill');
-                const bgText = document.querySelector('.hero-bg-text');
-
-                // 32.1 Reveal Animation (Text Split & Stagger)
-                const tl = gsap.timeline({ 
-                    scrollTrigger: { 
-                        trigger: heroSection, 
-                        start: "top 60%" 
-                    }
-                });
-                
-                tl.to(".hero-h1 .display-xl", {
-                    y: 0,
-                    skewY: 0,
-                    duration: 1.8,
-                    stagger: 0.15,
-                    ease: "power4.out"
-                })
-                .to("#hero-fade-in", { 
-                    opacity: 1, 
-                    y: 0, 
-                    duration: 1 
-                }, "-=1.2");
-
-                // 32.2 3D Mouse Tilt Engine (Decoupled Ticker)
-                // Stores state for linear interpolation (Lerp)
+                <div class="test-card">
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--c-accent-main);"></div>
+                        <div>
+                            <h4>Mr. Louis Haag</h4>
+                            <div style="font-size: 0.75rem; color: var(--c-accent-main);">Founder, Merci Majolie</div>
+</div>
+</div>
+<p class="card-p">"Reliable with strong ability to optimize performance. I love her color combinations."</p>
+</div>
+<!-- Duplicate for loop -->
+            <div class="test-card">
+                <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                    <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--c-accent-main);"></div>
+                    <div>
+                        <h4>Ms. Cao Thái Nguyệt Nga</h4>
+                        <div style="font-size: 0.75rem; color: var(--c-accent-main);">Founder, Navii Beauty</div>
+                    </div>
+                </div>
+                <p class="card-p">"She creates engaging content that captures beauty. Her posts always bring in new customers."</p>
+            </div>
+        </div>
+    </section>    <!-- Footer -->
+    <footer id="contact" class="footer-section">
+        <div class="container">
+            <h2 style="font-size: 2rem; margin-bottom: 20px;">READY TO CREATE?</h2>            <a href="mailto:tuanhwork1206@gmail.com" class="footer-cta" data-text="LET'S TALK">LET'S TALK</a>            <div class="footer-socials">
+                <a href="#" class="social-link">LinkedIn</a>
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Behance</a>
+                <a href="#" class="social-link">Resume</a>
+            </div>            <div class="footer-copy">
+                &copy; 2025 Nguyen Tu Anh. <span style="color: var(--c-accent-main);">Creative Strategist</span>. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+</main><script>
+    // App Class
+    class PortfolioApp {
+        constructor() {
+            this.isMobile = window.innerWidth <= 768;
+            this.initSmoothScroll();
+            if (!this.isMobile) this.initCursor();
+            this.initLoader();
+            this.initMobileMenu();
+            this.initSmoothAnchors();
+        }        initSmoothScroll() {
+            this.lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });            this.lenis.on('scroll', ScrollTrigger.update);            gsap.ticker.add((time) => {
+                this.lenis.raf(time * 1000);
+            });            this.lenis.on('scroll', ({ scroll }) => {
+                if (scroll > 50) {
+                    document.body.classList.add('is-scrolled');
+                } else {
+                    document.body.classList.remove('is-scrolled');
+                }
+            });
+        }        initCursor() {
+            const dot = document.querySelector('.cursor-dot');
+            const circle = document.querySelector('.cursor-circle');            let mouseX = 0, mouseY = 0;
+            let dotX = 0, dotY = 0;
+            let circleX = 0, circleY = 0;            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;                const target = e.target.closest('a, button, .work-card, .glass-panel');
+                if (target) {
+                    document.body.classList.add('is-hovering');
+                } else {
+                    document.body.classList.remove('is-hovering');
+                }
+            });            const animate = () => {
+                dotX += (mouseX - dotX) * 1;
+                dotY += (mouseY - dotY) * 1;
+                circleX += (mouseX - circleX) * 0.15;
+                circleY += (mouseY - circleY) * 0.15;                dot.style.left = dotX + 'px';
+                dot.style.top = dotY + 'px';
+                circle.style.left = circleX + 'px';
+                circle.style.top = circleY + 'px';                requestAnimationFrame(animate);
+            };
+            animate();
+        }        initLoader() {
+            const btn = document.getElementById('start-btn');
+            const overlay = document.getElementById('start-overlay');
+            const loader = document.querySelector('.loader-stage');
+            const main = document.getElementById('main-content');            btn.addEventListener('click', () => {
+                gsap.to(overlay, { opacity: 0, duration: 0.8, pointerEvents: 'none' });                const tl = gsap.timeline({ onComplete: () => this.onLoadComplete() });                // Scene 1
+                tl.to('.scene-1', { autoAlpha: 1, duration: 0.5 })
+                  .from('.scene-1 .display-xl', { y: 100, stagger: 0.1, duration: 1, ease: 'power4.out' })
+                  .to('.scene-1', { autoAlpha: 0, scale: 1.1, duration: 0.8 }, '+=1.5');                // Scene 2
+                tl.to('.scene-2', { autoAlpha: 1, duration: 0.5 })
+                  .from('.scene-2 .display-xl', { scale: 3, opacity: 0, filter: 'blur(50px)', duration: 1.2, stagger: 0.1 })
+                  .to('.scene-2', { autoAlpha: 0, duration: 0.5 }, '+=1.5');                // Scene 3: Black Hole
+                tl.to('.scene-3', { autoAlpha: 1, duration: 1 })
+                  .to('.accretion-disk', { opacity: 1, duration: 2 }, '<')
+                  .to('.final-profile-reveal', { opacity: 1, scale: 1, duration: 2, ease: 'expo.out' }, '-=1')
+                  .to('.cine-bar', { scaleY: 0, duration: 1.2, ease: 'expo.inOut' }, '+=0.5')
+                  .to(loader, { opacity: 0, pointerEvents: 'none', duration: 1 }, '-=0.8')
+                  .set(main, { opacity: 1 }, '-=1');
+            });
+        }        onLoadComplete() {
+            document.body.classList.remove('loading');
+            this.initHeroAnimations();
+            this.initPortfolio();
+            this.initScrollAnimations();
+            this.initMagneticButtons();
+        }        initHeroAnimations() {
+            gsap.from('.hero-section .display-xl', {
+                y: 100,
+                opacity: 0,
+                stagger: 0.2,
+                duration: 1.8,
+                ease: 'power4.out',
+                delay: 0.5
+            });            const profile = document.querySelector('.hero-profile-wrapper');
+            if (!this.isMobile && profile) {
                 let mouse = { x: 0, y: 0 };
-                let target = { x: 0, y: 0 };
-                let current = { x: 0, y: 0 };
-
-                // Capture normalized mouse coordinates (-1 to 1)
                 window.addEventListener('mousemove', (e) => {
                     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
                     mouse.y = (e.clientY / window.innerHeight) * 2 - 1;
-                });
-
-                // The Physics Loop (Running at monitor refresh rate)
-                gsap.ticker.add(() => {
-                    // Only calculate if hero is visible for performance
+                });                gsap.ticker.add(() => {
                     if (window.scrollY > window.innerHeight) return;
-
-                    // Calculate target rotation (Max 15 degrees)
-                    target.x = -mouse.y * 15; 
-                    target.y = mouse.x * 15;
-
-                    // Lerp: Move current towards target by 10% per frame (Smoothness)
-                    current.x += (target.x - current.x) * 0.1;
-                    current.y += (target.y - current.y) * 0.1;
-
-                    if(profile) {
-                        // Apply Transform Matrix
-                        gsap.set(profile, {
-                            rotationX: current.x,
-                            rotationY: current.y,
-                            transformPerspective: 1000,
-                            transformOrigin: "center center"
-                        });
-                        
-                        // Parallax the Pill (Moves opposite/faster for depth)
-                        gsap.set(statusPill, {
-                            x: -current.y * 1.5,
-                            y: -current.x * 1.5
-                        });
-
-                        // Parallax the BG Text (Subtle drift)
-                        if(bgText) {
-                            gsap.set(bgText, {
-                                x: current.y * 2,
-                                y: current.x * 2
-                            });
-                        }
-                    }
+                    gsap.to(profile, {
+                        rotationX: -mouse.y * 15,
+                        rotationY: mouse.x * 15,
+                        duration: 1,
+                        ease: 'power2.out'
+                    });
                 });
             }
-
-            // =================================================================
-            // SYSTEM E: BENTO GRID INTELLIGENCE (Spotlight & Scroll)
-            // =================================================================
-            initBentoGrid() {
-                const cards = gsap.utils.toArray('.glass-panel');
-                
-                // 33.1 Scroll Reveal Sequence (Batching for performance)
-                ScrollTrigger.batch(cards, {
-                    onEnter: batch => gsap.fromTo(batch, 
-                        { autoAlpha: 0, y: 50, scale: 0.95 },
-                        { 
-                            autoAlpha: 1, 
-                            y: 0, 
-                            scale: 1, 
-                            stagger: 0.1, 
-                            duration: 1, 
-                            ease: "power3.out", 
-                            overwrite: true 
-                        }
-                    ),
-                    start: "top 90%",
-                    once: true // Only animate once
+        }        initScrollAnimations() {
+            // Glass panels
+            gsap.utils.toArray('.glass-panel').forEach(panel => {
+                gsap.from(panel, {
+                    scrollTrigger: {
+                        trigger: panel,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    autoAlpha: 0,
+                    y: 60,
+                    duration: 1,
+                    ease: 'power3.out'
+                });                // Mouse tracking
+                panel.addEventListener('mousemove', (e) => {
+                    const rect = panel.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    panel.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(99,102,241,0.1), transparent 40%), rgba(20, 20, 20, 0.4)`;
+                });                panel.addEventListener('mouseleave', () => {
+                    panel.style.background = 'rgba(20, 20, 20, 0.4)';
                 });
-
-                // 33.2 "Spotlight" Shine Effect (Mouse Tracking per Card)
-                // This updates CSS Custom Properties for the radial-gradient mask
-                cards.forEach(card => {
-                    card.addEventListener('mousemove', (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        
-                        // Inject coordinates into CSS variables
-                        // Used by: .glass-panel::after { background: radial-gradient(...) }
-                        gsap.to(card, {
-                            "--mouse-x": `${(x / rect.width) * 100}%`, 
-                            "--mouse-y": `${(y / rect.height) * 100}%`, 
-                            duration: 0.2, // Slight lag for fluid feel
-                            overwrite: "auto"
-                        });
-                    });
-
-                    // 33.3 Counter Animation for Stat Cards
-                    if(card.querySelector('.stat-value')) {
-                        const stat = card.querySelector('.stat-value');
-                        const rawValue = stat.innerText;
-                        const endValue = parseFloat(rawValue);
-                        const isPercent = rawValue.includes('%');
-                        
-                        ScrollTrigger.create({
-                            trigger: card,
-                            start: "top 85%",
-                            once: true,
-                            onEnter: () => {
-                                gsap.fromTo(stat, 
-                                    { innerText: 0 },
-                                    { 
-                                        innerText: endValue, 
-                                        duration: 2, 
-                                        snap: { innerText: isPercent ? 1 : 0.1 },
-                                        ease: "power2.out",
-                                        onUpdate: function() {
-                                            stat.innerText = this.targets()[0].innerText + (isPercent ? '%' : '');
-                                        }
-                                    }
-                                );
+            });            // Stat counters
+            gsap.utils.toArray('.stat-value').forEach(stat => {
+                const value = parseFloat(stat.textContent);
+                const isPercent = stat.textContent.includes('%');                ScrollTrigger.create({
+                    trigger: stat,
+                    start: 'top 85%',
+                    once: true,
+                    onEnter: () => {
+                        gsap.from(stat, {
+                            textContent: 0,
+                            duration: 2.5,
+                            snap: { textContent: isPercent ? 1 : 0.1 },
+                            ease: 'power2.out',
+                            onUpdate: function() {
+                                stat.textContent = Math.round(this.targets()[0].textContent * 10) / 10 + (isPercent ? '%' : '');
                             }
                         });
                     }
                 });
-            }
-
-            // =================================================================
-            // SYSTEM F: MAGNETIC BUTTON ENGINE
-            // =================================================================
-            initMagneticButtons() {
-                // Select all interactive elements that need magnetism
-                const magnets = document.querySelectorAll('.btn-magnetic, .nav-link, .social-link');
-                
-                magnets.forEach(btn => {
-                    const text = btn.querySelector('span'); // The inner text layer
-
-                    btn.addEventListener('mousemove', (e) => {
-                        const rect = btn.getBoundingClientRect();
-                        const centerX = rect.left + rect.width / 2;
-                        const centerY = rect.top + rect.height / 2;
-                        
-                        // Calculate distance from center
-                        const deltaX = e.clientX - centerX;
-                        const deltaY = e.clientY - centerY;
-                        
-                        // Physics Constants
-                        const buttonPull = 0.4; // Outer container moves 40% of distance
-                        const textPull = 0.2;   // Inner text moves 20% (Parallax diff)
-                        
-                        // Animate Button Container
-                        gsap.to(btn, {
-                            x: deltaX * buttonPull,
-                            y: deltaY * buttonPull,
-                            duration: 0.5,
-                            ease: "power3.out"
-                        });
-                        
-                        // Animate Inner Text (If exists)
-                        if(text) {
-                            gsap.to(text, {
-                                x: deltaX * textPull,
-                                y: deltaY * textPull,
-                                duration: 0.5,
-                                ease: "power3.out"
-                            });
-                        }
-                    });
-
-                    // Reset on Leave (Elastic Snapback)
-                    btn.addEventListener('mouseleave', () => {
-                        gsap.to(btn, { 
-                            x: 0, 
-                            y: 0, 
-                            duration: 1.2, 
-                            ease: "elastic.out(1, 0.3)" 
-                        });
-                        
-                        if(text) {
-                            gsap.to(text, { 
-                                x: 0, 
-                                y: 0, 
-                                duration: 1.2, 
-                                ease: "elastic.out(1, 0.3)" 
-                            });
-                        }
-                    });
-                });
-            }
-            // =================================================================
-            // SYSTEM G: PORTFOLIO FILTERING & INTERACTION ENGINE
-            // =================================================================
-            initPortfolio() {
-                const grid = document.querySelector('.portfolio-grid');
-                const cards = document.querySelectorAll('.work-card');
-                const filters = document.querySelectorAll('.filter-btn');
-
-                // 34.1 The Filtering Algorithm (GSAP Powered)
-                filters.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        // 1. Update UI State
-                        filters.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        
-                        const category = btn.getAttribute('data-filter');
-                        
-                        // 2. The Animation Sequence
-                        // Step A: Animate Out
-                        gsap.to(cards, {
-                            scale: 0.8,
-                            opacity: 0,
-                            duration: 0.3,
-                            ease: "power2.in",
-                            onComplete: () => {
-                                // Step B: Layout Change
-                                cards.forEach(card => {
-                                    const cardCat = card.getAttribute('data-category');
-                                    // Check match (Handle 'all' case)
-                                    const isMatch = category === 'all' || cardCat === category;
-                                    
-                                    if(isMatch) {
-                                        card.style.display = 'block';
-                                    } else {
-                                        card.style.display = 'none';
-                                    }
-                                });
-
-                                // Step C: Refresh ScrollTrigger (Critical for Lenis)
-                                ScrollTrigger.refresh();
-
-                                // Step D: Animate In (Staggered)
-                                // We select only the visible ones for the animation
-                                const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
-                                
-                                gsap.fromTo(visibleCards, 
-                                    { 
-                                        y: 50, 
-                                        opacity: 0, 
-                                        scale: 0.9 
-                                    },
-                                    { 
-                                        y: 0, 
-                                        opacity: 1, 
-                                        scale: 1, 
-                                        duration: 0.6, 
-                                        stagger: 0.05, 
-                                        ease: "back.out(1.2)" 
-                                    }
-                                );
-                            }
-                        });
-                    });
-                });
-
-                // 34.2 Advanced Hover Physics (Chromatic Aberration & Tilt)
-                cards.forEach(card => {
-                    const img = card.querySelector('.work-img');
-                    const inner = card.querySelector('.work-card-inner');
-                    
-                    // Mouse Enter: Inject SVG Filter
-                    card.addEventListener('mouseenter', () => {
-                        if(CONFIG.enableDistortion) {
-                            gsap.to(img, {
-                                filter: "url(#chromatic) brightness(1)",
-                                duration: 0.2
-                            });
-                        }
-                    });
-
-                    // Mouse Move: 3D Parallax Tilt
-                    card.addEventListener('mousemove', (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = (e.clientX - rect.left) / rect.width - 0.5;
-                        const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-                        // Rotate the container
-                        gsap.to(inner, {
-                            rotationY: x * 10, // Max 5 deg
-                            rotationX: -y * 10,
-                            duration: 0.5,
-                            ease: "power2.out"
-                        });
-
-                        // Parallax the image opposite way
-                        gsap.to(img, {
-                            x: -x * 20,
-                            y: -y * 20,
-                            scale: 1.15, // Maintain zoom
-                            duration: 0.5,
-                            ease: "power2.out"
-                        });
-                    });
-
-                    // Mouse Leave: Reset Physics
-                    card.addEventListener('mouseleave', () => {
-                        gsap.to(inner, {
-                            rotationY: 0,
-                            rotationX: 0,
-                            duration: 1.2,
-                            ease: "elastic.out(1, 0.3)"
-                        });
-
-                        gsap.to(img, {
-                            x: 0,
-                            y: 0,
-                            scale: 1.05,
-                            filter: "grayscale(100%) brightness(0.8)", // Reset to B&W
-                            duration: 0.8
-                        });
-                    });
-                });
-            }
-
-            // =================================================================
-            // SYSTEM H: LOAD MORE (Placeholder - Replaced by Part 13)
-            // =================================================================
-            initLoadMore() {
-                // This function is overwritten by Part 13's "Real Data" version.
-                // It is kept here just in case you missed Part 13.
-                const btn = document.getElementById('load-more-btn');
-                if(!btn) return;
+            });
+        }        initPortfolio() {
+            const filters = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.work-card');            filters.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    btn.querySelector('span').innerText = "Loading...";
-                });
-            }
-            // =================================================================
-            // SYSTEM H: DYNAMIC CONTENT HYDRATION (The "Real" Load More)
-            // =================================================================
-            initLoadMore() {
-                const btn = document.getElementById('load-more-btn');
-                const grid = document.querySelector('.portfolio-grid');
-                if(!btn || !grid) return;
-
-                // 36.1 THE DATA STORE (Mapping your remaining uploaded files)
-                // In a full stack app, this would come from an API endpoint /api/v1/projects?page=2
-                const ARCHIVE_PROJECTS = [
-                    { cat: 'Design', title: 'Nail Visuals Vol. 2', img: 'images/Photograph & Edit/nailvisuals/nailvisual2.png' },
-                    { cat: 'Design', title: 'Nail Visuals Vol. 3', img: 'images/Photograph & Edit/nailvisuals/nailvisual3.png' },
-                    { cat: 'Design', title: 'Nail Visuals Vol. 4', img: 'images/Photograph & Edit/nailvisuals/nailvisual4.png' },
-                    { cat: 'SEO', title: 'SEO Deep Dive Pt. 3', img: 'images/SEO:Copywriting/Article/3.png' },
-                    { cat: 'SEO', title: 'SEO Deep Dive Pt. 4', img: 'images/SEO:Copywriting/Article/4.png' },
-                    { cat: 'SEO', title: 'SEO Deep Dive Pt. 5', img: 'images/SEO:Copywriting/Article/5.png' },
-                    { cat: 'Reports', title: 'Business Metrics Q3', img: 'images/Report & Performance/Business2/1.png' },
-                    { cat: 'Reports', title: 'Performance Analysis', img: 'images/Report & Performance/Business2/2.png' },
-                    { cat: 'Social', title: 'Facebook Campaign 2', img: 'images/SEO:Copywriting/facebook/image3.1.png' },
-                    { cat: 'Social', title: 'Facebook Campaign 3', img: 'images/SEO:Copywriting/facebook/image3.2.png' }
-                ];
-
-                btn.addEventListener('click', () => {
-                    const span = btn.querySelector('span');
-                    
-                    // 1. STATE: LOADING
-                    span.innerText = "Fetching Data...";
-                    gsap.to(btn, { width: 220, borderColor: "var(--c-accent-main)", duration: 0.3 });
-                    
-                    // 2. SIMULATE NETWORK LATENCY (Real apps aren't instant)
-                    // We use 800ms to allow the user to see the loading state feedback
-                    setTimeout(() => {
-                        
-                        // 3. HYDRATION LOOP
-                        const newCards = [];
-                        
-                        ARCHIVE_PROJECTS.forEach((project, i) => {
-                            // Create DOM Node
-                            const card = document.createElement('div');
-                            // Add classes for styling and filtering
-                            card.className = `work-card mix ${project.cat}`; 
-                            card.setAttribute('data-category', project.cat);
-                            card.style.display = 'none'; // Hidden initially for animation
-
-                            // Construct Inner HTML (Matching Part 8 Structure)
-                            card.innerHTML = `
-                                <div class="work-card-inner">
-                                    <div class="work-badge">
-                                        <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                    </div>
-                                    <div class="work-img-wrapper">
-                                        <img src="${project.img}" alt="${project.title}" class="work-img" loading="lazy">
-                                    </div>
-                                    <div class="work-content">
-                                        <span class="work-cat">${project.cat}</span>
-                                        <h3 class="work-title">${project.title}</h3>
-                                    </div>
-                                </div>
-                            `;
-
-                            grid.appendChild(card);
-                            newCards.push(card);
-                        });
-
-                        // 4. RE-INITIALIZE PHYSICS
-                        // We need to attach the Hover & Tilt events to these new nodes
-                        this.attachCardEvents(newCards);
-
-                        // 5. ANIMATE ENTRANCE
-                        // First, check current filter
-                        const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-                        
-                        newCards.forEach(card => {
-                            if(activeFilter === 'all' || card.getAttribute('data-category') === activeFilter) {
-                                card.style.display = 'block';
-                            }
-                        });
-
-                        const visibleNewCards = newCards.filter(c => c.style.display !== 'none');
-
-                        gsap.fromTo(visibleNewCards, 
-                            { y: 100, opacity: 0 },
-                            { 
-                                y: 0, 
-                                opacity: 1, 
-                                duration: 0.8, 
-                                stagger: 0.1, 
-                                ease: "power3.out",
-                                onComplete: () => {
-                                    ScrollTrigger.refresh(); // Tell Lenis/ScrollTrigger layout changed
-                                } 
-                            }
-                        );
-
-                        // 6. STATE: COMPLETE
-                        span.innerText = "Archive Hydrated";
-                        gsap.to(btn, { 
-                            autoAlpha: 0.5, 
-                            pointerEvents: 'none', 
-                            filter: "grayscale(100%)",
-                            duration: 0.5 
-                        });
-
-                    }, 800);
-                });
-            }
-
-            // Helper to attach physics to dynamic elements
-            attachCardEvents(cards) {
-                cards.forEach(card => {
-                    const img = card.querySelector('.work-img');
-                    const inner = card.querySelector('.work-card-inner');
-                    
-                    card.addEventListener('mouseenter', () => {
-                        if(CONFIG.enableDistortion) {
-                            gsap.to(img, { filter: "url(#chromatic) brightness(1)", duration: 0.2 });
+                    filters.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');                    const category = btn.getAttribute('data-filter');                    gsap.to(cards, {
+                        scale: 0.8,
+                        opacity: 0,
+                        duration: 0.4,
+                        onComplete: () => {
+                            cards.forEach(card => {
+                                const cardCat = card.getAttribute('data-category');
+                                card.style.display = (category === 'all' || cardCat === category) ? 'block' : 'none';
+                            });                            const visible = Array.from(cards).filter(c => c.style.display !== 'none');
+                            gsap.fromTo(visible,
+                                { y: 50, opacity: 0, scale: 0.9 },
+                                { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.08, ease: 'back.out(1.4)' }
+                            );
                         }
                     });
-                    
-                    card.addEventListener('mousemove', (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = (e.clientX - rect.left) / rect.width - 0.5;
-                        const y = (e.clientY - rect.top) / rect.height - 0.5;
-                        gsap.to(inner, { rotationY: x * 10, rotationX: -y * 10, duration: 0.5 });
-                        gsap.to(img, { x: -x * 20, y: -y * 20, scale: 1.15, duration: 0.5 });
-                    });
-                    
-                    card.addEventListener('mouseleave', () => {
-                        gsap.to(inner, { rotationY: 0, rotationX: 0, duration: 1.2, ease: "elastic.out(1, 0.3)" });
-                        gsap.to(img, { x: 0, y: 0, scale: 1.05, filter: "grayscale(100%) brightness(0.8)", duration: 0.8 });
-                    });
                 });
-            }
-
-            // =================================================================
-            // SYSTEM I: EASTER EGG ENGINE (Konami Code)
-            // =================================================================
-            initKonami() {
-                const code = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-                let cursor = 0;
-
-                window.addEventListener('keydown', (e) => {
-                    cursor = (e.key === code[cursor]) ? cursor + 1 : 0;
-                    
-                    if (cursor === code.length) {
-                        this.unlockGodMode();
-                        cursor = 0;
+            });            // Card hover effects
+            cards.forEach(card => {
+                const inner = card.querySelector('.work-card-inner');
+                const img = card.querySelector('.work-img');                card.addEventListener('mousemove', (e) => {
+                    if (this.isMobile) return;                    const rect = card.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;                    gsap.to(inner, {
+                        rotationY: x * 12,
+                        rotationX: -y * 12,
+                        duration: 0.6
+                    });                    gsap.to(img, {
+                        x: -x * 25,
+                        y: -y * 25,
+                        scale: 1.2,
+                        duration: 0.6
+                    });
+                });                card.addEventListener('mouseleave', () => {
+                    gsap.to(inner, { rotationY: 0, rotationX: 0, duration: 1.2, ease: 'elastic.out(1, 0.3)' });
+                    gsap.to(img, { x: 0, y: 0, scale: 1.05, duration: 0.8 });
+                });
+            });
+        }        initMagneticButtons() {
+            if (this.isMobile) return;            const magnets = document.querySelectorAll('.btn-magnetic, .nav-link, .social-link');            magnets.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - (rect.left + rect.width / 2);
+                    const y = e.clientY - (rect.top + rect.height / 2);                    gsap.to(btn, { x: x * 0.4, y: y * 0.4, duration: 0.5, ease: 'power3.out' });
+                });                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 1.2, ease: 'elastic.out(1, 0.3)' });
+                });
+            });
+        }        initMobileMenu() {
+            const toggle = document.querySelector('.menu-toggle');
+            const menu = document.querySelector('.nav-menu');            toggle?.addEventListener('click', () => {
+                menu.classList.toggle('is-open');
+                document.body.classList.toggle('menu-open');
+            });            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.remove('is-open');
+                    document.body.classList.remove('menu-open');
+                });
+            });
+        }        initSmoothAnchors() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', (e) => {
+                    const href = anchor.getAttribute('href');
+                    if (href === '#') return;                    e.preventDefault();
+                    const target = document.querySelector(href);                    if (target && this.lenis) {
+                        this.lenis.scrollTo(target, { offset: -100, duration: 2 });
                     }
                 });
-            }
-
-            unlockGodMode() {
-                alert("🎮 GOD MODE UNLOCKED: 60FPS UNLOCKED 🎮");
-                document.body.style.filter = "invert(1) hue-rotate(180deg)";
-                gsap.to(".cursor-circle", { scale: 5, mixBlendMode: "difference", duration: 1 });
-            }
-
-        } // END CLASS DEFINITION
-
-        // =================================================================
-        // 37.0 BOOTSTRAPPER (Start the Engine)
-        // =================================================================
-        
-        // Wait for fonts to be ready for accurate layout calculations
-        document.fonts.ready.then(() => {
-            window.app = new PortfolioApp();
-            
-            // Log for developer
-            console.log("%c NTA PORTFOLIO %c V3.0 ", "background:#fff; color:#000; padding:4px;", "background:#6366f1; color:#fff; padding:4px;");
-        });
-
-    </script>
+            });
+        }
+    }    // Initialize
+    gsap.registerPlugin(ScrollTrigger);
+    document.fonts.ready.then(() => {
+        window.app = new PortfolioApp();
+    });
+</script>
 </body>
 </html>
